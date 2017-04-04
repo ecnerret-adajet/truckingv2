@@ -2,9 +2,8 @@
 
 @section('content')
            <div class="container-fluid">
+                
                 <div class="row"> 
-
-
                           <div class="col-lg-6 col-sm-6">
                         <div class="card">
                             <div class="content">
@@ -40,9 +39,24 @@
                             <div class="content">
                                 <div class="row"> 
                                     <div class="col-md-12">
-                                        <p> Top Hauler</p>
+                                        <p> Top no. of trucks per operator</p>
+
                                         <table class="table">
-                   
+                                        <thead>
+                                        <tr>
+                                        <th>Hauler Name</th>
+                                        <th>Number of trucks</th>
+                                        </tr>
+                                        </thead>
+                                        @foreach($top_hauler as $top)
+                                        <tr>
+                                        <td>{{$top->name}}</td>
+                                        <td>
+                                            {{ $top->drivers->count() }}
+                                        </td>
+                                        </tr>
+                                        @endforeach
+
                                         </table>
 
                                     </div>
@@ -105,7 +119,7 @@
                                             </td>
                                             <td>
                                                         <div class="dropdown">
-                                                          <button class="btn dropdown-toggle btn-sm" type="button" id="dropdownMenu1" data-toggle="dropdown">                                                        
+                                                          <button class="btn dropdown-toggle btn-sm btn-block" type="button" id="dropdownMenu1" data-toggle="dropdown">                                                        
                                                             Option
                                                             <span class="caret"></span>                                                        
                                                           </button>

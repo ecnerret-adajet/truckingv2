@@ -121,7 +121,8 @@ h1 .subtitle {
 body,
 .wrapper {
   min-height: 100vh;
-  position: relative; }
+  position: relative; 
+}
 
 a {
   color: #1DC7EA; }
@@ -428,7 +429,7 @@ body > .navbar-collapse {
 
 .main-panel {
   background: rgba(203, 203, 210, 0.15);
-  position: relative;
+/*  position: relative;*/
   z-index: 2;
   float: right;
   width: calc(100% - 260px);

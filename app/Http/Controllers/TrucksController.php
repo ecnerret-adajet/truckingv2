@@ -80,6 +80,32 @@ class TrucksController extends Controller
     }
 
     /**
+     * Change truck availability status
+     */
+    public function changeToInactive($id)
+    {
+        $truck = Truck::findOrFail($id);
+        $truck->availability = 0;
+        $truck->save();
+
+        alert()->success('Truck Availability Update','Success Update');
+        return redirect('trucks');
+    }
+
+    /**
+     * Change truck availability status to active
+     */
+    public function changeToActive($id)
+    {
+        $truck = Truck::findOrFail($id);
+        $truck->availability = 1;
+        $truck->save();
+
+        alert()->success('Truck Availability Update','Success Update');
+        return redirect('trucks');
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id

@@ -30,9 +30,17 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
 
 Route::get('/home', 'LogsController@index');
+
 Route::resource('/drivers','DriversController');
+
 Route::resource('/haulers','HaulersController');
+
 Route::resource('/trucks','TrucksController');
+Route::post('/trucks/inactive/{id}', 'TrucksController@changeToInactive');
+Route::post('/trucks/active/{id}', 'TrucksController@changeToActive');
+
+Route::resource('users','UsersController');
+Route::resource('roles', 'RolesController');
 
 
 });

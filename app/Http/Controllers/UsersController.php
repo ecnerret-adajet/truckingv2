@@ -10,8 +10,6 @@ use App\Role;
 use DB;
 use Image;
 use Hash;
-use App\Company;
-use App\Department;
 use App\Permission;
 use Alert;
 
@@ -27,6 +25,7 @@ class UsersController extends Controller
         $users = User::orderBy('created_at','DESC')->get();
         $roles = Role::all();
         $permission = Permission::get();
+
         return view('users.index',compact(
             'roles',
             'permission',
@@ -41,11 +40,7 @@ class UsersController extends Controller
     public function create()
     {
         $roles = Role::pluck('display_name','id');
-        $companies = Company::pluck('name','id');
-        $departments = Department::pluck('name','id');     
         return view('users.create',compact(
-            'companies',
-            'departments',
             'roles'));    
     }
 
@@ -75,8 +70,6 @@ class UsersController extends Controller
         }
         $user->save();
 
-        $user->companies()->attach($request->input('company_id'));
-        $user->departments()->attach($request->input('department_id'));
          $user->roles()->sync( (array) $request->input('roles_list') );
 
           alert()->success('Success Message', 'Create account successful');
@@ -105,12 +98,10 @@ class UsersController extends Controller
     public function edit(User $user)
     {
         $roles = Role::pluck('display_name','id');
-        $companies = Company::pluck('name','id');
-        $departments = Department::pluck('name','id'); 
         $roles = Role::pluck('display_name','id');
         $userRole = $user->roles->pluck('id','id')->toArray();
 
-        return view('users.edit',compact('user','roles','userRole','departments','companies'));
+        return view('users.edit',compact('user','roles','userRole'));
     }
 
     /**
@@ -123,8 +114,6 @@ class UsersController extends Controller
     public function update(Request $request, User $user)
     {       
         $this->validate($request, [
-            'company_list' => 'required',
-            'department_list' => 'required',
             'roles_list' => 'required',
         ]);
 
@@ -136,8 +125,6 @@ class UsersController extends Controller
         }
 
         $user->update($input);
-        $user->companies()->sync( (array) $request->input('company_list') );
-        $user->departments()->sync( (array) $request->input('department_list') );
         $user->roles()->sync( (array) $request->input('roles_list') );
 
         alert()->success('Success Message', 'Update Succesfully');

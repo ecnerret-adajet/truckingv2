@@ -17,7 +17,12 @@ class HaulersController extends Controller
     public function index()
     {
         $haulers = Hauler::all();
-        return view('haulers.index', compact('haulers'));
+        $top_hauler = Hauler::take(5)->get();
+
+ 
+
+
+        return view('haulers.index', compact('haulers','top_hauler'));
     }
 
     /**

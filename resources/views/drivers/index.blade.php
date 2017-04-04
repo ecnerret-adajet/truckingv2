@@ -12,9 +12,8 @@
                                     <i style="font-size: 70px;
                                             color: #a9a9a9;
                                              " class="pe-7s-id"></i>
-                                        <div class="">
                                         <p>{{$drivers->count()}} Total Drivers</p>
-                                        </div>
+
                                         <a class="btn btn-primary btn-sm" href="{{url('/home')}}">
                                         Back to dashboard
                                         </a>
@@ -39,24 +38,29 @@
                             <div class="content">
                                 <div class="row"> 
                                     <div class="col-md-12">
-                                        <p> Top Driver Trips</p>
+                                        <p> Top Drivers per trip: 2017</p>
+
                                         <table class="table">
-                                            @foreach($top_log as $log)
+                                            <thead>
+                                            <tr>
+                                            <th>Driver Name</th>
+                                            <th>Number of trips</th>
+                                            </tr>
+                                            </thead>
+                                            @foreach($top_driver as $log)
                                                 <tr>
-                                                <td>
+                                                 <td>                    
                                                  @foreach($log->drivers as $driver)
-                                                        {{  $driver->name }}
-                                                 @endforeach                            
-                                                </td>
+                                                    {{$driver->name}}
+                                                 @endforeach
+                                                 </td>
                                                  <td>
-
-
-                                
-                                                                                             
+                                                {{ $logs->where('CardholderID', $log->CardholderID)->count() }}
                                                  </td>
                                                 </tr>
                                             @endforeach
                                         </table>
+
                                     </div>
                                     </div>
                                 </div>

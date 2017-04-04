@@ -34,26 +34,18 @@ class DriversController extends Controller
         $drivers = Driver::all();
 
         $logs = Log::where('CardholderID', '>=', 1)
-                    ->orderBy('LocalTime','DESC')->take(3)->get();
+                    ->orderBy('LocalTime','DESC')->get();
+
+        $top_driver = Log::select('CardholderID', \DB::raw('count(*) as total'))
+            ->where('CardholderID', '>=', 1)->whereYear('LocalTime', '=', 2017)
+            ->groupBy('CardholderID')
+            ->orderBy('total', 'desc')
+            ->take(5)
+            ->get();
 
 
 
-        $top_log =    Log::select(DB::raw('count(*) as top_driver, CardholderID'))
-                     ->where('CardholderID', '>=', 1)
-                     ->groupBy('CardholderID')
-                     ->orderBy('top_driver','DESC')
-                     ->get();
-
-        $top_drivers =  Driver::select(DB::raw('count(*) as top_driverx, cardholder_id'))
-                     ->groupBy('cardholder_id')
-                     ->orderBy('top_driverx','DESC')
-                     ->take(5)
-                     ->get();
-
-
-
-
-        return view('drivers.index', compact('drivers','logs','top_log','top_drivers'));
+        return view('drivers.index', compact('drivers','logs','top_log','top_drivers','top_driver'));
 
     }
 

@@ -17,6 +17,7 @@ const { mix } = require('laravel-mix');
 mix.styles([
     'resources/assets/css/animate.min.css',
     'resources/assets/css/bootstrap.min.css',
+    'resources/assets/css/style.css',
     'resources/assets/css/light-bootstrap-dashboard.css',
     // 'resources/assets/css/paper-dashboard.css',
     'resources/assets/css/select2.min.css',

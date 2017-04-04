@@ -38,4 +38,12 @@ class User extends Authenticatable
         return $this->hasMany(Driver::class);
     }
 
+    /**
+     * get role
+     */
+    public function getRoleListAttribute()
+    {
+        return $this->roles->pluck('id')->all();
+    }
+
 }
