@@ -22,7 +22,7 @@ class CreateDriversTable extends Migration
             $table->string('name')->unique();
             $table->string('phone_number')->nullable();
             $table->string('substitute')->nullable();
-            $table->string('avatar')->default('avatar.jpg');
+            $table->string('avatar')->default('drivers/avatar.png');
             $table->boolean('availability')->default(1);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

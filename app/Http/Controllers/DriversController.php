@@ -43,6 +43,13 @@ class DriversController extends Controller
             ->take(5)
             ->get();
 
+        // $driver_trip = Log::select('CardholderID', \DB::raw('count(*) as total'))
+        //     ->where('CardholderID', '>=', 1)->whereYear('LocalTime', '=', 2017)
+        //     ->groupBy('CardholderID')
+        //     ->orderBy('total', 'desc')
+        //     ->take(5)
+        //     ->get();
+
 
 
         return view('drivers.index', compact('drivers','logs','top_log','top_drivers','top_driver'));
@@ -70,6 +77,17 @@ class DriversController extends Controller
      */
     public function store(Request $request)
     {
+
+        $this->validate($request, [
+                'avatar' => 'required',
+                'name' => 'required',
+                'cardholder_list' => 'required',
+                'hauler_list' => 'required',
+                'truck_list' => 'required',
+                'phone_number' => 'required',
+                
+        ]);
+
         $plate = $request->input('cardholder_list');
         $driver = Auth::user()->drivers()->create($request->all());
         // $driver->avatar = $request->file('avatar')->store('drivers');
@@ -122,9 +140,24 @@ class DriversController extends Controller
      */
     public function update(Request $request, Driver $driver)
     {
+        $this->validate($request, [
+                'avatar' => 'required',
+                'name' => 'required',
+                'cardholder_list' => 'required',
+                'hauler_list' => 'required',
+                'truck_list' => 'required',
+                'phone_number' => 'required',
+
+        ]);
+
         $plate = $request->input('cardholder_list');
 
         $driver->update($request->all());
+
+        if($request->hasFile('avatar')){
+            $driver->avatar = $request->file('avatar')->store('drivers');
+        }        
+
         $driver->cardholder()->associate($plate);
         $driver->save();
 

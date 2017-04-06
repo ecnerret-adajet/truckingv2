@@ -57,6 +57,9 @@
                                                  <td>
                                                 {{ $logs->where('CardholderID', $log->CardholderID)->count() }}
                                                  </td>
+
+                                                
+                                                
                                                 </tr>
                                             @endforeach
                                         </table>
@@ -94,7 +97,12 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">All Drivers</h4>
+                                <h4 class="title">All Drivers
+
+                                <a href="{{ url('/drivers/create') }}"  class="btn btn-primary btn-sm pull-right">
+                                Add Driver
+                                </a>
+                                </h4>
                                 <p class="category">Total driver registered in the system</p>
 
 

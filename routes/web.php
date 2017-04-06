@@ -20,9 +20,9 @@ Route::get('/', function () {
     }
 });
 
-Route::get('/logs', function() {
-return App\Log::all();
-})->middleware('auth');
+// Route::get('/logs', function() {
+// return App\Log::all();
+// })->middleware('auth');
 
 
 Auth::routes();

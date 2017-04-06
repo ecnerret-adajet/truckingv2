@@ -40,6 +40,8 @@ mix.styles([
     'resources/assets/js/select2.full.js',
     'resources/assets/js/select2.min.js',
     'resources/assets/js/sweetalert.min.js',
+    'resources/assets/js/bootstrap-filestyle.min.js',
+    'resources/assets/js/custom.js',
     // 'resources/assets/js/bootstrap-table.js',
     // 'resources/assets/js/jquery-1.10.2.js',
 ], 'public/js/all.js');

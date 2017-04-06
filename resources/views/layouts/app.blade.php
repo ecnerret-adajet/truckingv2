@@ -216,11 +216,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/all.js') }}"></script>
-    <script>
-                $(".select").select2({
-        placeholder: "Select a state",
-        allowClear: true
-        });
-    </script>
+
 </body>
 </html>
