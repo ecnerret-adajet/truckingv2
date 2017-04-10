@@ -9,9 +9,9 @@
                             <div class="content">
                                 <div class="row"> 
                                     <div class="col-md-12 text-center">
-                                    <i style="font-size: 70px;
+<!--                                     <i style="font-size: 70px;
                                             color: #a9a9a9;
-                                             " class="pe-7s-id"></i>
+                                             " class="pe-7s-id"></i> -->
                                         <p>{{$drivers->count()}} Total Drivers</p>
 
                                         <a class="btn btn-primary btn-sm" href="{{url('/home')}}">
@@ -28,8 +28,54 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
 
+
+                        <div class="card">
+                            <div class="content">
+                                <div class="row"> 
+                                    <div class="col-md-12">
+                                        <!-- <i style="font-size: 70px;
+                                            color: #a9a9a9;
+                                             " class="pe-7s-id"></i> -->
+                                        <p>Driver change truck logs </p>
+
+                                        <table class="table">
+                                                <thead>
+                                                        <tr>
+                                                            <th>Name</th>
+                                                            <th>Plate #</th>
+                                                            <th>Updated TIme</th>
+                                                        </tr>
+                                                </thead>
+                                                <tbody>
+                                                @foreach($driver_updated as $updated)
+                                                    <tr>
+                                                        <td>{{$updated->name}}</td>
+                                                        <td>
+                                                        @foreach($updated->trucks as $truck)
+                                                            {{$truck->plate_number}}
+                                                        @endforeach
+                                                        </td>
+                                                        <td>
+                                                        {{ date('m/d/Y', strtotime($updated->updated_at)) }}
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                                </tbody>
+                                        </table>               
+                                    </div>
+                                </div>
+                                <div class="footer text-center" style="padding-top: 20px;">
+                                <hr/>
+                                   <small class="stats" style="text-transform: uppercase; font-size: 10px;">
+                                        <i class="ti-timer"></i> As of today
+                                  </small>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div><!-- first panel -->
 
 
 

@@ -26,6 +26,7 @@ class RouteServiceProvider extends ServiceProvider
         //
         parent::boot();
         Route::model('drivers', 'App\Driver');
+        Route::model('transfers', 'App\Transfer');
     }
 
     /**

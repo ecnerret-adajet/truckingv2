@@ -31,7 +31,7 @@
 </head>
 <body>
 
-    <div class="wrapper">
+    <div class="wrapper" id="app">
 
     <div class="sidebar" data-color="azure" data-image="{{asset('/img/sidebar-2.jpg')}}">
 
@@ -81,7 +81,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{url('/reports')}}">
+                    <a href="{{url('/monitor')}}">
                         <i class="pe-7s-graph"></i>
                         <p>Reports</p>
                     </a>
@@ -216,6 +216,8 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/all.js') }}"></script>
+    <!-- Include this after the sweet alert js file -->
+    @include('sweet::alert')
 
 </body>
 </html>

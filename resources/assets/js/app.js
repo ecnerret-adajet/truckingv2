@@ -27,3 +27,27 @@ require('./bootstrap');
 //     });
 // 	}
 // });
+
+const sidebar = new Vue({	
+
+	el: '#email_table',
+	data: {
+		isDisable: false,
+		newEmail: '',
+		emails: [
+			'terrence.tejada@gmail.com',
+			'maggester.cruz@gmail.com',
+			'marik.miro@lafilgroup.com',
+			'gani.cotanas@lafilgroup.com'
+		]
+	},
+
+	methods: {
+		addEmail() {
+			this.emails.push(this.newEmail);
+			this.newEmail = '';
+		}
+	}
+
+
+});

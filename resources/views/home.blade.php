@@ -188,6 +188,8 @@
                                                     <span class="label label-warning">{{  date('Y-m-d h:i:s A', strtotime($out->LocalTime))}} </span><br/>
                                             @endforeach 
                                         @endforeach  
+
+                                
                                         </td>
 
                                         <td>

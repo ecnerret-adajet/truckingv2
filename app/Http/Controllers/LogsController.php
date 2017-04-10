@@ -41,6 +41,9 @@ class LogsController extends Controller
 
 
 
+
+
+
         $cardholders = Cardholder::with('card')->where('CardholderID', '>=', 1)->get();
     	$cards = Card::all();
 
@@ -51,6 +54,5 @@ class LogsController extends Controller
 
         return view('home', compact('logs',
         'cardholders','cards','drivers','trucks','today_log','all_out','all_in','base_time'));
-    }
-
+        }
 }

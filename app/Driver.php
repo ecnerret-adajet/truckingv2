@@ -4,8 +4,19 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Driver extends Model
+
+class Driver extends Model 
 {
+
+    // use \Venturecraft\Revisionable\RevisionableTrait;
+
+    protected $revisionEnabled = true;
+    protected $revisionCleanup = true;
+    protected $historyLimit = 500;
+
+    protected $keepRevisionOf = array(
+    'name'
+    );
 
 	protected $connection = "sqlsrv";
     protected $fillable = [
@@ -64,6 +75,14 @@ class Driver extends Model
     public function getTruckListAttribute()
     {
         return $this->trucks->pluck('id')->all();
+    }
+
+    /**
+     * Driver transfer history
+     */
+    public function transfers()
+    {
+        return $this->hasMany('App\Transfer');
     }
 
 }

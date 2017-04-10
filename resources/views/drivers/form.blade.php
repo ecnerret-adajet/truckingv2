@@ -5,7 +5,7 @@
                                            <div class="form-group{{ $errors->has('cardholder_list') ? ' has-error' : '' }}">
                                                 <label>Assigned RFID</label>
                                                @if(str_contains(Request::path(), 'edit'))
-                                                {!! Form::select('cardholder_list', $cardholders, $driver->cardholder->CardholderID, ['class' => 'form-control border-input select', 'placeholder' => '--- Assign a RFID ---'] ) !!}
+                                                {!! Form::select('cardholder_list', $cardholders, $driver->cardholder->CardholderID, ['class' => 'form-control border-input multiple', 'placeholder' => '--- Assign a RFID ---'] ) !!}
                                                 @else
                                                 {!! Form::select('cardholder_list', $cardholders, null, ['class' => 'form-control border-input select', 'placeholder' => '--- Assign a RFID ---'] ) !!}
                                                 @endif
@@ -20,12 +20,21 @@
 
                                     <hr/>
 
-                                <div class="row">
 
+         
+<!--                                 <div class="row">
+                                  <div class="col-md-12">
+                                        <img class="img-circle img-responsive profile-row" src="{{ str_replace( 'public/','', asset('/storage/app/'.$driver->avatar)) }}" >
+                                    </div>
+                                </div> -->
+
+
+                                <div class="row">
                                   <div class="col-md-12">
                                             <div class="form-group{{ $errors->has('avatar') ? ' has-error' : '' }}">
                                                 <label>Avatar</label>
                                                  <input name="avatar" type="file" class="filestyle" data-size="sm" data-buttonName="btn-primary" data-buttonBefore="true">
+
 
                                                    @if ($errors->has('avatar'))
                                                     <span class="help-block">
@@ -34,7 +43,6 @@
                                                     @endif
                                             </div>
                                     </div>
-
                                     </div>
 
 

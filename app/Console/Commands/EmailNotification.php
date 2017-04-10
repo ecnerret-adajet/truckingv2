@@ -15,23 +15,25 @@ class EmailNotification extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'report-notification';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Sends daily email report to admin';
+    protected $log;
 
     /**
      * Create a new command instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Log $log)
     {
         parent::__construct();
+        $this->log = $log;
     }
 
     /**
@@ -41,6 +43,6 @@ class EmailNotification extends Command
      */
     public function handle()
     {
-        //
+        $logs = Log::latest('LocalTime');
     }
 }

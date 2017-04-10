@@ -7,8 +7,32 @@
 	color: red;
 }
 
-/**** DRIVER STYLES ***/
+/**** DRIVER EDIT-PROFILE STYLE ***/
+.profile-row{
+width: auto; 
+height: 150px; 
+display: block; 
+margin: 10px auto;
+}
 
+/**** DRIVER SHOW PROFILE STYLE ***/
+.info-title{
+text-transform: uppercase;
+color: #ccc; 
+font-size: 12px;	
+}
 
+.info-header{
+	text-transform: uppercase;
+	 font-size: 15px;
+	 font-weight: 500; 
+}
 
+.driver-info-body{
+	padding: 0 ! important;
+}
+
+.driver-info-body table{
+	margin-top: 30px;
+}
 

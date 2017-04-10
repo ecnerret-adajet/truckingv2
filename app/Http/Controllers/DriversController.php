@@ -13,6 +13,7 @@ use App\Hauler;
 use App\Truck;
 use App\Log;
 use DB;
+use Alert;
 
 class DriversController extends Controller
 {
@@ -43,16 +44,10 @@ class DriversController extends Controller
             ->take(5)
             ->get();
 
-        // $driver_trip = Log::select('CardholderID', \DB::raw('count(*) as total'))
-        //     ->where('CardholderID', '>=', 1)->whereYear('LocalTime', '=', 2017)
-        //     ->groupBy('CardholderID')
-        //     ->orderBy('total', 'desc')
-        //     ->take(5)
-        //     ->get();
+        $driver_updated = Driver::orderBy('updated_at','desc')->take(3)->get();
 
 
-
-        return view('drivers.index', compact('drivers','logs','top_log','top_drivers','top_driver'));
+        return view('drivers.index', compact('drivers','logs','top_log','top_drivers','top_driver','driver_updated'));
 
     }
 
@@ -141,7 +136,6 @@ class DriversController extends Controller
     public function update(Request $request, Driver $driver)
     {
         $this->validate($request, [
-                'avatar' => 'required',
                 'name' => 'required',
                 'cardholder_list' => 'required',
                 'hauler_list' => 'required',
@@ -163,6 +157,8 @@ class DriversController extends Controller
 
         $driver->haulers()->sync( (array) $request->input('hauler_list'));
         $driver->trucks()->sync( (array) $request->input('truck_list'));
+
+        alert()->success('You successfully updated a driver', 'Success Alert!');
         return redirect('drivers');
     }
 

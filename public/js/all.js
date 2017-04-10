@@ -11299,6 +11299,24 @@ __webpack_require__(4);
 // 	}
 // });
 
+var sidebar = new Vue({
+
+	el: '#email_table',
+	data: {
+		isDisable: false,
+		newEmail: '',
+		emails: ['terrence.tejada@gmail.com', 'maggester.cruz@gmail.com', 'marik.miro@lafilgroup.com', 'gani.cotanas@lafilgroup.com']
+	},
+
+	methods: {
+		addEmail: function addEmail() {
+			this.emails.push(this.newEmail);
+			this.newEmail = '';
+		}
+	}
+
+});
+
 /***/ }),
 /* 12 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -13627,6 +13645,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = ty
     placeholder: "Assign a RFID",
     allowClear: true
   });
+
+  $(".multiple").select2();
 
   $(":file").filestyle({ size: "sm", buttonName: "btn-primary", buttonBefore: true, buttonText: "Choose file" });
 }); //end

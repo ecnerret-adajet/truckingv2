@@ -42,6 +42,11 @@ Route::post('/trucks/active/{id}', 'TrucksController@changeToActive');
 Route::resource('users','UsersController');
 Route::resource('roles', 'RolesController');
 
+Route::get('monitor','ReportsController@index');
+
+// Route setup for driver temporary transfer
+Route::post('/transfer/create/{id}','TransfersController@create');
+Route::post('/transfer/{$id}','TransfersController@store');
 
 });
 

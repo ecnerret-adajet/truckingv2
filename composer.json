@@ -13,6 +13,7 @@
         "maatwebsite/excel": "^2.1",
         "pusher/pusher-php-server": "^2.6",
         "uxweb/sweet-alert": "^1.4",
+        "venturecraft/revisionable": "^1.28",
         "zizaco/entrust": "^1.7"
     },
     "require-dev": {
