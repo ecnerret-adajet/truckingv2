@@ -73,7 +73,7 @@
                                   <div class="col-md-12">
                                             <div class="form-group{{ $errors->has('truck_list') ? ' has-error' : '' }}">
                                                 <label>Plate Number</label>
-                                                {!! Form::select('truck_list', $trucks, null, ['class' => 'form-control border-input', 'placeholder' => '--- Assign a Truck ---'] ) !!}
+                                                {!! Form::select('truck_list', $trucks, null, ['class' => 'form-control border-input multiple', 'placeholder' => '--- Assign a Truck ---'] ) !!}
 
                                                 @if ($errors->has('truck_list'))
                                                     <span class="help-block">

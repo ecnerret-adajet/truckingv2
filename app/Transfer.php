@@ -7,14 +7,30 @@ use Carbon\Carbon;
 
 class Transfer extends Model
 {
+
+    use \Venturecraft\Revisionable\RevisionableTrait;
+
+    protected $revisionEnabled = true;
+    protected $revisionCleanup = true;
+    protected $historyLimit = 500;
+    protected $revisionCreationsEnabled = true;
+
+    public static function boot()
+    {
+        parent::boot();
+    }
+
+
     protected $fillable = [
+    	'from_truck',
+    	'to_truck',
     	'remarks',
-    	'expired_date',
+    	'return_date',
     	'transfer_date'
     ];
 
     protected $dates = [
-    	'expired_date',
+    	'return_date',
     	'transfer_date'
     ];
 
@@ -27,12 +43,12 @@ class Transfer extends Model
      * Setup date for Expired Date
      */
 
-    public function setExpiredDateAttribute($date)
+    public function setReturnDateAttribute($date)
     {
-    	$this->attributes['expired_date'] = Carbon::parse($date);
+    	$this->attributes['return_date'] = Carbon::parse($date);
     }
 
-    public function getExpiredDateAttribute($date)
+    public function getReturnDateAttribute($date)
     {
     	return Carbon::parse($date);
     }

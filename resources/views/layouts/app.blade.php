@@ -87,7 +87,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{url('/logs')}}">
+                    <a href="{{url('/systemlog')}}">
                         <i class="pe-7s-clock"></i>
                         <p>Logs</p>
                     </a>

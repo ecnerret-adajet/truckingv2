@@ -13,13 +13,13 @@
                             <div class="content">
 
        {!! Form::model($transfer = new \App\Transfer, ['url' => 'transfers/'.$driver->id, 'files' => 'true', 'enctype' => 'multipart\form-data']) !!}
-                {!! csrf_field() !!}
+        {!! csrf_field() !!}
 
 
     @include('transfers.form')
 
             
-    {!! Form::close() !!}
+     {!! Form::close() !!}
                             </div>
                         </div>
                     </div>

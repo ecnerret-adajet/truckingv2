@@ -25,6 +25,7 @@ mix.styles([
     'resources/assets/css/sweetalert.css',
     'resources/assets/css/themify-icons.css',
     'resources/assets/css/pe-icon-7-stroke.css',
+    'resources/assets/css/lightbox.css',
     // 'resources/assets/css/fresh-bootstrap-table.css',
 ], 'public/css/all.css')
 .js([
@@ -41,6 +42,7 @@ mix.styles([
     'resources/assets/js/select2.min.js',
     'resources/assets/js/sweetalert.min.js',
     'resources/assets/js/bootstrap-filestyle.min.js',
+    'resources/assets/js/lightbox.js',
     'resources/assets/js/custom.js',
     // 'resources/assets/js/bootstrap-table.js',
     // 'resources/assets/js/jquery-1.10.2.js',

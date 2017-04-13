@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use App\Driver;
 use App\Truck;
 use App\Hauler;
+use \Venturecraft\Revisionable\Revision;
 use DB;
 
 class LogsController extends Controller
@@ -21,6 +22,28 @@ class LogsController extends Controller
     	$this->middleware('auth');
     }
 
+    /**
+    *
+    *Display all system logs
+    *
+    */
+    public function systemLogs()
+    {
+
+        $revisions = Revision::all();
+        $drivers = Driver::find(54);
+        $history = $drivers->revisionHistory;
+
+
+
+        return view('logs.index', compact('drivers','history','revisions'));
+    }
+
+
+    /**
+    *
+    *Displays all basic dashboard figures
+    */
     public function index()
     {
     	$logs = Log::where('CardholderID', '>=', 1)
@@ -37,7 +60,8 @@ class LogsController extends Controller
                     ->whereDate('LocalTime', Carbon::now())
                     ->orderBy('LocalTime','DESC')->get();
 
-        $today_log = $logs->unique('CardholderID');
+        $today_log = $logs->unique('CardholderID')->take(3);
+        $total_today = $logs->unique('CardholderID');
 
 
 
@@ -53,6 +77,6 @@ class LogsController extends Controller
 
 
         return view('home', compact('logs',
-        'cardholders','cards','drivers','trucks','today_log','all_out','all_in','base_time'));
+        'cardholders','cards','drivers','trucks','today_log','all_out','all_in','base_time','total_today'));
         }
 }

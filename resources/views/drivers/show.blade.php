@@ -78,9 +78,11 @@
                         <div class="panel panel-default" style="border-radius: 0">
                           <div class="panel-heading">
                            <h5 class="info-header">Driver logs
-                          <a class="btn btn-primary btn-fill btn-sm pull-right" href="{{url('/transfers/create)}}">          
-                           Re-assign Truck
+
+                           <a class="btn btn-primary pull-right btn-fill btn-sm" href="{{ url('/transfers/create/'.$driver->id) }}">
+                            Re-assign Truck
                            </a>
+                     
                            </h5>  
                        
                           </div>
@@ -117,12 +119,6 @@
 
                                     </tbody>
                              </table>
-
-
-
-
-
-
 
 
 

@@ -12,6 +12,7 @@ use App\Card;
 use App\Hauler;
 use App\Truck;
 use App\Log;
+use App\Transfer;
 use DB;
 use Alert;
 
@@ -45,9 +46,9 @@ class DriversController extends Controller
             ->get();
 
         $driver_updated = Driver::orderBy('updated_at','desc')->take(3)->get();
+        $transfers = Transfer::orderBy('updated_at','desc')->take(3)->get();
 
-
-        return view('drivers.index', compact('drivers','logs','top_log','top_drivers','top_driver','driver_updated'));
+        return view('drivers.index', compact('drivers','logs','top_log','top_drivers','top_driver','driver_updated','transfers'));
 
     }
 
@@ -74,8 +75,9 @@ class DriversController extends Controller
     {
 
         $this->validate($request, [
-                'avatar' => 'required',
-                'name' => 'required',
+                // 'avatar' => 'required',
+                'name' => 'required|max:255|unique:drivers',
+                'driver_number' => 'required|max:255|unique:drivers',
                 'cardholder_list' => 'required',
                 'hauler_list' => 'required',
                 'truck_list' => 'required',

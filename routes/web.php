@@ -32,6 +32,10 @@ Route::group(['middleware' => 'auth'], function () {
 Route::get('/home', 'LogsController@index');
 
 Route::resource('/drivers','DriversController');
+// Route setup for driver temporary transfer
+Route::get('/transfers/create/{id}','TransfersController@create');
+Route::post('/transfers/{id}','TransfersController@transfers');
+Route::post('/transfers/remove/{id}','TransfersController@removeTransfer');
 
 Route::resource('/haulers','HaulersController');
 
@@ -44,9 +48,10 @@ Route::resource('roles', 'RolesController');
 
 Route::get('monitor','ReportsController@index');
 
-// Route setup for driver temporary transfer
-Route::post('/transfer/create/{id}','TransfersController@create');
-Route::post('/transfer/{$id}','TransfersController@store');
+//logs route setup
+Route::get('/systemlog','logsController@systemLogs');
+
+
 
 });
 

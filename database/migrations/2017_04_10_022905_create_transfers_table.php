@@ -17,9 +17,12 @@ class CreateTransfersTable extends Migration
             $table->increments('id');
             $table->integer('driver_id')->unsigned();
 
+            $table->string('from_truck');
+            $table->string('to_truck');
             $table->text('remarks');
-            $table->timestamp('expired_date');
+            $table->timestamp('return_date');
             $table->timestamp('transfer_date');
+            $table->boolean('availability')->default(1);
             $table->timestamps();
 
             $table->foreign('driver_id')->references('id')->on('drivers')

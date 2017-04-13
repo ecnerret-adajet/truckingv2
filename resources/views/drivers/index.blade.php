@@ -4,7 +4,7 @@
            <div class="container-fluid">
                 <div class="row">
 
-                          <div class="col-lg-6 col-sm-6">
+                          <div class="col-lg-7 col-sm-7">
                         <div class="card">
                             <div class="content">
                                 <div class="row"> 
@@ -43,24 +43,40 @@
                                                 <thead>
                                                         <tr>
                                                             <th>Name</th>
-                                                            <th>Plate #</th>
-                                                            <th>Updated TIme</th>
+                                                            <th>FROM</th>
+                                                            <th>TO</th>
+                                                            <th>RETURN</th>
+                                                            <th>#</th>
                                                         </tr>
                                                 </thead>
                                                 <tbody>
-                                                @foreach($driver_updated as $updated)
+                                                @forelse($transfers->where('availability',1) as $transfer)
                                                     <tr>
-                                                        <td>{{$updated->name}}</td>
+                                                        <td>{{$transfer->driver->name}}</td>
                                                         <td>
-                                                        @foreach($updated->trucks as $truck)
-                                                            {{$truck->plate_number}}
-                                                        @endforeach
+                                                        {{$transfer->from_truck}}
+                                                        </td>
+                                                        <td class="danger">
+                                                        {{$transfer->to_truck}}
                                                         </td>
                                                         <td>
-                                                        {{ date('m/d/Y', strtotime($updated->updated_at)) }}
+                                                        {{ date('m-d-Y', strtotime($transfer->return_date)) }}
                                                         </td>
-                                                    </tr>
-                                                @endforeach
+                                                        <td>
+                                                        <a data-toggle="modal" data-target=".bs-mark{{$transfer->id}}" class="btn btn-primary btn-xs" href="">
+                                                        MARK DONE
+                                                        </a>
+                                                        </td>
+                                                    </tr> 
+                                                @empty
+                                                <tr>
+                                                    <td colspan="5" class="text-center">
+                                                        <span style="color: #c5c5c5; text-transform: uppercase; font-size: 14px;"><em>No transfer logs</em></span>
+                                                    </td>
+                                                </tr>
+
+
+                                                @endforelse
                                                 </tbody>
                                         </table>               
                                     </div>
@@ -68,7 +84,9 @@
                                 <div class="footer text-center" style="padding-top: 20px;">
                                 <hr/>
                                    <small class="stats" style="text-transform: uppercase; font-size: 10px;">
-                                        <i class="ti-timer"></i> As of today
+                                        <a>
+                                            VIEW ALL
+                                        </a>
                                   </small>
                                 </div>
                             </div>
@@ -79,7 +97,7 @@
 
 
 
-                           <div class="col-lg-6 col-sm-6">
+                           <div class="col-lg-5 col-sm-5">
                         <div class="card">
                             <div class="content">
                                 <div class="row"> 
@@ -223,4 +241,42 @@
 
                 </div><!-- end row -->
             </div>
+
+            @foreach($transfers as $transfer)
+        <!-- Mark as don in transfer truck log -->
+        <div class="modal fade bs-mark{{$transfer->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display: none;">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Transfer Return</h4>
+              </div>
+              <div class="modal-body">
+                      <div class="row">
+                <div class="col-md-12">
+                <div class="panel-body text-center"> 
+                <p>  
+                    Please confirm to apply changes
+                </p>                        
+             <form method="POST" action="{{ url('/transfers/remove/'.$transfer->id) }}">
+              {!! csrf_field() !!}
+                                                
+            </div>
+                </div>
+            </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary">Confirm</button>
+                  
+                   
+              </div>
+              </form> 
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->   
+
+            @endforeach
+
+
 @endsection

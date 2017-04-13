@@ -5,6 +5,11 @@ placeholder: "Assign a RFID",
 allowClear: true
 });
 
+$(".reassign").select2({
+placeholder: "Re-assign a truck",
+allowClear: true
+});
+
 
 $(".multiple").select2();
 
