@@ -84,7 +84,11 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Trucks Master List</h4>
+                                <h4 class="title">Trucks Master List
+                                <a class="btn btn-primary btn-sm pull-right" href="{{url('/trucks/create')}}">
+                                Add New Truck
+                                </a>
+                                </h4>
                                 <p class="category">Total Hauler registered in the system</p>
 
 

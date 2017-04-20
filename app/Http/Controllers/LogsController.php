@@ -40,6 +40,7 @@ class LogsController extends Controller
     }
 
 
+
     /**
     *
     *Displays all basic dashboard figures
@@ -63,7 +64,7 @@ class LogsController extends Controller
         $today_log = $logs->unique('CardholderID')->take(3);
         $total_today = $logs->unique('CardholderID');
 
-
+        $total_in = $all_in->unique('CardholderID');
 
 
 
@@ -77,6 +78,158 @@ class LogsController extends Controller
 
 
         return view('home', compact('logs',
-        'cardholders','cards','drivers','trucks','today_log','all_out','all_in','base_time','total_today'));
+        'cardholders',
+        'cards',
+        'drivers',
+        'trucks',
+        'today_log',
+        'all_out',
+        'all_in',
+        'base_time',
+        'total_in',
+        'total_today'));
         }
+
+
+
+        /**
+        *
+        *Display all In-plant trucks in compound
+        *   
+        */
+        public function inPlant(){
+
+        $logs = Log::where('CardholderID', '>=', 1)
+                    ->whereDate('LocalTime', Carbon::now())
+                    ->orderBy('LocalTime','DESC')->get();
+
+         $all_out = Log::where('CardholderID', '>=', 1)
+                    ->where('Direction', '!=', 1)
+                    ->whereDate('LocalTime', Carbon::now())
+                    ->orderBy('LocalTime','DESC')->get();
+
+        $all_in = Log::where('CardholderID', '>=', 1)
+                    ->where('Direction', 1)
+                    ->whereDate('LocalTime', Carbon::now())
+                    ->orderBy('LocalTime','DESC')->get();
+
+        $total_in = $all_in->unique('CardholderID');
+
+
+            return view('logs.in-plant', compact('logs','all_out',
+            'all_in','total_in','gg'));
+        }
+
+
+
+
+
+        public function outPlant(){
+
+    	$logs = Log::where('CardholderID', '>=', 1)
+                    ->whereDate('LocalTime', Carbon::now())
+                    ->orderBy('LocalTime','DESC')->get();
+
+        $all_out = Log::where('CardholderID', '>=', 1)
+                    ->where('Direction', '!=', 1)
+                    ->whereDate('LocalTime', Carbon::now())
+                    ->orderBy('LocalTime','DESC')->get();
+
+        $all_in = Log::where('CardholderID', '>=', 1)
+                    ->where('Direction', 1)
+                    ->whereDate('LocalTime', Carbon::now())
+                    ->orderBy('LocalTime','DESC')->get();
+
+
+
+        $filter = Log::where('CardholderID', '>=', 1)
+                    ->whereDate('LocalTime', Carbon::now())
+                    ->orderBy('LocalTime','DESC')->get();
+
+
+        $total_out = $all_out->unique('CardholderID');            
+
+            return view('logs.out-plant', compact('logs','all_out','all_in','total_out','total_today','filter'));
+        }
+
+
+        public function overtime(){
+
+        $logs = Log::where('CardholderID', '>=', 1)
+        ->whereDate('LocalTime', '>=', Carbon::now())
+        ->orderBy('LocalTime','ASC')->get();
+
+        $all_out = Log::where('CardholderID', '>=', 1)
+                    ->where('Direction', 2)
+                    ->whereDate('LocalTime', Carbon::now())
+                    ->orderBy('LocalTime','DESC')->get();
+
+        $all_in = Log::where('CardholderID', '>=', 1)
+                    ->where('Direction', 1)
+                    ->whereDate('LocalTime', Carbon::now())
+                    ->orderBy('LocalTime','DESC')->get();
+
+            $final_in = '';
+            $final_out = '';
+
+          $today_result = $logs->unique('CardholderID');
+
+            return view('logs.overtime', compact('logs','today_result','all_in','all_out'));
+        }
+
+
+
+        public function getReport(Request $request){
+
+            $this->validate($request, [
+                'start_date' => 'required',
+                'end_date' => 'required'
+
+            ]);
+
+            $start_date = $request->get('start_date');
+            $end_date = $request->get('end_date');
+
+            $logs = Log::where('CardholderID', '>=', 1)
+            ->whereDate('LocalTime', '>=' ,$start_date)
+            ->whereDate('LocalTime', '<=', $end_date)
+            ->orderBy('LocalTime','ASC')
+            ->get();
+
+            $all_out = Log::where('CardholderID', '>=', 1)
+                        ->where('Direction', '!=', 1)
+                        ->whereDate('LocalTime', '>=' ,$start_date)
+                        ->whereDate('LocalTime', '<=', $end_date)
+                        ->get();
+
+            $all_in = Log::where('CardholderID', '>=', 1)
+                        ->where('Direction', 1)
+                        ->whereDate('LocalTime', '>=' ,$start_date)
+                        ->whereDate('LocalTime', '<=', $end_date)
+                        ->get();
+
+            $final_in = '';
+            $final_out = '';
+
+                        
+             $today_result = $logs->unique('CardholderID');
+
+            return view('logs.overtime', compact('logs',
+            'start_date',
+            'end_date',
+            'all_in',
+            'all_out',
+            'final_in',
+            'final_out',
+            'today_result'));
+
+        }
+
+
+
+
+
+
+
+
 }

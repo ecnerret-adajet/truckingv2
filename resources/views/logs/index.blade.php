@@ -34,6 +34,15 @@
 
 
 
+                                    @foreach($revisions as $revision)
+                                    <tr>
+                                        <td>{{$revision->revisionable_type}}</td>
+                                        <td></td>
+                                    </tr>
+                                    @endforeach
+
+
+
 
                                     </tbody>
                                 </table>

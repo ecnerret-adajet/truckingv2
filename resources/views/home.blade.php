@@ -125,8 +125,9 @@
                                 <h4 class="title">Daily Monitoring
 
                                 <div class="pull-right btn-group">
-                                  <a href="#" class="btn btn-success">{{$all_in->count()}} still in plant</a>
-                                  <a href="#" class="btn btn-warning">{{$all_out->count()}} on transit</a>
+                                  <a href="{{url('/plant-in')}}" class="btn btn-success">{{$total_in->count()}} still in plant</a>
+                                  <a href="{{url('/plant-out')}}" class="btn btn-warning">{{$all_out->count()}} on transit</a>
+                                  <a href="{{url('/plant-out')}}" class="btn btn-danger">0 overtime trucks</a>
                                 </div>
                                   
                                 </h4>
@@ -148,6 +149,8 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+
+
 
 
                                  @foreach($today_log as $today)

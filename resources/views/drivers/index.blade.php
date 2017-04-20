@@ -164,7 +164,7 @@
                                 <h4 class="title">All Drivers
 
                                 <a href="{{ url('/drivers/create') }}"  class="btn btn-primary btn-sm pull-right">
-                                Add Driver
+                                Add New Driver
                                 </a>
                                 </h4>
                                 <p class="category">Total driver registered in the system</p>

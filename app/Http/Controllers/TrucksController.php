@@ -29,7 +29,7 @@ class TrucksController extends Controller
      */
     public function create()
     {
-        return view('trucks.index');
+        return view('trucks.create');
     }
 
     /**
@@ -40,7 +40,14 @@ class TrucksController extends Controller
      */
     public function store(Request $request)
     {
+
+        $this->validate($request, [
+            'plate_number' => 'required|unique:trucks',
+        ]);
+
         $truck = Truck::create($request->all());
+        alert()->success('Truck successfully added', 'Success Alert!');
+
         return redirect('trucks');
     }
 

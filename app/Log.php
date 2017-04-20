@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Log extends Model
 {
@@ -17,6 +18,12 @@ class Log extends Model
     public function drivers()
     {
     	return $this->hasMany('App\Driver','cardholder_id','CardholderID');
+    }
+
+
+
+    public function getLocalTimeAttribute($date){
+        return Carbon::parse($date);
     }
    
 }

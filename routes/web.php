@@ -50,7 +50,10 @@ Route::get('monitor','ReportsController@index');
 
 //logs route setup
 Route::get('/systemlog','logsController@systemLogs');
-
+Route::get('/plant-in','logsController@inPlant');
+Route::get('/plant-out','logsController@outPlant');
+Route::get('/overtime','logsController@overtime');
+Route::get('/report','logsController@getReport');
 
 
 });
