@@ -62,5 +62,36 @@
 
 
                 </div><!-- end row -->
-            </div>
+
+                  <div class="row">                
+                <!-- table  -->
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">All Hauler's logs
+
+                                </h4>
+                                <p class="category">Total number of opertor trips</p>
+                            </div>
+                            <div class="content table-responsive table-full-width" id="feed">
+        
+                            <hr/>
+
+                            {{$logs->count()}}
+
+
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div><!-- end row -->
+
+
+
+            </div><!-- end container fluid -->
 @endsection

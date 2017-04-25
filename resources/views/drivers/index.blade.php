@@ -187,6 +187,7 @@
                                         <th>Phone Number</th>
                                         <th>Substitute</th>
                                         <th>Operator</th>
+                                        <th>Driver #</th>
                                         
                                     </thead>
                                     <tbody>
@@ -208,7 +209,12 @@
                                                           </ul>                                                        
                                                         </div>
                                             </td>                                            <td>
-                                            <img class="img-responsive" src="{{ asset('img/profile/avatar.png') }}" style="width: auto; height: 40px;">
+
+
+                                           
+                                           <img class="img-responsive img-circle" src="{{ str_replace( 'public/','', asset('/storage/app/'.$driver->avatar))}}" style="width: auto; height: 40px;">
+                                           
+                                           
                                             </td>
                                             <td>
                                               {{$driver->name}}                                    
@@ -225,6 +231,9 @@
                                                     {{$hauler->name}}
                                                 @endforeach
                                             </td>
+                                            <td>
+                                            {{$driver->cardholder->Name}}                                            
+                                            </td>
 
                                         </tr>
                                     @endforeach
@@ -240,7 +249,7 @@
 
 
                 </div><!-- end row -->
-            </div>
+            </div><!-- end containe-fluid-->
 
             @foreach($transfers as $transfer)
         <!-- Mark as don in transfer truck log -->

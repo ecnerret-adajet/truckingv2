@@ -21,6 +21,8 @@ class Log extends Model
     }
 
 
+    
+
 
     public function getLocalTimeAttribute($date){
         return Carbon::parse($date);

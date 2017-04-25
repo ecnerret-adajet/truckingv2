@@ -55,7 +55,7 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <span class="info-title">Total Trips</span>
-                                                    <p>{{$unique_log->count()}}</p>
+                                                    <p>{{$logs->count()}}</p>
                                                 </div>
                                             </div>
                                             <div class="row" style="padding: 15px;">

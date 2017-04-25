@@ -89,4 +89,9 @@ class Driver extends Model
         return $this->hasMany('App\Transfer');
     }
 
+
+    public function drivertable(){
+        return $this->morphTo();
+    }
+
 }

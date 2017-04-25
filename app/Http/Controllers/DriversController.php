@@ -35,7 +35,9 @@ class DriversController extends Controller
 
         $drivers = Driver::all();
 
+
         $logs = Log::where('CardholderID', '>=', 1)
+                    ->where('Direction', 1)  // all in
                     ->orderBy('LocalTime','DESC')->get();
 
         $top_driver = Log::select('CardholderID', \DB::raw('count(*) as total'))
@@ -109,8 +111,8 @@ class DriversController extends Controller
     public function show(Driver $driver)
     {
         $logs = Log::where('CardholderID', '=', $driver->cardholder->CardholderID)
-                    ->orderBy('LocalTime','DESC')->get();  
-        $unique_log = $logs->groupBy('LocalTime');
+                    ->orderBy('LocalTime','DESC')
+                    ->get();  
 
         return view('drivers.show', compact('driver', 'logs','unique_log'));
     }

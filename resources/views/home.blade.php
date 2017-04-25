@@ -125,9 +125,9 @@
                                 <h4 class="title">Daily Monitoring
 
                                 <div class="pull-right btn-group">
-                                  <a href="{{url('/plant-in')}}" class="btn btn-success">{{$total_in->count()}} still in plant</a>
-                                  <a href="{{url('/plant-out')}}" class="btn btn-warning">{{$all_out->count()}} on transit</a>
-                                  <a href="{{url('/plant-out')}}" class="btn btn-danger">0 overtime trucks</a>
+                                  <a href="{{url('/plant-in')}}" class="btn btn-success">{{$total_in->count()}} Time in plant</a>
+                                  <a href="{{url('/plant-out')}}" class="btn btn-warning">{{$all_out->count()}} Time out plant</a>
+                                  <a href="{{url('/overtime')}}" class="btn btn-danger">Report Entries</a>
                                 </div>
                                   
                                 </h4>
@@ -140,10 +140,8 @@
                             <table class="table ">
                                 <thead>
                                 <tr>
-                                    <th> </th>
-                                    <th>Driver Name</th>
-                                    <th>Plate Number</th>
-                                    <th>Operator</th>
+                                    <th colspan="3">Driver Information</th>
+                              
                                     <th>IN</th>
                                     <th>OUT</th>
                                 </tr>
@@ -155,15 +153,22 @@
 
                                  @foreach($today_log as $today)
                                 <tr>
-                                    <td rowspan="3">
-                                      <img class="img-responsive" src="{{ asset('img/profile/avatar.png') }}" style="display:block; margin: 10px auto; width: 100px; height: auto;">
+                                    <td rowspan="4">
+            
+            
+                                    @foreach($today->drivers as $driver)
+                                    <img class="img-responsive img-circle" src="{{ str_replace( 'public/','', asset('/storage/app/'.$driver->avatar))}}" style="display:block; margin: 10px auto; width: 100px; height: auto;">
+                                    @endforeach
+
+
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                     <div class="row">
                                     <div class="col-md-6">
-                                     <span style="text-transform: uppercase; font-size: 13ppx; color: #c5c5c5;">Driver Name</span><br/>
+                                     <span style="text-transform: uppercase; font-size: 13ppx; color: #c5c5c5;">Driver Name </span><br/>
+                                     
                                      @foreach($today->drivers as $driver)
                                                     <a href="{{url('/drivers/'.$driver->id)}}"> 
                                                     {{  $driver->name }}
@@ -194,44 +199,111 @@
                                    
 
                                     
+                                    <td rowspan="3" colspan="2" width="20%">
+
+                                        @forelse($all_in_2 as $in)
+                                                @foreach($in->drivers->where('name', '==', $driver->name) as $driver_in)
+                                                
+                                                 <a href="http://172.17.2.25/ASWeb/bin/GetImage.srf?From=IMG&Filename=AC.{{date('Ymd',strtotime($in->LocalTime))}}.0000{{$in->LogID}}-1.jpg" data-lightbox="{{$today->LogID}}" data-title="{{$driver->name}} - TIME IN - {{  date('Y-m-d h:i:s A', strtotime($in->LocalTime))}}">
+                                                <img class="img-responsive" src="http://172.17.2.25/ASWeb/bin/GetImage.srf?From=IMG&Filename=AC.{{date('Ymd',strtotime($in->LocalTime))}}.0000{{$in->LogID}}-1.jpg">
+                                                </a>
+                                                @endforeach
+                                        @empty    
+
+                                       <i class="pe-7s-timer"></i>
+                                       <p>NO TIME IN</p>
+                                       
+                                       </div> 
+
+                                        @endforelse
+
                                     </td>
                                     <td rowspan="3" colspan="2" width="20%">
-                                      {{-- <div style="height: 150px; width: auto; background-color: green;"></div> --}}
-                                    <a href="http://172.17.2.25/ASWeb/bin/GetImage.srf?From=IMG&Filename=AC.{{date('Ymd',strtotime($today->LocalTime))}}.0000{{$today->LogID}}-2.jpg" data-lightbox="{{$today->LogID}}" data-title="My caption">
-                                    <img class="img-responsive" src="http://172.17.2.25/ASWeb/bin/GetImage.srf?From=IMG&Filename=AC.{{date('Ymd',strtotime($today->LocalTime))}}.0000{{$today->LogID}}-2.jpg">
-                                    </a>
+
+
+
+                                        @forelse($all_out->where('CardholderID', '==', $today->CardholderID)->take(1) as $out)
+
+                                        
+                                                <a href="http://172.17.2.25/ASWeb/bin/GetImage.srf?From=IMG&Filename=AC.{{date('Ymd',strtotime($out->LocalTime))}}.0000{{$out->LogID}}-2.jpg" data-lightbox="{{$today->LogID}}" data-title="{{$driver->name}} - TIME OUT - {{  date('Y-m-d h:i:s A', strtotime($out->LocalTime))}}">
+                                                <img class="img-responsive" src="http://172.17.2.25/ASWeb/bin/GetImage.srf?From=IMG&Filename=AC.{{date('Ymd',strtotime($out->LocalTime))}}.0000{{$out->LogID}}-2.jpg">
+                                                </a>
+
+                                        @empty
+
+                                        <div class="no-capture">
+
+                                       <i class="pe-7s-timer"></i>
+                                       <p>NO TIME OUT</p>
+                                       
+                                       </div> 
+
+
+                                        @endforelse 
+
                                     </td>
-                                    <td rowspan="3" colspan="2" width="20%">
-                                      {{-- <div style="height: 150px; width: auto; background-color: yellow;"></div> --}}
-                                      <a href="http://172.17.2.25/ASWeb/bin/GetImage.srf?From=IMG&Filename=AC.{{date('Ymd',strtotime($today->LocalTime))}}.0000{{$today->LogID}}-1.jpg" data-lightbox="{{$today->LogID}}" data-title="My caption">
-                                      <img class="img-responsive" src="http://172.17.2.25/ASWeb/bin/GetImage.srf?From=IMG&Filename=AC.{{date('Ymd',strtotime($today->LocalTime))}}.0000{{$today->LogID}}-1.jpg">  
-                                      </a>    
-                                    </td>
+
+
+
+
+
+
+
                                 </tr>
                                  <tr>
                                     <td>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <span style="text-transform: uppercase; font-size: 13ppx; color: #c5c5c5;">IN</span><br/>
-                                             @foreach($all_in as $in)
-                                            @foreach($in->drivers->where('name', '==', $driver->name) as $driver_in)
-                                                    <span class="label label-success">{{  date('Y-m-d h:i:s A', strtotime($in->LocalTime))}} </span><br/>
-                                            @endforeach 
-                                        @endforeach 
+
+                                            @foreach($all_in_2 as $in)
+                                                @foreach($in->drivers->where('name', '==', $driver->name) as $driver_in)
+                                                <span class="label label-success">{{ date('Y-m-d h:i:s A', strtotime($in->LocalTime))}} </span><br/>
+                                                @endforeach
+                                            @endforeach
+
+
+                                     
+
                                             
                                         </div>
                                         <div class="col-md-6">
+                                        <?php $final_out = ''; ?>
                                         <span style="text-transform: uppercase; font-size: 13ppx; color: #c5c5c5;">OUT</span><br/>
-                                            @foreach($all_out as $out)
-                                            @foreach($out->drivers->where('name', '==', $driver->name) as $driver_out)
-                                                    <span class="label label-warning">{{  date('Y-m-d h:i:s A', strtotime($out->LocalTime))}} </span><br/>
-                                            @endforeach 
-                                        @endforeach 
+                                            @foreach($all_out->where('CardholderID', '==', $today->CardholderID)->take(1) as $out)
+                                                    @if( contains(date('Y-m-d h:i:s A', strtotime($out->LocalTime)), 'AM' ))
+
+
+                                                    <span class="label label-warning">{{ $final_out = date('Y-m-d h:i:s A', strtotime($out->LocalTime))}} </span><br/>
+                                       
+                                                    @endif
+
+
+                                             @endforeach 
                                         </div>
                                     </div>
                                     </td>
                                     
                           
+                                </tr>
+                                <tr>
+                                <td>
+
+                                      <div class="row">
+                                    <div class="col-md-12">
+                                    <span style="text-transform: uppercase; font-size: 13ppx; color: #c5c5c5;">TIME BETWEEN</span><br/>
+                                      @forelse($all_out->where('CardholderID', '==', $today->CardholderID)->take(1) as $out )
+                                         	@forelse($all_in->where('CardholderID', '==', $today->CardholderID)->take(1) as $in )
+                                       			{{  $in->LocalTime->diffInHours($out->LocalTime)}} Hour(s)
+                                       		@empty
+                                       			NO PAIRED TIME IN
+                                       		@endforelse
+                                         @empty
+			                                  NO PAIRED TIME OUT
+                                         @endforelse
+                                    </div>
+                                    </div>
+                                </td>
                                 </tr>
                                 @endforeach
 

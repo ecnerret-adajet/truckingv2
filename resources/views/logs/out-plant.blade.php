@@ -8,8 +8,8 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Out Plant - Trucks</h4>
-                                <p class="category">All trucks with out plant time</p>
+                                <h4 class="title">In Transit Trucks</h4>
+                                <p class="category">All trucks with paired in & out time</p>
 
                             </div>
                             <div class="content table-responsive table-full-width" id="feed">
@@ -18,7 +18,7 @@
                             
                             
 
-                            <table class="table">
+ <table class="table">
                                 <thead>
                                     <tr>
                                         <th>Driver Name</th>
@@ -26,12 +26,17 @@
                                         <th>Operator</th>
                                         <th>Plant in</th>
                                         <th>Plant out</th>
+                                        <th>Idle Time</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
+                                
                                     @foreach($total_out as $today)
-                                    <tr>
+                                      @forelse($all_out->where('CardholderID', '==', $today->CardholderID)->take(1) as $out)
+                             
+
+                                   
+                                    <tr class="">
                                         <td>
                                             @foreach($today->drivers as $driver)
                                                     <a href="{{url('/drivers/'.$driver->id)}}"> 
@@ -54,32 +59,29 @@
                                             @endforeach 
                                         </td>  
                                         <td>
+
+                                        <span class="label label-success">{{  date('Y-m-d h:i:s A', strtotime($today->LocalTime))}} </span><br/>
                                         
-                                        @if(empty($all_in))
+                                        </td> 
 
-                                         @foreach($all_in as $in)
-                                            @foreach($in->drivers->where('name', '==', $driver->name) as $driver_in)
-                                                    <span class="label label-success">{{  date('Y-m-d h:i:s A', strtotime($in->LocalTime))}} </span><br/>
-                                            @endforeach 
-                                        @endforeach 
+                                        <td>
+                                        @forelse($all_out->where('CardholderID', '==', $today->CardholderID)->take(1) as $out)
+                                                    <span class="label label-warning">{{ $final_out = date('Y-m-d h:i:s A', strtotime($out->LocalTime))}} </span><br/>
+                                        @empty
+                                        NO OUT
+                                        @endforelse  
+                                        </td>
 
-                                        @else
-                                        NO IN
-
-                                        @endif
-                                        
-                                        </td>    
                                         <td>
 
-                                        @foreach($all_out as $out)
-                                            @foreach($out->drivers->where('name', '==', $driver->name) as $driver_in)
-                                                    <span class="label label-warning">{{  date('Y-m-d h:i:s A', strtotime($out->LocalTime))  }} </span><br/>
-                                            @endforeach 
-                                        @endforeach 
-                                        
-                                        </td>                              
+                                        {{  $today->LocalTime->diffInHours($out->LocalTime)  }} Hour(s)
+
+                                        </td>                               
                                     </tr>    
-                                    @endforeach   
+                                       @empty
+
+                                    @endforelse                            
+                                    @endforeach                            
                                 </tbody>
                             </table>
 

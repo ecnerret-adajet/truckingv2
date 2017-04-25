@@ -33,4 +33,7 @@ class Hauler extends Model
     	return $this->belongsToMany(Driver::class);
     }
 
+
+
+
 }

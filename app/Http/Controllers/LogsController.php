@@ -52,16 +52,25 @@ class LogsController extends Controller
                     ->orderBy('LocalTime','DESC')->get();
 
         $all_out = Log::where('CardholderID', '>=', 1)
-                    ->where('Direction', '!=', 1)
-                    ->whereDate('LocalTime', Carbon::now())
+                    ->where('Direction', 2)
+                    ->whereDate('LocalTime',  Carbon::now())
                     ->orderBy('LocalTime','DESC')->get();
 
         $all_in = Log::where('CardholderID', '>=', 1)
                     ->where('Direction', 1)
-                    ->whereDate('LocalTime', Carbon::now())
+                    ->whereBetween('LocalTime', [Carbon::now()->subDays(1), Carbon::now()])
                     ->orderBy('LocalTime','DESC')->get();
 
-        $today_log = $logs->unique('CardholderID')->take(3);
+
+        $all_in_2 = Log::where('CardholderID', '>=', 1)
+			->where('Direction', 1)
+			->whereDate('LocalTime',   Carbon::now())
+			->orderBy('LocalTime','DESC')->get();
+
+
+
+
+        $today_log = $logs->unique('CardholderID')->take(10);
         $total_today = $logs->unique('CardholderID');
 
         $total_in = $all_in->unique('CardholderID');
@@ -86,6 +95,7 @@ class LogsController extends Controller
         'all_out',
         'all_in',
         'base_time',
+        'all_in_2',
         'total_in',
         'total_today'));
         }
@@ -147,7 +157,7 @@ class LogsController extends Controller
                     ->orderBy('LocalTime','DESC')->get();
 
 
-        $total_out = $all_out->unique('CardholderID');            
+        $total_out = $all_in->unique('CardholderID');            
 
             return view('logs.out-plant', compact('logs','all_out','all_in','total_out','total_today','filter'));
         }
@@ -157,7 +167,8 @@ class LogsController extends Controller
 
         $logs = Log::where('CardholderID', '>=', 1)
         ->whereDate('LocalTime', '>=', Carbon::now())
-        ->orderBy('LocalTime','ASC')->get();
+        ->orderBy('LocalTime','DESC')->get();
+
 
         $all_out = Log::where('CardholderID', '>=', 1)
                     ->where('Direction', 2)
@@ -169,8 +180,6 @@ class LogsController extends Controller
                     ->whereDate('LocalTime', Carbon::now())
                     ->orderBy('LocalTime','DESC')->get();
 
-            $final_in = '';
-            $final_out = '';
 
           $today_result = $logs->unique('CardholderID');
 

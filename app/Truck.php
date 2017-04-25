@@ -33,6 +33,8 @@ class Truck extends Model
     	return $this->belongsToMany(Driver::class);
     }
 
+
+
     
 }
  

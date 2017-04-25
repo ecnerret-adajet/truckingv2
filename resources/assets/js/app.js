@@ -13,41 +13,14 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-// Vue.component('example', require('./components/Example.vue'));
-// Vue.component('logs', require('./components/Logs.vue'));
-
-// const app = new Vue({
-//     el: '#app',
-//     data: {
-//     	logs: []
-//     },
-//     created() {
-//     axios.get('/logs').then((response) => {
-//         this.logs = response.data;
-//     });
-// 	}
-// });
-
-const sidebar = new Vue({	
-
-	el: '#email_table',
-	data: {
-		isDisable: false,
-		newEmail: '',
-		emails: [
-			'terrence.tejada@gmail.com',
-			'maggester.cruz@gmail.com',
-			'marik.miro@lafilgroup.com',
-			'gani.cotanas@lafilgroup.com'
-		]
-	},
-
-	methods: {
-		addEmail() {
-			this.emails.push(this.newEmail);
-			this.newEmail = '';
-		}
-	}
+Vue.component('example', require('./components/Example.vue'));
+Vue.component('logs', require('./components/Logs.vue'));
 
 
+const app = new Vue({
+    el: '#app'
 });
+
+
+
+

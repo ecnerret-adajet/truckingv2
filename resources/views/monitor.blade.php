@@ -14,7 +14,7 @@
                            <hr/>
                             
                              
-                                    <table class="table" id="email_table">
+                                    {{-- <table class="table" id="email_table">
                                             <thead>
                                             <tr>
                                                 <th>
@@ -43,7 +43,7 @@
                                                 </td>
                                             </tr>
                                             </tbody>
-                                    </table>
+                                    </table> --}}
                           
                         </div>
                     </div>

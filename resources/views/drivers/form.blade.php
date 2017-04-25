@@ -154,6 +154,6 @@
 
 
                                     <div class="text-center">
-                                        <button type="submit" class="btn btn-info btn-fill btn-wd">Update Profile</button>
+                                        <button type="submit" class="btn btn-info btn-fill btn-wd">Submit</button>
                                     </div>
                                     <div class="clearfix"></div>

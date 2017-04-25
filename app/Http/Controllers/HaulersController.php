@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Hauler;
+use App\Log;
 
 class HaulersController extends Controller
 {
@@ -55,7 +56,15 @@ class HaulersController extends Controller
      */
     public function show(Hauler $hauler)
     {
-        return view('haulers.show', compact('hauler'));
+        foreach($hauler->drivers as $driver)
+        {
+                $logs = Log::where('CardholderID', '=', $driver->cardholder_id)
+                ->orderBy('LocalTime','DESC')->get();
+        }
+
+  
+
+        return view('haulers.show', compact('hauler','logs'));
     }
 
     /**

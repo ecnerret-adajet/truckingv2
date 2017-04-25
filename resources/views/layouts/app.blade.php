@@ -17,7 +17,6 @@
     <!--  Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
-    <link href="assets/css/themify-icons.css" rel="stylesheet">
 
 
 
@@ -218,6 +217,28 @@
     <script src="{{ asset('js/all.js') }}"></script>
     <!-- Include this after the sweet alert js file -->
     @include('sweet::alert')
+
+    <script>
+$(document).ready(function() {
+
+  $('#dropdownMenu').on('click', function() {
+
+    // Add loading state
+    $('.testdropdown').html('Loading please wait ...');
+
+    // Set request
+    var request = $.get('http://localhost/truckingv2/public/fetch');
+
+    // When it's done
+    request.done(function(response) {
+      console.log(response);
+    });
+
+
+  });
+
+});
+    </script>
 
 </body>
 </html>
