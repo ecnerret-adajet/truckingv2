@@ -47,6 +47,13 @@ class LogsController extends Controller
     */
     public function index()
     {
+
+        /**
+        *
+        * Query on the daily monitoring
+        *
+        */
+
     	$logs = Log::where('CardholderID', '>=', 1)
                     ->whereDate('LocalTime', Carbon::now())
                     ->orderBy('LocalTime','DESC')->get();
@@ -61,21 +68,15 @@ class LogsController extends Controller
                     ->whereBetween('LocalTime', [Carbon::now()->subDays(1), Carbon::now()])
                     ->orderBy('LocalTime','DESC')->get();
 
-
         $all_in_2 = Log::where('CardholderID', '>=', 1)
 			->where('Direction', 1)
 			->whereDate('LocalTime',   Carbon::now())
 			->orderBy('LocalTime','DESC')->get();
 
 
-
-
-        $today_log = $logs->unique('CardholderID')->take(10);
+        $today_log = $logs->unique('CardholderID')->take(3);
         $total_today = $logs->unique('CardholderID');
-
-        $total_in = $all_in->unique('CardholderID');
-
-
+        $total_in = $all_in_2->unique('CardholderID');
 
 
         $cardholders = Cardholder::with('card')->where('CardholderID', '>=', 1)->get();

@@ -105,7 +105,6 @@
 
                               <table class="table table-striped">
                                     <thead>
-                                        <th></th>
                                         <th>Plate Number</th>
                                         <th>Vehicle Type</th>
                                         <th>Capacity</th>
@@ -118,9 +117,6 @@
 
 
                                         <tr>
-                                            <td>
-                                            <img class="img-responsive" src="{{ asset('img/profile/avatar.png') }}" style="width: auto; height: 50px;">
-                                            </td>
                                             <td>
                                               {{$truck->plate_number}}                                    
                                             </td>

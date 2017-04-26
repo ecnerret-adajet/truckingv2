@@ -9,7 +9,7 @@
                         <div class="card">
                             <div class="header">
                                 <h4 class="title">
-                                Overtime Trucks
+                                Truck Entries
                                 <a class="btn btn-primary btn-sm pull-right" href="{{url('/home')}}">
                                     Back to Dashboard
                                 </a>

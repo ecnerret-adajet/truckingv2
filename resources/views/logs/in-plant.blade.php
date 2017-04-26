@@ -28,6 +28,8 @@
                                 </thead>
                                 <tbody>
                                 
+                                
+
                                     @foreach($total_in as $today)
                                       @forelse($all_out->where('CardholderID', '==', $today->CardholderID)->take(1) as $out)
                              
@@ -74,6 +76,8 @@
                                 </tbody>
                             </table>
 
+
+                            
 
 
 
