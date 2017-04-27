@@ -68,10 +68,14 @@ class EmailNotification extends Command
 			->orderBy('LocalTime','DESC')->get();
 
          $today_log = $logs->unique('CardholderID');
+         $total_in = $all_in_2->unique('CardholderID');
 
          $data = [
             'name' => 'Admin',
-            'logs' => $today_log
+            'logs' => $today_log,
+            'all_in' => $all_in,
+            'all_out' => $all_out,
+            'total_in' => $total_in,
          ];
 
 
@@ -117,7 +121,7 @@ class EmailNotification extends Command
                 //   ->bcc('tejada.terrence@gmail.com', 'Report Generate')
                   ->subject('RFID TRUCKING MONITORING REPORT');
         //  $message->attach('C:\xampp\htdocs\trucking-monitoring\storage\email\tracks_export'.Carbon::now()->format('Ymdh').'.xls');
-         $message->from('systemadmin@trucking.com','Administrator');
+         $message->from('notifications-noreply@trucking.com','Admin From Trucking Monitoring');
         });    
     
     

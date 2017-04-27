@@ -148,8 +148,10 @@ class LogsController extends Controller
 
         $all_in = Log::where('CardholderID', '>=', 1)
                     ->where('Direction', 1)
-                    ->whereDate('LocalTime', Carbon::now())
+                    ->whereBetween('LocalTime', [Carbon::now()->subDays(1), Carbon::now()])
                     ->orderBy('LocalTime','DESC')->get();
+
+ 
 
 
 
@@ -162,6 +164,9 @@ class LogsController extends Controller
 
             return view('logs.out-plant', compact('logs','all_out','all_in','total_out','total_today','filter'));
         }
+
+
+
 
 
         public function overtime(){
@@ -178,14 +183,22 @@ class LogsController extends Controller
 
         $all_in = Log::where('CardholderID', '>=', 1)
                     ->where('Direction', 1)
-                    ->whereDate('LocalTime', Carbon::now())
+                    ->whereBetween('LocalTime', [Carbon::now()->subDays(1), Carbon::now()])
                     ->orderBy('LocalTime','DESC')->get();
+
+        $all_in_2 = Log::where('CardholderID', '>=', 1)
+			->where('Direction', 1)
+			->whereDate('LocalTime',   Carbon::now())
+			->orderBy('LocalTime','DESC')->get();
 
 
           $today_result = $logs->unique('CardholderID');
 
-            return view('logs.overtime', compact('logs','today_result','all_in','all_out'));
+            return view('logs.overtime', compact('logs','today_result','all_in','all_out','all_in_2'));
         }
+
+
+
 
 
 
@@ -213,10 +226,16 @@ class LogsController extends Controller
                         ->get();
 
             $all_in = Log::where('CardholderID', '>=', 1)
-                        ->where('Direction', 1)
-                        ->whereDate('LocalTime', '>=' ,$start_date)
-                        ->whereDate('LocalTime', '<=', $end_date)
-                        ->get();
+                    ->where('Direction', 1)
+                    ->whereBetween('LocalTime', [$start_date, $end_date])
+                    ->get();
+
+            $all_in_2 = Log::where('CardholderID', '>=', 1)
+                ->where('Direction', 1)
+                ->whereDate('LocalTime', '>=' ,$start_date)
+                ->whereDate('LocalTime', '<=', $end_date)
+                ->get();
+
 
             $final_in = '';
             $final_out = '';
@@ -231,6 +250,7 @@ class LogsController extends Controller
             'all_out',
             'final_in',
             'final_out',
+            'all_in_2',
             'today_result'));
 
         }

@@ -114,12 +114,20 @@
 
                                         
                                         <td>
-                                        <?php $final_in = ''; ?>
+
+
+                                    <?php $final_in = ''; ?>
                                         @forelse($all_in->where('CardholderID', '==', $result->CardholderID)->take(1) as $in)
                                             <span class="label label-success">{{ $final_in = date('Y-m-d h:i:s A', strtotime($in->LocalTime))}} </span><br/>
                                         @empty
-                                            NO IN
-                                        @endforelse     
+                                             @forelse($all_in_2->where('CardholderID', '==', $result->CardholderID)->take(1) as $in)
+                                                <span class="label label-success">{{ $final_in = date('Y-m-d h:i:s A', strtotime($in->LocalTime))}} </span><br/>
+                                            @empty
+                                                NO IN
+                                            @endforelse  
+                                        @endforelse  
+
+
                                           
                                         </td>   
                                              
