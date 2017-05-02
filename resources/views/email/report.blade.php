@@ -31,7 +31,7 @@
 		.report-table tr:nth-child(even){background-color: #f2f2f2}
 
 		.report-table tr th {
-		    background-color: yellow;
+		    background-color: #2c3e50;
 		    color: white;
 		}
 

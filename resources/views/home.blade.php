@@ -201,25 +201,27 @@
                                     
                                     <td rowspan="3" colspan="2" width="20%">
 
-
                                         <?php $final_in = ''; ?>
                                         @forelse($all_in->where('CardholderID', '==', $today->CardholderID)->take(1) as $in)
                                        
-                                            <a href="http://172.17.2.25/ASWeb/bin/GetImage.srf?From=IMG&Filename=AC.{{date('Ymd',strtotime($in->LocalTime))}}.0000{{$in->LogID}}-1.jpg" data-lightbox="{{$today->LogID}}" data-title="{{$driver->name}} - TIME IN - {{  date('Y-m-d h:i:s A', strtotime($in->LocalTime))}}">
+                                             <a href="http://172.17.2.25/ASWeb/bin/GetImage.srf?From=IMG&Filename=AC.{{date('Ymd',strtotime($in->LocalTime))}}.0000{{$in->LogID}}-1.jpg" data-lightbox="{{$today->LogID}}" data-title="{{$driver->name}} - TIME IN - {{  date('Y-m-d h:i:s A', strtotime($in->LocalTime))}}">
                                                 <img class="img-responsive" src="http://172.17.2.25/ASWeb/bin/GetImage.srf?From=IMG&Filename=AC.{{date('Ymd',strtotime($in->LocalTime))}}.0000{{$in->LogID}}-1.jpg">
                                                 </a>
-
-
+                                       
                                         @empty
                                              @forelse($all_in_2->where('CardholderID', '==', $today->CardholderID)->take(1) as $in)
-                                                <span class="label label-success">{{ $final_in = date('Y-m-d h:i:s A', strtotime($in->LocalTime))}} </span><br/>
+
+
+                                                <a href="http://172.17.2.25/ASWeb/bin/GetImage.srf?From=IMG&Filename=AC.{{date('Ymd',strtotime($in->LocalTime))}}.0000{{$in->LogID}}-1.jpg" data-lightbox="{{$today->LogID}}" data-title="{{$driver->name}} - TIME IN - {{  date('Y-m-d h:i:s A', strtotime($in->LocalTime))}}">
+                                                <img class="img-responsive" src="http://172.17.2.25/ASWeb/bin/GetImage.srf?From=IMG&Filename=AC.{{date('Ymd',strtotime($in->LocalTime))}}.0000{{$in->LogID}}-1.jpg">
+                                                </a>
                                             @empty
-                                               <i class="pe-7s-timer"></i>
-                                       <p>NO TIME IN</p>
-                                       
-                                       </div> 
+                                                NO IN
                                             @endforelse  
-                                        @endforelse 
+                                        @endforelse   
+
+
+                                     
 
 
                                     </td>
@@ -263,7 +265,7 @@
 
                                            
 
-
+                                              
 
                                     <?php $final_in = ''; ?>
                                         @forelse($all_in->where('CardholderID', '==', $today->CardholderID)->take(1) as $in)
@@ -287,7 +289,7 @@
                                             @foreach($all_out->where('CardholderID', '==', $today->CardholderID)->take(1) as $out)
                                                     @if( contains(date('Y-m-d h:i:s A', strtotime($out->LocalTime)), 'AM' ))
 
-
+                                                
                                                     <span class="label label-warning">{{ $final_out = date('Y-m-d h:i:s A', strtotime($out->LocalTime))}} </span><br/>
                                        
                                                     @endif

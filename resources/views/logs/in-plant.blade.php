@@ -8,7 +8,12 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">In Plant Trucks</h4>
+                                <h4 class="title">In Plant Trucks
+                                
+                                <a class="btn btn-default pull-right" href="{{url('/home')}}">
+                                Back to dashboard
+                                </a>
+                                </h4>
                                 <p class="category">All Trucks within the plant</p>
 
                             </div>

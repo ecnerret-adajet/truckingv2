@@ -8,7 +8,12 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">In Transit Trucks</h4>
+                                <h4 class="title">In Transit Trucks
+                                
+                                <a class="btn btn-default pull-right" href="{{url('/home')}}">
+                                    Back to dashboard
+                                </a>
+                                </h4>
                                 <p class="category">All trucks with paired in & out time</p>
 
                             </div>
