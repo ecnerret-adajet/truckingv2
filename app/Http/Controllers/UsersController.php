@@ -63,11 +63,13 @@ class UsersController extends Controller
         $user = new User;
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-        $user->position = $request->input('position');
+        // $user->position = $request->input('position');
         $user->password = Hash::make($request->input('password'));
+        
         if($request->hasFile('avatar')){
         $user->avatar = $request->file('avatar')->store('users');
         }
+
         $user->save();
 
          $user->roles()->sync( (array) $request->input('roles_list') );

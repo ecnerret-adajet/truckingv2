@@ -80,9 +80,9 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{url('/monitor')}}">
+                    <a href="{{url('/feed')}}">
                         <i class="pe-7s-graph"></i>
-                        <p>Reports</p>
+                        <p>Live Feed</p>
                     </a>
                 </li>
                 <li>
@@ -214,31 +214,18 @@
 
 
     <!-- Scripts -->
+   
     <script src="{{ asset('js/all.js') }}"></script>
     <!-- Include this after the sweet alert js file -->
     @include('sweet::alert')
-
-    <script>
-$(document).ready(function() {
-
-  $('#dropdownMenu').on('click', function() {
-
-    // Add loading state
-    $('.testdropdown').html('Loading please wait ...');
-
-    // Set request
-    var request = $.get('http://localhost/truckingv2/public/fetch');
-
-    // When it's done
-    request.done(function(response) {
-      console.log(response);
-    });
+    {{-- <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+    <script src="{{asset('js/morris-report.js')}}"></script> --}}
 
 
-  });
 
-});
-    </script>
+   
+
 
 </body>
 </html>

@@ -103,8 +103,13 @@
                                 <div class="row"> 
                                     <div class="col-md-12">
                                         <p> Top Drivers per trip: 2017</p>
-
-                                        <table class="table">
+                                                            
+                            
+                                        <chart :labels="{{ $labels }}" 
+                                            :values="{{ $values }}"
+                                        ></chart>
+                                
+                                        {{-- <table class="table">
                                             <thead>
                                             <tr>
                                             <th>Driver Name</th>
@@ -126,7 +131,7 @@
                                                 
                                                 </tr>
                                             @endforeach
-                                        </table>
+                                        </table> --}}
 
                                     </div>
                                     </div>
@@ -179,6 +184,10 @@
 
                             <hr/>
 
+
+                            <drivers></drivers>
+
+
                               <table class="table table-striped">
                                     <thead>
                                          <th class="text-center">Action</th>
@@ -208,14 +217,13 @@
                                                             <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Delete Driver</a></li>
                                                           </ul>                                                        
                                                         </div>
-                                            </td>                                            <td>
+                                            </td>                                            
 
 
-                                           
+                                            <td>                                           
                                            <img class="img-responsive img-circle" src="{{ str_replace( 'public/','', asset('/storage/app/'.$driver->avatar))}}" style="width: auto; height: 40px;">
-                                           
-                                           
                                             </td>
+
                                             <td>
                                               {{$driver->name}}                                    
                                             </td>
@@ -267,20 +275,28 @@
                 <p>  
                     Please confirm to apply changes
                 </p>                        
-             <form method="POST" action="{{ url('/transfers/remove/'.$transfer->id) }}">
-              {!! csrf_field() !!}
+  
                                                 
             </div>
                 </div>
             </div>
               </div>
               <div class="modal-footer">
+
+                <form method="POST" action="{{ url('/transfers/remove/'.$transfer->id) }}">
+              {!! csrf_field() !!}
+
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-primary">Confirm</button>
-                  
+                
+                 {!! Form::submit('Confirm', ['class' => 'btn  btn-primary'])  !!}
+                
+                
+                </form> 
                    
               </div>
-              </form> 
+             
+
+              
             </div><!-- /.modal-content -->
           </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->   

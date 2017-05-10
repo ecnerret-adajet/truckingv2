@@ -27,67 +27,53 @@
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
+    <style>
+    html,body{
+        height: 100%;
+        background-color: #f6f9fc;
+    }
+    body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .control-label{
+        text-align: left ! important;
+    }
+    h5{
+        font-weight: bold;
+        border-bottom: 1px solid #f6f9fc;
+        padding-bottom: 20px;
+        letter-spacing: 0.5px;
+
+    }
+    .panel{
+
+            box-shadow: 0 0 0 1px rgba(14,41,57,.12), 0 2px 5px rgba(14,41,57,.44), inset 0 -1px 2px rgba(14,41,57,.15);
+            background: linear-gradient(#fff,#f2f6f9);
+            border: 1px solid #f2f6f9;
+    }
+    label{
+        font-weight: 500;
+        text-transform: uppercase;
+        font-size: 12px;
+    }
+    .logo-title{
+        padding-top: 30px;
+    }
+    .logo-title span {
+        font-size: 18px;
+        font-weight: bold;
+    }
+  
+
+    </style>
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
-                <div class="navbar-header">
-
-                    <!-- Collapsed Hamburger -->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-
-                    <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
-                    </a>
-                </div>
-
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        &nbsp;
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
-                        <!-- Authentication Links -->
-                        @if (Auth::guest())
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
-                        @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
-
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
-                        @endif
-                    </ul>
-                </div>
-            </div>
-        </nav>
+  
 
         @yield('content')
-    </div>
+
 
     <!-- Scripts -->
     <script src="{{ asset('js/all.js') }}"></script>

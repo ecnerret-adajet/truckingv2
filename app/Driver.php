@@ -90,8 +90,4 @@ class Driver extends Model
     }
 
 
-    public function drivertable(){
-        return $this->morphTo();
-    }
-
 }

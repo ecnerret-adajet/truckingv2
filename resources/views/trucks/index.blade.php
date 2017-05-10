@@ -230,20 +230,28 @@
                 <p>  
                     Are you sure you want to change the truck <em>Availability</em> to active?
                 </p>                        
-             <form method="POST" action="{{ url('/trucks/active/'.$truck->id) }}">
-              {!! csrf_field() !!}
+            
                                                 
             </div>
                 </div>
             </div>
               </div>
               <div class="modal-footer">
+
+    
+
+           <form method="POST" action="{{ url('/trucks/active/'.$truck->id) }}">
+              {!! csrf_field() !!}
+
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-primary">Confirm</button>
-                  
+                
+                 {!! Form::submit('Confirm', ['class' => 'btn  btn-primary'])  !!}
+                
+                
+                </form> 
                    
               </div>
-              </form> 
+              
             </div><!-- /.modal-content -->
           </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->   

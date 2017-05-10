@@ -30,13 +30,25 @@ class LogsController extends Controller
     public function systemLogs()
     {
 
-        $revisions = Revision::all();
-        $drivers = Driver::find(54);
-        $history = $drivers->revisionHistory;
+        $values = Log::select('CardholderID', \DB::raw('count(*) as value'))
+        ->where('CardholderID', '>=', 1)->whereYear('LocalTime', '=', 2017)
+        ->groupBy('CardholderID')
+        ->orderBy('value', 'desc')
+        ->take(5)
+        ->pluck('CardholderID');
 
+         $drivers = Driver::whereIn('cardholder_id',$values)->pluck('name');
 
+        $top_driver = Log::
+        select(DB::raw('CardholderID as label'), DB::raw('count(*) as value'))
+        ->where('CardholderID', '>=', 1)->whereYear('LocalTime', '=', Carbon::now()->year)
+        ->groupBy('CardholderID')
+        ->orderBy('value', 'desc')
+        ->take(3)
+        ->get();
+       
 
-        return view('logs.index', compact('drivers','history','revisions'));
+        return view('logs.index', compact('values','drivers','top_driver'));
     }
 
 

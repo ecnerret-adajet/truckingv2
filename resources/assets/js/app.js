@@ -5,6 +5,8 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+
+
 require('./bootstrap');
 
 /**
@@ -14,8 +16,10 @@ require('./bootstrap');
  */
 
 Vue.component('example', require('./components/Example.vue'));
-Vue.component('logs', require('./components/Logs.vue'));
-
+Vue.component('chart', require('./components/Chart.vue'));
+Vue.component('drivers', require('./components/Drivers.vue'));
+// Vue.component('logs', require('./components/Logs.vue'));
+// Vue.component('reports', require('./components/Reports.vue'));
 
 const app = new Vue({
     el: '#app'

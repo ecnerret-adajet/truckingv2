@@ -216,7 +216,14 @@
                                                 <img class="img-responsive" src="http://172.17.2.25/ASWeb/bin/GetImage.srf?From=IMG&Filename=AC.{{date('Ymd',strtotime($in->LocalTime))}}.0000{{$in->LogID}}-1.jpg">
                                                 </a>
                                             @empty
-                                                NO IN
+
+                                    <div class="no-capture">
+
+                                       <i class="pe-7s-timer"></i>
+                                       <p>NO TIME IN</p>
+                                       
+                                       </div> 
+
                                             @endforelse  
                                         @endforelse   
 

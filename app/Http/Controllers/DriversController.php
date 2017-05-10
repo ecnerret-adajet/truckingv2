@@ -50,9 +50,68 @@ class DriversController extends Controller
         $driver_updated = Driver::orderBy('updated_at','desc')->take(3)->get();
         $transfers = Transfer::orderBy('updated_at','desc')->take(3)->get();
 
-        return view('drivers.index', compact('drivers','logs','top_log','top_drivers','top_driver','driver_updated','transfers'));
+
+        $values = Log::select('CardholderID', \DB::raw('count(*) as value'))
+        ->where('CardholderID', '>=', 1)->whereYear('LocalTime', '=', 2017)
+        ->groupBy('CardholderID')
+        ->orderBy('value', 'desc')
+        ->take(5)
+        ->pluck('CardholderID');
+
+         $labels = Driver::whereIn('cardholder_id',$values)->pluck('name');
+
+        return view('drivers.index', compact('drivers',
+        'values',
+        'labels',
+        'logs',
+        'top_log',
+        'top_drivers',
+        'top_driver',
+        'driver_updated',
+        'transfers'));
 
     }
+
+
+
+    /*
+    *
+    * Get JSON File from top driver trips
+    *
+    */
+
+    public function getTopDriver(){
+
+        $value = Log::select('CardholderID', \DB::raw('count(*) as value'))
+        ->where('CardholderID', '>=', 1)->whereYear('LocalTime', '=', 2017)
+        ->groupBy('CardholderID')
+        ->orderBy('value', 'desc')
+        ->take(5)
+        ->get();
+
+         $label = Driver::whereIn('cardholder_id',$value)->pluck('name');
+
+        $top_driver = Log::
+        select(DB::raw('CardholderID as label'), DB::raw('count(*) as value'))
+        ->where('CardholderID', '>=', 1)->whereYear('LocalTime', '=', Carbon::now()->year)
+        ->groupBy('CardholderID')
+        ->orderBy('value', 'desc')
+        ->take(3)
+        ->get();
+
+        $result = $value->where('CardholderID',$label);
+
+
+        return $result;
+ 
+    }
+
+    public function getDrivers(){
+        $drivers = Driver::with('haulers')->orderBy('created_at', 'desc')->get();
+        return $drivers;
+    }
+
+
 
     /**
      * Show the form for creating a new resource.
