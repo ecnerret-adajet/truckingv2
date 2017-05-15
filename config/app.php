@@ -172,6 +172,7 @@ return [
         Zizaco\Entrust\EntrustServiceProvider::class,
         UxWeb\SweetAlert\SweetAlertServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        GeneaLabs\LaravelCaffeine\Providers\LaravelCaffeineService::class,
 
         /*
          * Application Service Providers...

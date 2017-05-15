@@ -55,6 +55,8 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
+
+                @role(('Administrator'))
                 <li>
                     <a href="{{url('/drivers')}}">
                     <i class="pe-7s-id"></i>
@@ -73,24 +75,28 @@
                         <p>Haulers</p>
                     </a>
                 </li>
+            
                 <li>
                     <a href="{{url('/users')}}">
                         <i class="pe-7s-user"></i>
                         <p>Users</p>
                     </a>
                 </li>
+                @endrole
+
+
                 <li>
                     <a href="{{url('/feed')}}">
                         <i class="pe-7s-graph"></i>
                         <p>Live Feed</p>
                     </a>
                 </li>
-                <li>
+                <!-- <li>
                     <a href="{{url('/systemlog')}}">
                         <i class="pe-7s-clock"></i>
                         <p>Logs</p>
                     </a>
-                </li>
+                </li> -->
 
             </ul>
         </div>
@@ -105,18 +111,18 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Dashboard</a>
+                    <!-- <a class="navbar-brand" href="#">Dashboard</a> -->
                 </div>
                 <div class="collapse navbar-collapse">
 
 
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
+                       <!--  <li>
                            <a href="">
                                <p>Account</p>
                             </a>
-                        </li>
-                        <li class="dropdown">
+                        </li> -->
+                        <!--  <li class="dropdown">
                               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <p>
                                         Dropdown
@@ -132,7 +138,7 @@
                                 <li class="divider"></li>
                                 <li><a href="#">Separated link</a></li>
                               </ul>
-                        </li>
+                        </li> -->
                         <li class="dropdown">
                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <!-- <p style="vertical-align: middle;"> 
@@ -173,7 +179,7 @@
         <footer class="footer">
             <div class="container-fluid">
                 <nav class="pull-left">
-                    <ul>
+                    <!-- <ul>
                         <li>
                             <a href="#">
                                 Home
@@ -194,7 +200,7 @@
                                Blog
                             </a>
                         </li>
-                    </ul>
+                    </ul> -->
                 </nav>
                 <p class="copyright pull-right">
                 La Filipina Uy Gongco Group of Companies

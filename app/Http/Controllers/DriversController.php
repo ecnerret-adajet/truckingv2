@@ -34,8 +34,6 @@ class DriversController extends Controller
     {
 
         $drivers = Driver::all();
-
-
         $logs = Log::where('CardholderID', '>=', 1)
                     ->where('Direction', 1)  // all in
                     ->orderBy('LocalTime','DESC')->get();
@@ -106,8 +104,23 @@ class DriversController extends Controller
  
     }
 
+
+    /*
+    *
+    * Get driver JSON Results
+    */
     public function getDrivers(){
         $drivers = Driver::with('haulers')->orderBy('created_at', 'desc')->get();
+        return $drivers;
+    }
+
+    
+
+    public function searchDrivers(Request $request){
+        $search = $request->search;
+        $drivers = Driver::with('haulers')
+                        ->where('name','LIKE',"%$search%")
+                        ->get();
         return $drivers;
     }
 

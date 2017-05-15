@@ -14,17 +14,8 @@ use Carbon\Carbon;
 */
 
 Route::get('/', function () {
-	if (Auth::guest()){
-    return view('auth.login');
-    }
-    else{
-    return view('home');
-    }
-});
-
-// Route::get('/logs', function() {
-// return App\Log::all();
-// })->middleware('auth');
+    return redirect('home');
+})->middleware('auth');
 
 
 Auth::routes();
@@ -74,6 +65,9 @@ Route::get('/plant-in','logsController@inPlant');
 Route::get('/plant-out','logsController@outPlant');
 Route::get('/overtime','logsController@overtime');
 Route::get('/report','logsController@getReport');
+
+//Search results JSON
+
 
 });
 

@@ -1,35 +1,34 @@
 <template>
 
-<div class="search">
+<div class="driver_data">
 
-<div class="row">
+
 <div class="col-md-12">
-<div class="form-group{{ $errors->has('driver_number') ? ' has-error' : '' }}">
-<label>Driver Number</label>
-{!! Form::text('driver_number', null,  ['class' => 'form-control border-input','placeholder' => 'Driver Number']) !!}
-
+<div class="form-group">
+<input type="text" name="search" v-model="search"  placeholder="Enter your search" class="form-control border-input">
 </div>
 </div>
 
-</div>
 
 <table class="table">
 <thead>
+
 <tr>
-<th></th>
-<th>Driver Name</th>
+<th>Action</th>
+<th>Name</th>
 <th>Phone Number</th>
 <th>Substitute</th>
-<th>Operation</th>
+<th>Operator</th>
 </tr>
 
 </thead>
 <tbody>
-<tr v-for="driver in drivers">
+
+<tr v-for="driver in drivers | searchQuery" >
 <td>
             <div class="dropdown">
-              <button class="btn dropdown-toggle btn-sm" type="button" id="dropdownMenu1" data-toggle="dropdown">                                                        
-                Option
+              <button class="btn dropdown-toggle btn-sm" type="button" id="dropdownMenu1" data-toggle="dropdown">
+              Option
                 <span class="caret"></span>                                                        
               </button>
               <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">                                                        
@@ -39,7 +38,7 @@
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Delete Driver</a></li>
               </ul>                                                        
             </div>
-</td> 
+</td>
 <td>
 {{driver.name}}
 </td>
@@ -65,20 +64,24 @@
 
 <script>
 export default{
-
-props: ['data','columns','filterKey'],
-
+props: ['data'],
 data() {
 	return {
-		drivers: [],
-		gridColumns: ['name','power'],
-		searchQuery: ''
-	}
+    searchQuery: '',
+    drivers: [],
+    url: 'getDrivers'
+  }
 },
 
-created(){
-	axios.get('http://localhost/truckingv2/public/getDrivers')
+created() {
+	axios.get('http://172.17.2.88/rfidtrucking/public/getDrivers')
 	.then(response => this.drivers = response.data);
+},
+  
+methods: {
+  fechDataDriver(){
+
+  }
 }
 
 

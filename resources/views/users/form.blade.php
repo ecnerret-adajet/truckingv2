@@ -84,6 +84,6 @@
 
 
     <div class="text-right">
-        <button type="submit" class="btn btn-info btn-fill btn-wd">Update user</button>
+        <button type="submit" class="btn btn-info btn-fill btn-wd">Submit</button>
     </div>
     <div class="clearfix"></div>

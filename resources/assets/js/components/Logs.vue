@@ -15,7 +15,7 @@
         <tbody>
                 <tr v-for="log in logs">
                     <td v-for="driver in log.drivers">
-                    <img class="img-responsive img-circle" :src=" 'http:/truckingv2/storage/app/' + driver.avatar  " style="display:block; margin: 10px auto; width: 50px; height: auto;">
+                    <img class="img-responsive img-circle" :src=" 'http:/rfidtrucking/storage/app/' + driver.avatar  " style="display:block; margin: 10px auto; width: 50px; height: auto;">
 
                     </td> 
 
@@ -96,16 +96,16 @@ export default{
 
     created(){
 
-    axios.get('http://localhost/truckingv2/public/getLogs')
+    axios.get('http://172.17.2.88/rfidtrucking/public/getLogs')
     .then(response => this.logs = response.data);
 
-    axios.get('http://localhost/truckingv2/public/getIns')
+    axios.get('http://172.17.2.88/rfidtrucking/public/getIns')
     .then(response => this.ins = response.data);
 
-    axios.get('http://localhost/truckingv2/public/getOuts')
+    axios.get('http://172.17.2.88/rfidtrucking/public/getOuts')
     .then(response => this.outs = response.data);
 
-    axios.get('http://localhost/truckingv2/public/getDrivers')
+    axios.get('http://172.17.2.88/rfidtrucking/public/getDrivers')
     .then(response => this.drivers = response.data);    
 
 

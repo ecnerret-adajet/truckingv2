@@ -42,9 +42,12 @@
                                         <div class="">
                                         <p>{{$drivers->count()}} Total Drivers</p>
                                         </div>
+
+                                        @role(('Administrator'))
                                         <a class="btn btn-primary btn-sm" href="{{url('/drivers')}}">
                                         View all drivers
                                         </a>
+                                        @endrole
                                     </div>
                                 </div>
                                 <div class="footer text-center" style="padding-top: 20px;">
@@ -70,9 +73,12 @@
                                         <div class="">
                                         <p>{{$trucks->count()}} Total Trucks</p>
                                         </div>
+
+                                        @role(('Administrator'))
                                         <a class="btn btn-primary btn-sm" href="{{url('/trucks')}}">
                                         View all trucks
                                         </a>
+                                        @endrole
                                     </div>
                                 </div>
                                 <div class="footer text-center" style="padding-top: 20px;">
@@ -96,9 +102,11 @@
                                         <div class="">
                                         <p>0 Guest Trucks</p>
                                         </div>
+                                        @role(('Administrator'))
                                         <a class="btn btn-primary btn-sm" href="{{url('/guests')}}">
                                         View all guests
                                         </a>
+                                        @endrole
                                     </div>
                                 </div>
                                 <div class="footer text-center" style="padding-top: 20px;">

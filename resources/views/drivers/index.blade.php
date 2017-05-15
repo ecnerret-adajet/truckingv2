@@ -185,10 +185,14 @@
                             <hr/>
 
 
-                            <drivers></drivers>
+                            <drivers  :data="drivers" 
+                                      :columns="gridColumns"
+                                      :filter-key="searchQuery">
+                            </drivers>
 
 
                               <table class="table table-striped">
+
                                     <thead>
                                          <th class="text-center">Action</th>
                                         <th></th>

@@ -146,7 +146,7 @@
                                                             </a>
                                                             @endif
                                                            </li>
-                                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{url('/haulers/'.$truck->id.'/edit')}}">Edit Truck</a></li>                                                        
+                                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{url('/trucks/'.$truck->id.'/edit')}}">Edit Truck</a></li>                                                        
                                                             <li role="presentation" class="divider"></li>                                                        
                                                             <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Delete Truck</a></li>
                                                           </ul>                                                        
