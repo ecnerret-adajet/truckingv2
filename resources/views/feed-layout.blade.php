@@ -26,7 +26,11 @@
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
-
+  <style type="text/css">
+        body{
+            overflow-x: hidden;
+        }
+    </style>
     
 </head>
 <body>

@@ -222,12 +222,23 @@
     <!-- Scripts -->
    
     <script src="{{ asset('js/all.js') }}"></script>
+    <script src="{{ asset('js/cbpFWTabs.js') }}"></script>
     <!-- Include this after the sweet alert js file -->
     @include('sweet::alert')
-    {{-- <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <!--
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
-    <script src="{{asset('js/morris-report.js')}}"></script> --}}
+    <script src="{{asset('js/morris-report.js')}}"></script> 
+    -->
+    <script type="text/javascript">
+            (function() {
 
+                [].slice.call( document.querySelectorAll( '.tabs' ) ).forEach( function( el ) {
+                    new CBPFWTabs( el );
+                });
+
+            })();
+    </script>
 
 
    

@@ -74,7 +74,7 @@ data() {
 },
 
 created() {
-	axios.get('http://172.17.2.88/rfidtrucking/public/getDrivers')
+	axios.get('http://localhost/truckingv2/public/getDrivers')
 	.then(response => this.drivers = response.data);
 },
   

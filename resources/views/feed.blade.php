@@ -33,9 +33,11 @@
     <script>
         setInterval(
         function(){
-            $('#terter').load('http://172.17.2.88/rfidtrucking/public/feed-body');
+            $('#terter').load('http://localhost/truckingv2/public/feed-body');
         }, 2000);
     </script>
+
+  
 
 
 
@@ -189,7 +191,7 @@
                     <div class="container">
                 <div class="row">
                 <!-- table  -->
-                    <div class="col-md-12">
+                    <div class="col-md-11">
                         <div class="card" id="app">
 
                                 

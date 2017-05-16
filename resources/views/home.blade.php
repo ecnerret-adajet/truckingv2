@@ -2,6 +2,78 @@
 
 @section('content')
            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-md-12">
+                <section>
+                <div class="tabs tabs-style-line">
+                    <nav>
+                        <ul>
+                            <li><a href="#section-line-1"><span>Within the plant</span></a></li>
+                            <li><a href="#section-line-2"><span>In transit trucks</span></a></li>
+                            <li><a href="#section-line-3"><span>All Entires</span></a></li>
+<!--                             <li><a href="#section-line-4"><span>Nintendo Wii U</span></a></li>
+                            <li><a href="#section-line-5"><span>Microconsoles</span></a></li>
+ -->                        </ul>
+                    </nav>
+                    <div class="content-wrap">
+                        <section id="section-line-1">
+                                <div class="row text-left">
+
+
+                            <div class="col-md-12 ">
+
+                              <div class="list-group tab-content">
+                              <a href="#" class="list-group-item" style="border-radius: 0;">
+                                Cras justo odio
+                              </a>
+                              <a href="#" class="list-group-item" style="border-radius: 0;">Dapibus ac facilisis in
+                              </a>
+                              <a href="#" class="list-group-item" style="border-radius: 0;">Morbi leo risus
+                              </a>
+                            </div>
+
+
+                                </div>
+
+                                </div>                            
+                        </section>
+                        <section id="section-line-2">
+                              <div class="row">
+                                    <div class="col-md-12">
+                                    <h1>Section 2</h1>
+                                    </div>
+                                </div> 
+                        </section>
+                        <section id="section-line-3">
+                              <div class="row">
+                                    <div class="col-md-12">
+                                    <h1>Section 3</h1>
+                                    </div>
+                                </div> 
+                        </section>
+                        <!-- <section id="section-line-4">
+                              <div class="row">
+                                    <div class="col-md-12">
+                                    <h1>Section 4</h1>
+                                    </div>
+                                </div> 
+                        </section>
+                        <section id="section-line-5">
+                              <div class="row">
+                                    <div class="col-md-12">
+                                    <h1>Section 5</h1>
+                                    </div>
+                                </div> 
+                        </section> -->
+                    </div><!-- /content -->
+                </div><!-- /tabs -->
+            </section>
+                    </div>
+                </div>
+
+
+
                 <div class="row">
 
                     <div class="col-lg-3 col-sm-6">

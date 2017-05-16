@@ -50,3 +50,9 @@ background-color: #bdc3c7;
 .no-capture i{
 	font-size: 50px;
 } 
+
+
+/*** Home Tab styles ****/
+.tab-content a{
+	font-size: 12px;
+}

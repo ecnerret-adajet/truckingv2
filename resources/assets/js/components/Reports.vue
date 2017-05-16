@@ -22,7 +22,7 @@ mounted(){
 },
 
 created(){
-    axios.get('http://172.17.2.88/rfidtrucking/public/getTop')
+    axios.get('http://localhost/truckingv2/public/getTop')
     .then(response => this.donutData = response.data);
 
 }

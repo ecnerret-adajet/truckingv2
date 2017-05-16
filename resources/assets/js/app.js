@@ -8,6 +8,7 @@
 
 
 require('./bootstrap');
+import router from './routes';
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -22,7 +23,8 @@ Vue.component('drivers', require('./components/Drivers.vue'));
 // Vue.component('reports', require('./components/Reports.vue'));
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    router
 });
 
 
