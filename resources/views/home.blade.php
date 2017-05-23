@@ -2,55 +2,71 @@
 
 @section('content')
            <div class="container-fluid">
+                <div class="row">
+                   <div class="col-md-12">
+<!--                    <h2 style="margin-top: 0">Dashboard</h2>
+ -->                </div>
+                </div>
 
                 <div class="row">
-                    <div class="col-md-12">
+                <div class="col-md-4 text-center">
+                <span style="text-transform: uppercase;">Today Entries</span><br/>
+                <h2 style="font-weight: bold;">{{$logs->count()}}</h2>
+                </div>
+                   <div class="col-md-4 text-center">
+                <span style="text-transform: uppercase;">Total Drivers</span><br/>
+                <h2 style="font-weight: bold;">{{$all_drivers->count()}}</h2>
+                </div>
+                   <div class="col-md-4 text-center">
+                <span style="text-transform: uppercase;">Total Trucks</span><br/>
+                <h2 style="font-weight: bold;">{{$all_trucks->count()}}</h2>
+                </div>
+                </div>
+
+                <div class="row">                
+                <div class="col-md-12">
+              <bar :labels="['Today Entries','All Drivers','All Trucks']"  :values="[{{$logs->count()}}, {{$all_drivers->count()}}, {{$all_trucks->count()}}  ]">
+              </bar>
+
                 <section>
                 <div class="tabs tabs-style-line">
                     <nav>
                         <ul>
-                            <li><a href="#section-line-1"><span>Within the plant</span></a></li>
-                            <li><a href="#section-line-2"><span>In transit trucks</span></a></li>
-                            <li><a href="#section-line-3"><span>All Entires</span></a></li>
-<!--                             <li><a href="#section-line-4"><span>Nintendo Wii U</span></a></li>
-                            <li><a href="#section-line-5"><span>Microconsoles</span></a></li>
+                            <li><a href="#section-line-1"><span> Latest Logs</span></a></li>
+                            <li><a href="#section-line-2"><span>In plant trucks</span></a></li>
+                            <li><a href="#section-line-3"><span>In transit trucks</span></a></li>
+                            <!-- <li><a href="#section-line-5"><span>Microconsoles</span></a></li>
  -->                        </ul>
                     </nav>
                     <div class="content-wrap">
-                        <section id="section-line-1">
-                                <div class="row text-left">
+                    <section id="section-line-1">
+                            <div class="row text-left">
+                            <div class="col-md-12">
+
+                              @include('component.latest')
 
 
-                            <div class="col-md-12 ">
-
-                              <div class="list-group tab-content">
-                              <a href="#" class="list-group-item" style="border-radius: 0;">
-                                Cras justo odio
-                              </a>
-                              <a href="#" class="list-group-item" style="border-radius: 0;">Dapibus ac facilisis in
-                              </a>
-                              <a href="#" class="list-group-item" style="border-radius: 0;">Morbi leo risus
-                              </a>
                             </div>
-
-
-                                </div>
-
-                                </div>                            
+                            </div><!-- end row -->                            
                         </section>
                         <section id="section-line-2">
-                              <div class="row">
-                                    <div class="col-md-12">
-                                    <h1>Section 2</h1>
-                                    </div>
-                                </div> 
+                        <div class="row text-left">
+                            <div class="col-md-12">
+                         
+                              @include('component.inplant')
+                             
+                              </div><!--- end col-md-12 -->
+                        </div><!-- end row -->
                         </section>
                         <section id="section-line-3">
-                              <div class="row">
-                                    <div class="col-md-12">
-                                    <h1>Section 3</h1>
-                                    </div>
-                                </div> 
+                              <div class="row text-left">
+                            <div class="col-md-12">
+                         
+
+                            @include('component.transit')
+                             
+                            </div><!--- end col-md-12 -->
+                           </div><!-- end row -->
                         </section>
                         <!-- <section id="section-line-4">
                               <div class="row">
@@ -70,232 +86,138 @@
                 </div><!-- /tabs -->
             </section>
                     </div>
-                </div>
+                </div><!-- end row -->
+            </div>
 
 
-
-                <div class="row">
-
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card">
-                            <div class="content">
-                                <div class="row"> 
-                                    <div class="col-md-12 text-center">
-                                    <i style="font-size: 70px;
-                                            color: #a9a9a9;
-                                             " class="pe-7s-gleam"></i>
-                                        <div class="">
-                                        <p>{{$total_today->count()}} Trucks Entered</p>
-                                        </div>
-                                        <a class="btn btn-primary btn-sm" href="{{url('/overtime')}}">
-                                        View all trucks
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="footer text-center" style="padding-top: 20px;">
-                                <hr/>
-                                   <small class="stats" style="text-transform: uppercase; font-size: 10px;">
-                                        <i class="ti-timer"></i> As of today
-                                  </small>
-                                </div>
-                            </div>
+        @foreach($today_log as $today)
+                  <!-- Mark as don in transfer truck log -->
+                  <div class="modal fade driverdetails{{$today->LogID}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display: none;">
+                    <div class="modal-dialog" style="width: 900px">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title">Shipment Details</h4>
                         </div>
-                    </div>
-
-
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card">
-                            <div class="content">
-                                <div class="row">
-                                    <div class="col-md-12 text-center">
-                                    <i style="font-size: 70px;
-                                            color: #a9a9a9;
-                                             " class="pe-7s-id"></i>
-                                        <div class="">
-                                        <p>{{$drivers->count()}} Total Drivers</p>
-                                        </div>
-
-                                        @role(('Administrator'))
-                                        <a class="btn btn-primary btn-sm" href="{{url('/drivers')}}">
-                                        View all drivers
-                                        </a>
-                                        @endrole
-                                    </div>
-                                </div>
-                                <div class="footer text-center" style="padding-top: 20px;">
-                                <hr/>
-                                   <small class="stats" style="text-transform: uppercase; font-size: 10px;">
-                                        <i class="ti-timer"></i> As of today
-                                  </small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card">
-                            <div class="content">
-                                <div class="row">
-                                    <div class="col-md-12 text-center">
-                                    <i style="font-size: 70px;
-                                            color: #a9a9a9;
-                                             " class="pe-7s-helm"></i>
-                                        <div class="">
-                                        <p>{{$trucks->count()}} Total Trucks</p>
-                                        </div>
-
-                                        @role(('Administrator'))
-                                        <a class="btn btn-primary btn-sm" href="{{url('/trucks')}}">
-                                        View all trucks
-                                        </a>
-                                        @endrole
-                                    </div>
-                                </div>
-                                <div class="footer text-center" style="padding-top: 20px;">
-                                <hr/>
-                                   <small class="stats" style="text-transform: uppercase; font-size: 10px;">
-                                        <i class="ti-timer"></i> As of today
-                                  </small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card">
-                            <div class="content">
-                                <div class="row">
-                                    <div class="col-md-12 text-center">
-                                    <i style="font-size: 70px;
-                                            color: #a9a9a9;
-                                             " class="pe-7s-users"></i>
-                                        <div class="">
-                                        <p>0 Guest Trucks</p>
-                                        </div>
-                                        @role(('Administrator'))
-                                        <a class="btn btn-primary btn-sm" href="{{url('/guests')}}">
-                                        View all guests
-                                        </a>
-                                        @endrole
-                                    </div>
-                                </div>
-                                <div class="footer text-center" style="padding-top: 20px;">
-                                <hr/>
-                                   <small class="stats" style="text-transform: uppercase; font-size: 10px;">
-                                        <i class="ti-timer"></i> As of today
-                                  </small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                </div>
-
-
-
-                <div class="row">
-                <!-- table  -->
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title">Daily Monitoring
-
-                                <div class="pull-right btn-group">
-                                  <a href="{{url('/plant-in')}}" class="btn btn-success"> Time in plant</a>
-                                  <a href="{{url('/plant-out')}}" class="btn btn-warning"> Time out plant</a>
-                                  <a href="{{url('/overtime')}}" class="btn btn-danger">Report Entries</a>
-                                </div>
-                                  
-                                </h4>
-                                <p class="category">Total trucks entered this day</p>
-
-
-                            </div>
-                            <div class="content table-responsive table-full-width" id="feed">
-
-                            <table class="table ">
-                                <thead>
-                                <tr>
-                                    <th colspan="3">Driver Information</th>
-                              
-                                    <th>IN</th>
-                                    <th>OUT</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-
-
-
-
-                                 @foreach($today_log as $today)
-                                <tr>
-                                    <td rowspan="4">
-            
-            
+                        <div class="modal-body">
+                            <div class="row details-content">
+                                  <div class="col-md-2">
                                     @foreach($today->drivers as $driver)
-                                    <img class="img-responsive img-circle" src="{{ str_replace( 'public/','', asset('/storage/app/'.$driver->avatar))}}" style="display:block; margin: 10px auto; width: 100px; height: auto;">
+                                    <img class="img-responsive" src="{{ str_replace( 'public/','', asset('/storage/app/'.$driver->avatar))}}">
                                     @endforeach
-
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                    <div class="row">
-                                    <div class="col-md-6">
-                                     <span style="text-transform: uppercase; font-size: 13ppx; color: #c5c5c5;">Driver Name </span><br/>
-                                     
-                                     @foreach($today->drivers as $driver)
-                                                    <a href="{{url('/drivers/'.$driver->id)}}"> 
+                                  </div>
+                                  <div class="col-md-10">
+                                      <div class="row">
+                                        <div class="col-md-4">
+                                           <span>Driver Name </span><br/>
+                                               @foreach($today->drivers as $driver)
                                                     {{  $driver->name }}
-                                                    </a>
                                             @endforeach 
-                                    </div>
-                                    <div class="col-md-6">
-                                    <span style="text-transform: uppercase; font-size: 13ppx; color: #c5c5c5;">Plate Number</span><br/>
-                                    @foreach($today->drivers as $driver)
+                                        </div>
+                                               <div class="col-md-4">
+                                    <span>Plate Number</span><br/>
+                                         @foreach($today->drivers as $driver)
                                                     @foreach($driver->trucks as $truck)
                                                         {{$truck->plate_number}}
                                                     @endforeach
                                             @endforeach
                                     </div>
-                                    </div>
-
-                                    <div class="row" style="margin-top: 10px;">
-                                    <div class="col-md-12">
-                                    <span style="text-transform: uppercase; font-size: 13ppx; color: #c5c5c5;">Operator</span><br/>
-                                      @foreach($today->drivers as $driver)
+                                        <div class="col-md-4">
+                                    <span>OPERATOR</span><br/>
+                                         @foreach($today->drivers as $driver)
                                                         @foreach($driver->haulers as $hauler)
                                                             {{$hauler->name}}
                                                         @endforeach
-                                            @endforeach 
+                                            @endforeach
                                     </div>
-                                    </div>
-                                    </div>
-                                   
+                     
+                                      </div><!-- end row -->
 
-                                    
-                                    <td rowspan="3" colspan="2" width="20%">
 
-                                        <?php $final_in = ''; ?>
+                                     <div class="row" style="margin-top: 10px;">
+                                    <div class="col-md-4">
+                                     <span>TIME IN </span><br/>
+                                                        <?php $final_in = ''; ?>
                                         @forelse($all_in->where('CardholderID', '==', $today->CardholderID)->take(1) as $in)
+                                            {{ $final_in = date('Y-m-d h:i:s A', strtotime($in->LocalTime))}}
+                                        @empty
+                                            NO IN
+                                        @endforelse             
+                                    </div>
+                                    <div class="col-md-4">
+                                    <span>TIME OUT</span><br/>
+                               @foreach($all_out->where('CardholderID', '==', $today->CardholderID)->take(1) as $out)
+                                                    <!-- @if( contains(date('Y-m-d h:i:s A', strtotime($out->LocalTime)), 'AM' )) -->
+
+                                                
+                                                    {{ $final_out = date('Y-m-d h:i:s A', strtotime($out->LocalTime))}} 
+                                       
+                                                    <!-- @endif -->
+
+
+                                             @endforeach 
+                                    </div>
+                                  <div class="col-md-4">
+                                    <span>TIME BETWEEN</span><br/>
+                             @forelse($all_out->where('CardholderID', '==', $today->CardholderID)->take(1) as $out )
+                                    @forelse($all_in->where('CardholderID', '==', $today->CardholderID)->take(1) as $in )
+                                                {{  $in->LocalTime->diffInHours($out->LocalTime)}} Hour(s)
+                                            @empty
+                                                NO PAIRED TIME IN
+                                            @endforelse
+                                         @empty
+                                              NO PAIRED TIME OUT
+                                         @endforelse
+                                    </div>
+
+                            
+                                    </div><!-- end row -->
+
+                                    <div class="row" style="margin-top: 10px;">
+                                         <div class="col-md-4">
+                                    <span>Customer</span><br/>
+                                      @foreach($today->customers as $customer)
+                                      {{  $customer->name }}<br/>
+                                      @endforeach
+                                    </div>
+
+
+                                    <div class="col-md-4">
+                                    <span>ADDRESS</span><br/>
+                                      @foreach($today->customers as $customer)
+                                        {{$customer->address}}
+                                      @endforeach
+                                    </div>
+
+
+                                      <div class="col-md-4">
+                                    <span>COMMODITY</span><br/>
+                                      @foreach($today->customers as $customer)
+                                        {{$customer->commodity}}
+                                      @endforeach
+                                    </div>
+
+                                    </div><!-- end row -->
+
+
+                                  </div>
+                            </div><!-- end row -->
+
+                            <hr/>
+                            <div class="row details-content" style="margin-top: 10px;">
+                            <div class="col-md-6">
+                             <span>TIME IN</span><br/>
+
+                  
+                                @forelse($all_in->where('CardholderID', '==', $today->CardholderID)->take(1) as $in)
                                        
                                              <a href="http://172.17.2.25/ASWeb/bin/GetImage.srf?From=IMG&Filename=AC.{{date('Ymd',strtotime($in->LocalTime))}}.0000{{$in->LogID}}-1.jpg" data-lightbox="{{$today->LogID}}" data-title="{{$driver->name}} - TIME IN - {{  date('Y-m-d h:i:s A', strtotime($in->LocalTime))}}">
                                                 <img class="img-responsive" src="http://172.17.2.25/ASWeb/bin/GetImage.srf?From=IMG&Filename=AC.{{date('Ymd',strtotime($in->LocalTime))}}.0000{{$in->LogID}}-1.jpg">
                                                 </a>
+
                                        
                                         @empty
-                                             @forelse($all_in_2->where('CardholderID', '==', $today->CardholderID)->take(1) as $in)
-
-
-                                                <a href="http://172.17.2.25/ASWeb/bin/GetImage.srf?From=IMG&Filename=AC.{{date('Ymd',strtotime($in->LocalTime))}}.0000{{$in->LogID}}-1.jpg" data-lightbox="{{$today->LogID}}" data-title="{{$driver->name}} - TIME IN - {{  date('Y-m-d h:i:s A', strtotime($in->LocalTime))}}">
-                                                <img class="img-responsive" src="http://172.17.2.25/ASWeb/bin/GetImage.srf?From=IMG&Filename=AC.{{date('Ymd',strtotime($in->LocalTime))}}.0000{{$in->LogID}}-1.jpg">
-                                                </a>
-                                            @empty
+                                           
 
                                     <div class="no-capture">
 
@@ -304,23 +226,16 @@
                                        
                                        </div> 
 
-                                            @endforelse  
                                         @endforelse   
 
+                            
 
-                                     
-
-
-                                    </td>
-                                    <td rowspan="3" colspan="2" width="20%">
-
-
-
-                                        @forelse($all_out->where('CardholderID', '==', $today->CardholderID)->take(1) as $out)
-
-                                        
-                                                <a href="http://172.17.2.25/ASWeb/bin/GetImage.srf?From=IMG&Filename=AC.{{date('Ymd',strtotime($out->LocalTime))}}.0000{{$out->LogID}}-2.jpg" data-lightbox="{{$today->LogID}}" data-title="{{$driver->name}} - TIME OUT - {{  date('Y-m-d h:i:s A', strtotime($out->LocalTime))}}">
-                                                <img class="img-responsive" src="http://172.17.2.25/ASWeb/bin/GetImage.srf?From=IMG&Filename=AC.{{date('Ymd',strtotime($out->LocalTime))}}.0000{{$out->LogID}}-2.jpg">
+                            </div>
+                            <div class="col-md-6">
+                               <span>TIME OUT</span><br/>
+                                  @forelse($all_out->where('CardholderID', '==', $today->CardholderID)->take(1) as $out)
+                                                <a href="http://172.17.2.25/ASWeb/bin/GetImage.srf?From=IMG&Filename=AC.{{date('Ymd',strtotime($out->LocalTime.' - 24 hours'))}}.0000{{$out->LogID}}-2.jpg" data-lightbox="{{$today->LogID}}" data-title="{{$driver->name}} - TIME OUT - {{  date('Y-m-d h:i:s A', strtotime($out->LocalTime))}}">
+                                                <img class="img-responsive" src="http://172.17.2.25/ASWeb/bin/GetImage.srf?From=IMG&Filename=AC.{{date('Ymd',strtotime($out->LocalTime.' - 24 hours'))}}.0000{{$out->LogID}}-2.jpg">
                                                 </a>
 
                                         @empty
@@ -328,104 +243,36 @@
                                         <div class="no-capture">
 
                                        <i class="pe-7s-timer"></i>
-                                       <p>NO TIME OUT</p>
+                                       <p>NO TIME OUT YET</p>
                                        
                                        </div> 
 
 
                                         @endforelse 
 
-                                    </td>
-
-
-
-
-
-
-
-                                </tr>
-                                 <tr>
-                                    <td>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <span style="text-transform: uppercase; font-size: 13ppx; color: #c5c5c5;">IN</span><br/>
-
-                                           
-
-                                              
-
-                                    <?php $final_in = ''; ?>
-                                        @forelse($all_in->where('CardholderID', '==', $today->CardholderID)->take(1) as $in)
-                                            <span class="label label-success">{{ $final_in = date('Y-m-d h:i:s A', strtotime($in->LocalTime))}} </span><br/>
-                                        @empty
-                                             @forelse($all_in_2->where('CardholderID', '==', $today->CardholderID)->take(1) as $in)
-                                                <span class="label label-success">{{ $final_in = date('Y-m-d h:i:s A', strtotime($in->LocalTime))}} </span><br/>
-                                            @empty
-                                                NO IN
-                                            @endforelse  
-                                        @endforelse    
-
-
-                                     
-
-                                            
-                                        </div>
-                                        <div class="col-md-6">
-                                        <?php $final_out = ''; ?>
-                                        <span style="text-transform: uppercase; font-size: 13ppx; color: #c5c5c5;">OUT</span><br/>
-                                            @foreach($all_out->where('CardholderID', '==', $today->CardholderID)->take(1) as $out)
-                                                    @if( contains(date('Y-m-d h:i:s A', strtotime($out->LocalTime)), 'AM' ))
-
-                                                
-                                                    <span class="label label-warning">{{ $final_out = date('Y-m-d h:i:s A', strtotime($out->LocalTime))}} </span><br/>
-                                       
-                                                    @endif
-
-
-                                             @endforeach 
-                                        </div>
-                                    </div>
-                                    </td>
-                                    
-                          
-                                </tr>
-                                <tr>
-                                <td>
-
-                                      <div class="row">
-                                    <div class="col-md-12">
-                                    <span style="text-transform: uppercase; font-size: 13ppx; color: #c5c5c5;">TIME BETWEEN</span><br/>
-                                      @forelse($all_out->where('CardholderID', '==', $today->CardholderID)->take(1) as $out )
-                                         	@forelse($all_in->where('CardholderID', '==', $today->CardholderID)->take(1) as $in )
-                                       			{{  $in->LocalTime->diffInHours($out->LocalTime)}} Hour(s)
-                                       		@empty
-                                       			NO PAIRED TIME IN
-                                       		@endforelse
-                                         @empty
-			                                  NO PAIRED TIME OUT
-                                         @endforelse
-                                    </div>
-                                    </div>
-                                </td>
-                                </tr>
-                                @endforeach
-
-                                
-                            
-                                </tbody>
-                            </table>
-                     
-                  
-
-                            <hr/>
-
-
-
-
 
                             </div>
+                            </div><!-- end row -->
                         </div>
-                    </div>
-                </div><!-- end row -->
-            </div>
+                        <div class="modal-footer">
+                          @foreach($today->drivers->take(1) as $driver)
+                          <a type="button" href="{{url('/drivers/'.$driver->id)}}" class="btn btn-primary pull-left">View History</a>
+                          @endforeach
+                          <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+                        </div>
+               
+
+                
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->   
+
+              @endforeach
+
+
+
+       
+
+
+
 @endsection

@@ -185,10 +185,6 @@
                             <hr/>
 
 
-                            <drivers  :data="drivers" 
-                                      :columns="gridColumns"
-                                      :filter-key="searchQuery">
-                            </drivers>
 
 
                               <table class="table table-striped">
@@ -201,6 +197,7 @@
                                         <th>Substitute</th>
                                         <th>Operator</th>
                                         <th>Driver #</th>
+                                        <th>Card #</th>
                                         
                                     </thead>
                                     <tbody>
@@ -245,6 +242,9 @@
                                             </td>
                                             <td>
                                             {{$driver->cardholder->Name}}                                            
+                                            </td>
+                                            <td>
+                                            {{$driver->cardholder_id}}
                                             </td>
 
                                         </tr>

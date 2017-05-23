@@ -37,9 +37,7 @@
                                 <tbody>
                                 
                                     @foreach($total_out as $today)
-                                      @forelse($all_out->where('CardholderID', '==', $today->CardholderID)->take(1) as $out)
-                             
-
+                                      @if($all_out->where('CardholderID', '==', $today->CardholderID)->count() > 0)
                                    
                                     <tr class="">
                                         <td>
@@ -83,9 +81,7 @@
 
                                         </td>                               
                                     </tr>    
-                                       @empty
-
-                                    @endforelse                            
+                                       @endif                          
                                     @endforeach                            
                                 </tbody>
                             </table>

@@ -32,7 +32,9 @@ Route::post('/transfers/remove/{id}','TransfersController@removeTransfer');
 
 Route::resource('/haulers','HaulersController');
 
+// Route setup for Trucks
 Route::resource('/trucks','TrucksController');
+Route::get('/getTrucks','TrucksController@getTrucks');
 Route::post('/trucks/inactive/{id}', 'TrucksController@changeToInactive');
 Route::post('/trucks/active/{id}', 'TrucksController@changeToActive');
 
@@ -67,7 +69,10 @@ Route::get('/overtime','logsController@overtime');
 Route::get('/report','logsController@getReport');
 
 //Search results JSON
-
+//customer test
+Route::get('/testCustomer','LogsController@testCustomer');
+Route::get('/testLogs','LogsController@testLogs');
+Route::get('/getTimeIn','LogsController@getTimeIn');
 
 });
 

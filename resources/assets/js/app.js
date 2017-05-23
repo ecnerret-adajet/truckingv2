@@ -8,7 +8,7 @@
 
 
 require('./bootstrap');
-import router from './routes';
+// import router from './routes';
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -18,14 +18,20 @@ import router from './routes';
 
 Vue.component('example', require('./components/Example.vue'));
 Vue.component('chart', require('./components/Chart.vue'));
+Vue.component('bar', require('./components/Bar.vue'));
 Vue.component('drivers', require('./components/Drivers.vue'));
 // Vue.component('logs', require('./components/Logs.vue'));
 // Vue.component('reports', require('./components/Reports.vue'));
 
 const app = new Vue({
-    el: '#app',
-    router
+    el: '#app'
 });
+
+// To activate vue router
+// const app = new Vue({
+//     el: '#app',
+//     router
+// });
 
 
 

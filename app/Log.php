@@ -20,6 +20,11 @@ class Log extends Model
     	return $this->hasMany('App\Driver','cardholder_id','CardholderID');
     }
 
+    public function customers()
+    {
+        return $this->hasMany('App\Customer','log_ID','LogID');
+    }
+
 
     
 

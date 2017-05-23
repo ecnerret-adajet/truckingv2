@@ -16,10 +16,10 @@ require('bootstrap-sass');
  * using reactive data binding and reusable components. Vue's API is clean
  * and simple, leaving you to focus on building your next great project.
  */
-
+ 
 window.Vue = require('vue');
-window.VueRouter = require('vue-router');
-Vue.use(VueRouter);
+// import VueRouter from 'vue-router';
+// Vue.use(VueRouter);
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -40,7 +40,6 @@ window.axios.defaults.headers.common = {
  * allows your team to easily build robust real-time web applications.
  */
 
-// window.moment  = require('moment');
 
 // import Echo from "laravel-echo"
 // window.Pusher = require('pusher-js');

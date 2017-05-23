@@ -43,7 +43,7 @@ export default{
             animateScale:true
         },
         legend: {
-            position: 'bottom'
+            position: 'right'
         }
        
     }

@@ -151,7 +151,7 @@ class DriversController extends Controller
         $this->validate($request, [
                 // 'avatar' => 'required',
                 'name' => 'required|max:255|unique:drivers',
-                'driver_number' => 'required|max:255|unique:drivers',
+                'driver_number' => 'required|integer|max:255|unique:drivers',
                 'cardholder_list' => 'required',
                 'hauler_list' => 'required',
                 'truck_list' => 'required',
@@ -161,7 +161,10 @@ class DriversController extends Controller
 
         $plate = $request->input('cardholder_list');
         $driver = Auth::user()->drivers()->create($request->all());
-        // $driver->avatar = $request->file('avatar')->store('drivers');
+        
+         if($request->hasFile('avatar')){
+            $driver->avatar = $request->file('avatar')->store('drivers');
+        }  
         $driver->cardholder()->associate($plate);
         $driver->save();
 

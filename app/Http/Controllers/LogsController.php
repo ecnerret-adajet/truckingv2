@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Collection;
 use App\User;
 use App\Log;
 use App\Card;
@@ -12,6 +13,7 @@ use Carbon\Carbon;
 use App\Driver;
 use App\Truck;
 use App\Hauler;
+use App\Customer;
 use \Venturecraft\Revisionable\Revision;
 use DB;
 
@@ -24,93 +26,52 @@ class LogsController extends Controller
 
     /**
     *
-    *Display all system logs
-    *
-    */
-    public function systemLogs()
-    {
-
-        $values = Log::select('CardholderID', \DB::raw('count(*) as value'))
-        ->where('CardholderID', '>=', 1)->whereYear('LocalTime', '=', 2017)
-        ->groupBy('CardholderID')
-        ->orderBy('value', 'desc')
-        ->take(5)
-        ->pluck('CardholderID');
-
-         $drivers = Driver::whereIn('cardholder_id',$values)->pluck('name');
-
-        $top_driver = Log::
-        select(DB::raw('CardholderID as label'), DB::raw('count(*) as value'))
-        ->where('CardholderID', '>=', 1)->whereYear('LocalTime', '=', Carbon::now()->year)
-        ->groupBy('CardholderID')
-        ->orderBy('value', 'desc')
-        ->take(3)
-        ->get();
-       
-
-        return view('logs.index', compact('values','drivers','top_driver'));
-    }
-
-
-
-    /**
-    *
     *Displays all basic dashboard figures
     */
     public function index()
     {
-
         /**
         *
         * Query on the daily monitoring
         *
         */
-
     	$logs = Log::where('CardholderID', '>=', 1)
                     ->whereDate('LocalTime', Carbon::now())
                     ->orderBy('LocalTime','DESC')->get();
-
         $all_out = Log::where('CardholderID', '>=', 1)
                     ->where('Direction', 2)
                     ->whereDate('LocalTime',  Carbon::now())
                     ->orderBy('LocalTime','DESC')->get();
-
         $all_in = Log::where('CardholderID', '>=', 1)
                     ->where('Direction', 1)
                     ->whereBetween('LocalTime', [Carbon::now()->subDays(1), Carbon::now()])
                     ->orderBy('LocalTime','DESC')->get();
+        $today_in = Log::where('CardholderID', '>=', 1)
+                    ->where('Direction', 1)
+                    ->whereDate('LocalTime', Carbon::now())
+                    ->orderBy('LocalTime','DESC')
+                    ->get();
+        $base_time = Carbon::now();         
+        $today_log = $logs->unique('CardholderID')->take(15);
+        // count total in
+        $total_in = $today_in->unique('CardholderID');
+        // count total trucks with time in and out
+        $total_out = $all_in->unique('CardholderID'); 
 
-        $all_in_2 = Log::where('CardholderID', '>=', 1)
-			->where('Direction', 1)
-			->whereDate('LocalTime',   Carbon::now())
-			->orderBy('LocalTime','DESC')->get();
-
-
-        $today_log = $logs->unique('CardholderID')->take(3);
-        $total_today = $logs->unique('CardholderID');
-        $total_in = $all_in_2->unique('CardholderID');
-
-
-        $cardholders = Cardholder::with('card')->where('CardholderID', '>=', 1)->get();
-    	$cards = Card::all();
-
-        $drivers = Driver::all();
-        $trucks = Truck::all();
-        $base_time = Carbon::now();
-
-
+        $all_drivers = Driver::all();
+        $all_trucks = Truck::all();
+           
         return view('home', compact('logs',
-        'cardholders',
-        'cards',
-        'drivers',
-        'trucks',
         'today_log',
+        'all_drivers',
+        'all_trucks',
+        'url',
         'all_out',
+        'all_in_2 ',
         'all_in',
-        'base_time',
-        'all_in_2',
         'total_in',
-        'total_today'));
+        'total_out',
+        'base_time'));
         }
 
 
@@ -122,25 +83,25 @@ class LogsController extends Controller
         */
         public function inPlant(){
 
-        $logs = Log::where('CardholderID', '>=', 1)
+
+        $all_out = Log::where('CardholderID', '>=', 1)
+                    ->where('Direction', 2)
                     ->whereDate('LocalTime', Carbon::now())
                     ->orderBy('LocalTime','DESC')->get();
 
-         $all_out = Log::where('CardholderID', '>=', 1)
-                    ->where('Direction', '!=', 1)
-                    ->whereDate('LocalTime', Carbon::now())
-                    ->orderBy('LocalTime','DESC')->get();
 
         $all_in = Log::where('CardholderID', '>=', 1)
                     ->where('Direction', 1)
                     ->whereDate('LocalTime', Carbon::now())
-                    ->orderBy('LocalTime','DESC')->get();
+                    ->orderBy('LocalTime','DESC')
+                    ->get();
 
-        $total_in = $all_in->unique('CardholderID');
+
+    $total_in = $all_in->unique('CardholderID');
 
 
-            return view('logs.in-plant', compact('logs','all_out',
-            'all_in','total_in','gg'));
+    return view('logs.in-plant', compact('all_out',
+    'all_in','total_in','test_in'));
         }
 
 
@@ -148,10 +109,6 @@ class LogsController extends Controller
 
 
         public function outPlant(){
-
-    	$logs = Log::where('CardholderID', '>=', 1)
-                    ->whereDate('LocalTime', Carbon::now())
-                    ->orderBy('LocalTime','DESC')->get();
 
         $all_out = Log::where('CardholderID', '>=', 1)
                     ->where('Direction', '!=', 1)
@@ -163,18 +120,10 @@ class LogsController extends Controller
                     ->whereBetween('LocalTime', [Carbon::now()->subDays(1), Carbon::now()])
                     ->orderBy('LocalTime','DESC')->get();
 
- 
-
-
-
-        $filter = Log::where('CardholderID', '>=', 1)
-                    ->whereDate('LocalTime', Carbon::now())
-                    ->orderBy('LocalTime','DESC')->get();
-
 
         $total_out = $all_in->unique('CardholderID');            
 
-            return view('logs.out-plant', compact('logs','all_out','all_in','total_out','total_today','filter'));
+            return view('logs.out-plant', compact('all_out','all_in','total_out','total_today'));
         }
 
 
@@ -265,6 +214,32 @@ class LogsController extends Controller
             'all_in_2',
             'today_result'));
 
+        }
+
+
+        public function testCustomer(){
+            $customers = Customer::with('Log')->get();
+            return $customers;
+        }
+
+        public function testLogs(){
+          
+
+            $logs = Log::with('drivers','customers','drivers.trucks','drivers.haulers')
+                    ->where('CardholderID', '>=', 1)
+                    ->whereDate('LocalTime', Carbon::now())
+                    ->orderBy('LocalTime','DESC')->get();
+             $today_log = $logs->unique('CardholderID')->take(15);
+
+             return $today_log;
+        }
+
+        public function getTimeIn(){
+             $all_in = Log::where('CardholderID', '>=', 1)
+                    ->where('Direction', 1)
+                    ->whereBetween('LocalTime', [Carbon::now()->subDays(1), Carbon::now()])
+                    ->orderBy('LocalTime','DESC')->get();
+            return $all_in;
         }
 
 

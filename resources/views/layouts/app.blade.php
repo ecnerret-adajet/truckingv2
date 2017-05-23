@@ -29,7 +29,6 @@
     
 </head>
 <body>
-
     <div class="wrapper" id="app">
 
     <div class="sidebar" data-color="azure" data-image="{{asset('/img/sidebar-2.jpg')}}">
@@ -55,6 +54,23 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
+
+                <!-- test vue-js router-->  
+
+                <!-- <router-link tag="li" to="/dashboardx">
+                    <a>
+                    <i class="pe-7s-edit"></i>
+                    <p>Test Dashboard</p>
+                   </a>
+                </router-link>
+
+
+                 <router-link tag="li" to="/truckx">
+                    <a>
+                    <i class="pe-7s-edit"></i>
+                    <p>Test Trucks</p>
+                   </a>
+                </router-link> -->
 
                 @role(('Administrator'))
                 <li>
@@ -215,7 +231,6 @@
 
 
 </div>
-    
 
 
 

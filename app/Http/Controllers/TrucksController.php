@@ -23,6 +23,17 @@ class TrucksController extends Controller
     }
 
     /**
+    *
+    * Get trucks json data
+    *
+    **/
+    public function getTrucks()
+    {
+        $trucks = Truck::orderBy('created_at','desc')->get();
+        return $trucks;
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -83,6 +94,7 @@ class TrucksController extends Controller
     public function update(Request $request, Truck $truck)
     {
         $truck->update($request->all());
+        alert()->success('Truck successfully added', 'Success Alert!');
         return redirect('trucks');
     }
 

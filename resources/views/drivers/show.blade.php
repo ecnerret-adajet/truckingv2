@@ -19,7 +19,7 @@
                                             <div class="col-md-5" style="border-right: 1px solid #ccc;">
                                                     <div class="row" style="padding: 15px;">
                                                     <div class="col-md-5">
-                                                        <img class="img-responsive img-circle" src="{{ str_replace( 'public/','', asset('/storage/app/'.$driver->avatar))}}" style="border: 1px solid #ccc;">
+                                                        <img class="img-responsive" src="{{ str_replace( 'public/','', asset('/storage/app/'.$driver->avatar))}}">
                                                     </div>
                                                     <div class="col-md-7">
                                                     <span class="info-title">Name</span>
@@ -91,6 +91,7 @@
                              <table class="table table-striped">
                                      <thead>
                                         <th>Plate Number</th>
+                                        <th>Cardholder #</th>
                                         <th>Direction</th>
                                         <th>Time</th>
                                     </thead>
@@ -105,6 +106,11 @@
                                                         {{$truck->plate_number}}
                                                     @endforeach
                                             @endforeach  
+                                            </td>
+                                            <td>
+                                           @foreach($log->drivers as $driver)
+                                            {{$driver->cardholder_id}}
+                                           @endforeach
                                             </td>
                                             <td>
                                            {{ $log->Direction == 1 ? 'IN' : 'OUT' }}
