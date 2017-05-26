@@ -47,4 +47,14 @@ class User extends Authenticatable
         return $this->roles->pluck('id')->all();
     }
 
+    /**
+    *
+    *get the associated user from monitor database
+    *
+    */
+    public function monitors(){
+        return $this->hasMany('App\Monitor');
+    }
+
+
 }

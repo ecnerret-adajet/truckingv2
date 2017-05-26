@@ -109,7 +109,7 @@
                                             :values="{{ $values }}"
                                         ></chart>
                                 
-                                        {{-- <table class="table">
+                                       <!--  <table class="table">
                                             <thead>
                                             <tr>
                                             <th>Driver Name</th>
@@ -131,7 +131,7 @@
                                                 
                                                 </tr>
                                             @endforeach
-                                        </table> --}}
+                                        </table>  -->
 
                                     </div>
                                     </div>
@@ -193,11 +193,11 @@
                                          <th class="text-center">Action</th>
                                         <th></th>
                                         <th>Driver Name</th>
+                                        <th>Plate Number</th>
                                         <th>Phone Number</th>
                                         <th>Substitute</th>
                                         <th>Operator</th>
                                         <th>Driver #</th>
-                                        <th>Card #</th>
                                         
                                     </thead>
                                     <tbody>
@@ -228,6 +228,13 @@
                                             <td>
                                               {{$driver->name}}                                    
                                             </td>
+
+                                            <td>
+                                            @foreach($driver->trucks as $truck)
+                                                {{$truck->plate_number}}
+                                            @endforeach
+
+                                            </td>
     
                                             <td>
                                             {{$driver->phone_number}}                                          
@@ -242,9 +249,6 @@
                                             </td>
                                             <td>
                                             {{$driver->cardholder->Name}}                                            
-                                            </td>
-                                            <td>
-                                            {{$driver->cardholder_id}}
                                             </td>
 
                                         </tr>

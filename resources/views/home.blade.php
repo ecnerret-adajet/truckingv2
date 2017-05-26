@@ -8,25 +8,31 @@
  -->                </div>
                 </div>
 
-                <div class="row">
-                <div class="col-md-4 text-center">
-                <span style="text-transform: uppercase;">Today Entries</span><br/>
-                <h2 style="font-weight: bold;">{{$logs->count()}}</h2>
+                <div class="row dashboad-figures">
+                <div class="col-md-3 text-center">
+                <span>Entries Today</span><br/>
+                <h2>{{$logs->count()}}</h2>
                 </div>
-                   <div class="col-md-4 text-center">
-                <span style="text-transform: uppercase;">Total Drivers</span><br/>
-                <h2 style="font-weight: bold;">{{$all_drivers->count()}}</h2>
+                   <div class="col-md-3 text-center">
+                <span>Total Drivers</span><br/>
+                <h2>{{$all_drivers->count()}}</h2>
                 </div>
-                   <div class="col-md-4 text-center">
-                <span style="text-transform: uppercase;">Total Trucks</span><br/>
-                <h2 style="font-weight: bold;">{{$all_trucks->count()}}</h2>
+                <div class="col-md-3 text-center">
+                <span>Total Trucks</span><br/>
+                <h2>{{$all_trucks->count()}}</h2>
+                </div>
+                <div class="col-md-3 text-center">
+                <span>Total Haulers</span><br/>
+                <h2>{{$all_haulers->count()}}</h2>
                 </div>
                 </div>
 
                 <div class="row">                
                 <div class="col-md-12">
-              <bar :labels="['Today Entries','All Drivers','All Trucks']"  :values="[{{$logs->count()}}, {{$all_drivers->count()}}, {{$all_trucks->count()}}  ]">
-              </bar>
+
+
+             <!--  <bar :labels="['Today Entries','All Drivers','All Trucks']"  :values="[{{$logs->count()}}, {{$all_drivers->count()}}, {{$all_trucks->count()}}  ]">
+              </bar> -->
 
                 <section>
                 <div class="tabs tabs-style-line">

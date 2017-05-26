@@ -25,10 +25,6 @@ class Log extends Model
         return $this->hasMany('App\Customer','log_ID','LogID');
     }
 
-
-    
-
-
     public function getLocalTimeAttribute($date){
         return Carbon::parse($date);
     }

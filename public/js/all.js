@@ -70374,7 +70374,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "myChart",
       "width": "300",
-      "height": "300"
+      "height": "100"
     }
   })
 },staticRenderFns: []}

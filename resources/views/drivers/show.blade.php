@@ -94,6 +94,7 @@
                                         <th>Cardholder #</th>
                                         <th>Direction</th>
                                         <th>Time</th>
+                                        <th>Customer</th>
                                     </thead>
                                     <tbody>
 
@@ -117,6 +118,11 @@
                                             </td>
                                             <td>
                                          {{  date('Y-m-d h:i:s A', strtotime($log->LocalTime))}}
+                                            </td>
+                                            <td>
+                                              @foreach($log->customers as $customer)
+                                                {{$customer->name}}
+                                              @endforeach
                                             </td>
                                         </tr>
                                     @endforeach

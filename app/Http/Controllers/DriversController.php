@@ -185,7 +185,8 @@ class DriversController extends Controller
      */
     public function show(Driver $driver)
     {
-        $logs = Log::where('CardholderID', '=', $driver->cardholder->CardholderID)
+        $logs = Log::with('customers')
+                    ->where('CardholderID', '=', $driver->cardholder->CardholderID)
                     ->orderBy('LocalTime','DESC')
                     ->get();  
 

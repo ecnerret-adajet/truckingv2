@@ -51,6 +51,8 @@ Route::get('/getLogs','ReportsController@getLog');
 Route::get('/getIns','ReportsController@getIn');
 Route::get('/getOuts','ReportsController@getOut');
 Route::get('/getDrivers','ReportsController@getDriver');
+Route::get('/summary','ReportsController@getSummary');
+Route::get('/generate','ReportsController@generateReport');
 /** END GET ALL JSON DATA **/
 
 
@@ -62,7 +64,7 @@ Route::get('/getDrivers', 'DriversController@getDrivers');
 
 
 //logs route setup
-Route::get('/systemlog','logsController@systemLogs');
+// Route::get('/systemlog','logsController@systemLogs');
 Route::get('/plant-in','logsController@inPlant');
 Route::get('/plant-out','logsController@outPlant');
 Route::get('/overtime','logsController@overtime');

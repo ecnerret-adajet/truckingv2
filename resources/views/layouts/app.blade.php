@@ -31,7 +31,7 @@
 <body>
     <div class="wrapper" id="app">
 
-    <div class="sidebar" data-color="azure" data-image="{{asset('/img/sidebar-2.jpg')}}">
+    <div class="sidebar" data-color="red" data-image="{{asset('/img/sidebar-2.jpg')}}">
 
     <!--
 
@@ -254,6 +254,8 @@
 
             })();
     </script>
+
+
 
 
    

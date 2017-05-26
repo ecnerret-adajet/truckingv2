@@ -9,6 +9,8 @@ use Carbon\Carbon;
 use App\Log;
 use App\Truck;
 use App\Driver;
+use App\Hauler;
+use App\Customer;
 use DB;
 
 
@@ -102,6 +104,56 @@ class ReportsController extends Controller
 			->get();
 		
 		return \Response::json($drivers);
+	}
+
+	public function getSummary(){
+		$haulers = Hauler::pluck('name','id');
+
+		 $logs = Log::where('CardholderID', '>=', 1)
+        ->whereDate('LocalTime', '>=', Carbon::now())
+        ->orderBy('LocalTime','DESC')->get();
+        $today_result = $logs->unique('CardholderID');
+
+		return view('reports.index', compact('haulers','today_result'));
+	}
+
+	public function generateReport(Request $request){
+
+		$this->validate($request, [
+			'start_date' => 'required',
+			'end_date' => 'required',
+			'hauler_list' => 'required'
+		]);
+
+		$start_date = $request->get('start_date');
+		$end_date = $request->get('end_date');
+		$hauler_list = $request->input('hauler_list');
+
+
+	   	$logs = Log::where('CardholderID', '>=', 1)
+	    ->whereDate('LocalTime', '>=' ,$start_date)
+	    ->whereDate('LocalTime', '<=', $end_date)
+	    ->orderBy('LocalTime','ASC')
+	    ->with(['drivers.haulers' => function($q) use ($hauler_list){
+	   		$q->where('id', $hauler_list);
+	   	}])->get();
+
+	    $today_result = $logs->unique('CardholderID');
+	    $haulers = Hauler::pluck('name','id');
+
+	 
+	    $boom = '';
+
+
+
+	    return view('reports.index', compact('start_date',
+	    	'end_date',
+	    	'hauler_list',
+	    	'logs',
+	    	'haulers',
+	    	'boom',
+	    	'today_result'));
+
 	}
 
 

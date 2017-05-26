@@ -52,7 +52,7 @@ class LogsController extends Controller
                     ->orderBy('LocalTime','DESC')
                     ->get();
         $base_time = Carbon::now();         
-        $today_log = $logs->unique('CardholderID')->take(15);
+        $today_log = $logs->unique('CardholderID')->take(35);
         // count total in
         $total_in = $today_in->unique('CardholderID');
         // count total trucks with time in and out
@@ -60,11 +60,13 @@ class LogsController extends Controller
 
         $all_drivers = Driver::all();
         $all_trucks = Truck::all();
+        $all_haulers = Hauler::all();
            
         return view('home', compact('logs',
         'today_log',
         'all_drivers',
         'all_trucks',
+        'all_haulers',
         'url',
         'all_out',
         'all_in_2 ',
