@@ -24,6 +24,10 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::get('/home', 'LogsController@index');
 
+
+
+
+
 Route::resource('/drivers','DriversController');
 // Route setup for driver temporary transfer
 Route::get('/transfers/create/{id}','TransfersController@create');
@@ -75,6 +79,17 @@ Route::get('/report','logsController@getReport');
 Route::get('/testCustomer','LogsController@testCustomer');
 Route::get('/testLogs','LogsController@testLogs');
 Route::get('/getTimeIn','LogsController@getTimeIn');
+
+
+//Daily Monitoring route setup
+Route::get('/monitors/create/{id}','MonitorsController@create');
+Route::post('/monitors/{id}', 'MonitorsController@store');
+
+
+
+
+
+
 
 });
 

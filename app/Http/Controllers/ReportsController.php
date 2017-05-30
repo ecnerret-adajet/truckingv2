@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Collection;
+use Illuminate\Support\Facades\Route;
 use Carbon\Carbon;
 use App\Log;
 use App\Truck;
@@ -112,9 +113,11 @@ class ReportsController extends Controller
 		 $logs = Log::where('CardholderID', '>=', 1)
         ->whereDate('LocalTime', '>=', Carbon::now())
         ->orderBy('LocalTime','DESC')->get();
-        $today_result = $logs->unique('CardholderID');
 
-		return view('reports.index', compact('haulers','today_result'));
+         $today_result = $logs->unique('CardholderID');
+
+		return view('reports.index', compact('haulers',
+			'today_result'));
 	}
 
 	public function generateReport(Request $request){
@@ -129,7 +132,10 @@ class ReportsController extends Controller
 		$end_date = $request->get('end_date');
 		$hauler_list = $request->input('hauler_list');
 
+		$request->session()->regenerate();
+	
 
+		
 	   	$logs = Log::where('CardholderID', '>=', 1)
 	    ->whereDate('LocalTime', '>=' ,$start_date)
 	    ->whereDate('LocalTime', '<=', $end_date)
@@ -141,14 +147,12 @@ class ReportsController extends Controller
 	    $today_result = $logs->unique('CardholderID');
 	    $haulers = Hauler::pluck('name','id');
 
-	 
-	    $boom = '';
-
-
+	   
 
 	    return view('reports.index', compact('start_date',
 	    	'end_date',
 	    	'hauler_list',
+	    	'value',
 	    	'logs',
 	    	'haulers',
 	    	'boom',

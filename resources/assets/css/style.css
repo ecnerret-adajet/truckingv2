@@ -90,4 +90,9 @@ background-color: #bdc3c7;
 	color: #95a5a6;
 }
 
+/*** OFF BORDER **/
+.off-border{
+	border: 0 ! important;
+}
+
 

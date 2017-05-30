@@ -8,7 +8,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Monitoring Summary</h4>
+                                <h4 class="title">Monitoring Summary </h4>
                                 <p class="category">Truck summary report</p>
                                 <hr/>
                                 
@@ -80,7 +80,9 @@
                                     <thead>
                                     <tr>
                                     <th>Hauler</th>
+                                    <th>Driver</th>
                                     <th>Plate Number</th>
+                                    <th>Action</th>
                                     </tr>
                                     </thead>
 
@@ -94,12 +96,24 @@
                                                </td>
 
                                                <td>
+                                                    {{$driver->name}}
+                                               </td>
+
+                                               <td>
                                                @foreach($driver->trucks as $truck)
                                                     {{$truck->plate_number}}
                                                @endforeach
                                                </td>
+
+                                               <td>
+                                               <a href="{{url('/monitors/create/'.$today->LogID)}}" class="btn btn-sm btn-success">
+                                               Update Status
+                                               </a>
+                                               </td>
                                  
                                         </tr>
+
+
                                                @endforeach
                                             @endforeach
                                     @endforeach
