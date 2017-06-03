@@ -84,6 +84,11 @@ Route::get('/getTimeIn','LogsController@getTimeIn');
 //Daily Monitoring route setup
 Route::get('/monitors/create/{id}','MonitorsController@create');
 Route::post('/monitors/{id}', 'MonitorsController@store');
+Route::get('/monitors/{monitor}/edit/{id}', ['as' => 'monitors.edit', 'uses' => 'MonitorsController@edit']);
+// Route::post('/monitors/{monitor}', ['as' => 'monitors.update', 'uses' => 'MonitorsController@update']);
+Route::resource('monitors', 'MonitorsController', ['except' => [
+    'create', 'store', 'edit'
+]]);
 
 
 

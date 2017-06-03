@@ -24,6 +24,7 @@ class CreateMonitorsTable extends Migration
 
             $table->text('remarks');
             $table->integer('odometer')->unsigned();
+            $table->boolean('marked')->default(1);
 
             $table->foreign('user_id')
                    ->references('id')

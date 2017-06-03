@@ -36,13 +36,16 @@ class MonitorsController extends Controller
 
         $log = Log::with('drivers')->where('LogID',$id)->get();
 
-        $all_out = Log::where('CardholderID', '>=', 1)
-                    ->where('Direction', 2)
-                    ->whereDate('LocalTime',  Carbon::now())
-                    ->orderBy('LocalTime','DESC')->get();
+
+
         $all_in = Log::where('CardholderID', '>=', 1)
                     ->where('Direction', 1)
                     ->whereBetween('LocalTime', [Carbon::now()->subDays(1), Carbon::now()])
+                    ->orderBy('LocalTime','DESC')->get();
+
+        $all_out = Log::where('CardholderID', '>=', 1)
+                    ->where('Direction', 2)
+                    ->whereDate('LocalTime',  Carbon::now())
                     ->orderBy('LocalTime','DESC')->get();
 
         $locations = Location::pluck('code','id');
@@ -90,7 +93,8 @@ class MonitorsController extends Controller
 
        
         alert()->success('Truck status has been successfully updated', 'Success Alert!');
-        return redirect('summary');
+        session_start();
+        return redirect($_SESSION["redirect_lnk"]);
     }
 
     /**
@@ -110,9 +114,33 @@ class MonitorsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Monitor $monitor, $id)
     {
-        //
+        $log = Log::with('drivers')->where('LogID',$id)->get();
+
+        $all_out = Log::where('CardholderID', '>=', 1)
+                    ->where('Direction', 2)
+                    ->whereDate('LocalTime',  Carbon::now())
+                    ->orderBy('LocalTime','DESC')->get();
+        $all_in = Log::where('CardholderID', '>=', 1)
+                    ->where('Direction', 1)
+                    ->whereBetween('LocalTime', [Carbon::now()->subDays(1), Carbon::now()])
+                    ->orderBy('LocalTime','DESC')->get();
+
+        $locations = Location::pluck('code','id');
+        $statuses = Status::pluck('code','id');
+        $durations = Duration::pluck('days','id');
+        $details = Detail::pluck('code','id');
+        
+        return view('monitors.edit', compact('locations',
+            'log',
+            'monitor',
+            'id',
+            'all_out',
+            'all_in',
+            'statuses',
+            'durations',
+            'details'));
     }
 
     /**
@@ -122,9 +150,26 @@ class MonitorsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Monitor $monitor)
     {
-        //
+         $this->validate($request, [
+            'location_list' => 'required',
+            'status_list' => 'required',
+            'duration_list' => 'required',
+            'detail_list' => 'required',
+            'odometer' => 'integer'
+         ]);
+
+         $monitor->update($request->all());
+
+         $monitor->location()->associate($request->input('location_list'))->save();
+        $monitor->status()->associate($request->input('status_list'))->save();
+        $monitor->duration()->associate($request->input('duration_list'))->save();
+        $monitor->detail()->associate($request->input('detail_list'))->save();
+
+        alert()->success('Truck status has been successfully updated', 'Success Alert!');
+        session_start();
+        return redirect($_SESSION["redirect_lnk"]);
     }
 
     /**

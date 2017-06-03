@@ -35,7 +35,7 @@
 <div class="col-md-12">
         <div class="form-group{{ $errors->has('location_list') ? ' has-error' : '' }}">
             <label>Location</label>
-            {!! Form::select('location_list', $locations, null, ['class' => 'form-control border-input', 'placeholder' => 'Truck Location']) !!}
+            {!! Form::select('location_list', $locations, $monitor->location_id, ['class' => 'form-control border-input', 'placeholder' => 'Truck Location']) !!}
 
                 @if ($errors->has('location_list'))
                 <span class="help-block">
@@ -51,7 +51,7 @@
 <div class="col-md-12">
         <div class="form-group{{ $errors->has('status_list') ? ' has-error' : '' }}">
             <label>Status</label>
-            {!! Form::select('status_list', $statuses, null, ['class' => 'form-control border-input', 'placeholder' => 'Trucks Status']) !!}
+            {!! Form::select('status_list', $statuses, $monitor->status_id, ['class' => 'form-control border-input', 'placeholder' => 'Trucks Status']) !!}
 
                 @if ($errors->has('status_list'))
                 <span class="help-block">
@@ -67,7 +67,7 @@
 <div class="col-md-12">
         <div class="form-group{{ $errors->has('duration_list') ? ' has-error' : '' }}">
             <label>Duration</label>
-            {!! Form::select('duration_list', $durations, null, ['class' => 'form-control border-input', 'placeholder' => 'Truck Duration']) !!}
+            {!! Form::select('duration_list', $durations, $monitor->duration_id, ['class' => 'form-control border-input', 'placeholder' => 'Truck Duration']) !!}
 
                 @if ($errors->has('duration_list'))
                 <span class="help-block">
@@ -84,7 +84,7 @@
 <div class="col-md-12">
         <div class="form-group{{ $errors->has('detail_list') ? ' has-error' : '' }}">
             <label>Details</label>
-            {!! Form::select('detail_list', $details, null, ['class' => 'form-control border-input', 'placeholder' => 'Truck Details']) !!}
+            {!! Form::select('detail_list', $details, $monitor->detail_id, ['class' => 'form-control border-input', 'placeholder' => 'Truck Details']) !!}
 
                 @if ($errors->has('detail_list'))
                 <span class="help-block">

@@ -90,6 +90,7 @@
 
                              <table class="table table-striped">
                                      <thead>
+                                        <th>LogID</th>
                                         <th>Plate Number</th>
                                         <th>Cardholder #</th>
                                         <th>Direction</th>
@@ -101,6 +102,7 @@
 
                                     @foreach($logs  as $log)
                                         <tr>
+                                            <td>{{$log->LogID}}</td>
                                             <td>
                                             @foreach($log->drivers as $driver)
                                                     @foreach($driver->trucks as $truck)

@@ -117,7 +117,7 @@ class ReportsController extends Controller
          $today_result = $logs->unique('CardholderID');
 
 		return view('reports.index', compact('haulers',
-			'today_result'));
+			'today_result','logs'));
 	}
 
 	public function generateReport(Request $request){
@@ -132,10 +132,8 @@ class ReportsController extends Controller
 		$end_date = $request->get('end_date');
 		$hauler_list = $request->input('hauler_list');
 
-		$request->session()->regenerate();
+		// $request->session()->regenerate();
 	
-
-		
 	   	$logs = Log::where('CardholderID', '>=', 1)
 	    ->whereDate('LocalTime', '>=' ,$start_date)
 	    ->whereDate('LocalTime', '<=', $end_date)
@@ -147,12 +145,26 @@ class ReportsController extends Controller
 	    $today_result = $logs->unique('CardholderID');
 	    $haulers = Hauler::pluck('name','id');
 
-	   
+   		$trips = Log::where('Direction',1)
+   		->whereDate('LocalTime', '>=' ,$start_date)
+	    ->whereDate('LocalTime', '<=', $end_date)
+	    ->orderBy('LocalTime','ASC')
+	    ->with(['drivers.haulers' => function($q) use ($hauler_list){
+	   		$q->where('id', $hauler_list);
+	   	}])->get();
+
+	 
+	    $between = ( Carbon::parse($start_date)->diffInDays(Carbon::parse($end_date)) == 0 ? 1 : Carbon::parse($start_date)->diffInDays(Carbon::parse($end_date))  );
+	    $col_count = $between + 1;
+
 
 	    return view('reports.index', compact('start_date',
 	    	'end_date',
 	    	'hauler_list',
 	    	'value',
+	    	'between',
+	    	'col_count',
+	    	'trips',
 	    	'logs',
 	    	'haulers',
 	    	'boom',

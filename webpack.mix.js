@@ -29,6 +29,7 @@ mix.styles([
     'resources/assets/css/lightbox.css',
     'resources/assets/css/tabs.css',
     'resources/assets/css/tabstyles.css',
+    // 'resources/assets/css/bootstrap-datepicker.css',
     // 'resources/assets/css/fresh-bootstrap-table.css',
 ], 'public/css/all.css')
 .js([
@@ -46,6 +47,7 @@ mix.styles([
     'resources/assets/js/bootstrap-filestyle.min.js',
     'resources/assets/js/lightbox.js',
     'resources/assets/js/custom.js',
+    // 'resources/assets/js/bootstrap-datepicker.js',
     // 'resources/assets/js/cbpFWTabs.js',
     // 'resources/assets/js/bootstrap-table.js',
     // 'resources/assets/js/jquery-1.10.2.js',

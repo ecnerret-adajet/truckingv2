@@ -8,11 +8,11 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Create Truck Status</h4>
+                                <h4 class="title">Update Truck Status</h4>
                             </div>
+                            <hr/>
 
-                            <hr/> 
-                            <div class="list-group tab-content">
+                              <div class="list-group tab-content">
                             @foreach($log->take(1) as $today)
 
                             <div  class="list-group-item off-border">
@@ -66,23 +66,25 @@
                                     <div class="row" style="margin-top: 10px;">
                                     <div class="col-md-3">
                                      <span>TIME IN </span><br/>
-                                        <?php $final_in = ''; ?>
+                                                        <?php $final_in = ''; ?>
                                         @forelse($all_in->where('CardholderID', '==', $today->CardholderID)->take(1) as $in)
                                             {{ $final_in = date('Y-m-d h:i:s A', strtotime($in->LocalTime))}}
                                         @empty
-                                          <?php $final_in = Carbon\Carbon::now() ?>
-                                            NO IN   
-                                        @endforelse   
+                                            NO IN
+                                        @endforelse             
                                     </div>
                                     <div class="col-md-3">
                                     <span>TIME OUT</span><br/>
-                                      @foreach($all_out->where('CardholderID', '==', $today->CardholderID)->take(1) as $out)
+                               @foreach($all_out->where('CardholderID', '==', $today->CardholderID)->take(1) as $out)
                                                     <!-- @if( contains(date('Y-m-d h:i:s A', strtotime($out->LocalTime)), 'AM' )) -->
-                                                    {{ $final_out = date('Y-m-d h:i:s A', strtotime($out->LocalTime))}}
-                                                    <br/>
-                                                    <!-- @endif -->
-                                             @endforeach 
 
+                                                
+                                                    {{ $final_out = date('Y-m-d h:i:s A', strtotime($out->LocalTime))}} 
+                                       
+                                                    <!-- @endif -->
+
+
+                                             @endforeach 
                                     </div>
                                   <div class="col-md-3">
                                     <span>TIME BETWEEN</span><br/>
@@ -115,14 +117,11 @@
 
                             <hr/> 
 
+
                             <div class="content">
 
-
-
-
-
-       {!! Form::model($monitor = new \App\Monitor, ['url' => '/monitors/'.$id, 'files' => 'true', 'enctype' => 'multipart\form-data']) !!}
-                {!! csrf_field() !!}
+    {!! Form::model($monitor, ['method' => 'PATCH','route' => ['monitors.update', $monitor->id], 'enctype'=>'multipart/form-data']) !!}
+     {!! csrf_field() !!}
 
 
     @include('monitors.form')

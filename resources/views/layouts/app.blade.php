@@ -26,6 +26,13 @@
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
+
+    <script type="text/javascript">
+                $('.input-daterange').datepicker({
+                orientation: "bottom auto",
+                todayHighlight: true
+            });
+    </script>
     
 </head>
 <body>
@@ -107,7 +114,15 @@
                         <p>Live Feed</p>
                     </a>
                 </li>
-                <!-- <li>
+
+                <li>
+                    <a href="{{url('/summary')}}">
+                        <i class="pe-7s-graph2"></i>
+                        <p>Daily Report</p>
+                    </a>
+                </li>
+
+                                <!-- <li>
                     <a href="{{url('/systemlog')}}">
                         <i class="pe-7s-clock"></i>
                         <p>Logs</p>
@@ -254,6 +269,37 @@
 
             })();
     </script>
+
+    <script type="text/javascript">
+           var nowTemp = new Date();
+var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+ 
+var checkin = $('#dpd1').datepicker({
+  onRender: function(date) {
+    return date.valueOf() < now.valueOf() ? 'disabled' : '';
+  }
+}).on('changeDate', function(ev) {
+  if (ev.date.valueOf() > checkout.date.valueOf()) {
+    var newDate = new Date(ev.date)
+    newDate.setDate(newDate.getDate() + 1);
+    checkout.setValue(newDate);
+  }
+  checkin.hide();
+  $('#dpd2')[0].focus();
+}).data('datepicker');
+var checkout = $('#dpd2').datepicker({
+  onRender: function(date) {
+    return date.valueOf() <= checkin.date.valueOf() ? 'disabled' : '';
+  }
+}).on('changeDate', function(ev) {
+  checkout.hide();
+}).data('datepicker');
+    </script>
+
+
+
+
+
 
 
 

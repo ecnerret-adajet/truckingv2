@@ -10,6 +10,8 @@ class Log extends Model
     protected $connection = "sqlsrv_three";
     protected $table = "AccessLog2";
 
+    protected $dates = ['LocalTime'];
+
     public function cardholders()
     {
     	return $this->hasMany('App\Cardholder','CardholderID','CardholderID');
@@ -25,8 +27,15 @@ class Log extends Model
         return $this->hasMany('App\Customer','log_ID','LogID');
     }
 
+    public function monitors()
+    {
+        return $this->hasMany('App\Monitor','log_ID','LogID');
+    }
+
     public function getLocalTimeAttribute($date){
         return Carbon::parse($date);
     }
+
+
    
 }
