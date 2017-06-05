@@ -62,7 +62,7 @@
         </div>
         </div>
 
-
+        @role(('Administrator'))
       <div class="row">
         <div class="col-md-12">
         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
@@ -81,6 +81,7 @@
         </div>
         </div>
         </div>
+        @endrole
 
 
     <div class="text-right">

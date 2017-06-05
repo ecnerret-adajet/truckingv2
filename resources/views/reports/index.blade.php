@@ -146,17 +146,18 @@
                                                     ->whereDate('LocalTime' ,Carbon\Carbon::parse($x))
                                                   ->orderBy('LocalTime','ASC')
                                                   ->get() as $value => $trip)
-
                                                   @if($value == 0)
 
+                                                       
+
                                                             @if(empty($trip->monitors()->count()))
-                                                           <a href="{{url('/monitors/create/'.$today->LogID)}}">
+                                                           <a href="{{url('/monitors/create/'.$trip->LogID)}}">
                                                               <i class="pe-7s-check" style="font-size: 25px; font-weight: bold"></i>
                                                            </a>
                                                            @else
 
                                                            @foreach($trip->monitors as $monitor)
-                                                            <a href="{{url('/monitors/'.$monitor->id.'/edit/'.$today->LogID) }}" class="btn btn-sm btn-danger">
+                                                            <a href="{{url('/monitors/'.$monitor->id.'/edit/'.$trip->LogID) }}" class="btn btn-sm btn-danger">
                                                            Update Status
                                                            </a>
                                                            @endforeach

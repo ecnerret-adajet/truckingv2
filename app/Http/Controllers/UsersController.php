@@ -115,9 +115,6 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {       
-        $this->validate($request, [
-            'roles_list' => 'required',
-        ]);
 
         $input = $request->all();
         if(!empty($input['password'])){ 

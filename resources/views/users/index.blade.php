@@ -26,7 +26,7 @@
                                             color: #a9a9a9;
                                              " class="pe-7s-lock"></i>
                                         <div class="">
-                                        <p>{{$users->count()}} Total Roles</p>
+                                        <p>{{$roles->count()}} Total Roles</p>
                                         </div>
                                         <a class="btn btn-danger btn-sm" data-toggle="modal" data-target=".create-role" href="">
                                         Add New Role

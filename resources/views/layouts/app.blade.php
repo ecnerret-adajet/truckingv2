@@ -122,6 +122,15 @@
                     </a>
                 </li>
 
+ <!--                @role(('Monitoring'))
+                <li>
+                    <a href="{{ url('/users/'.Auth::user()->id.'/edit') }}">
+                       <i class="pe-7s-user"></i>
+                        <p>My Account</p>
+                    </a>
+                </li>
+                @endrole -->
+
                                 <!-- <li>
                     <a href="{{url('/systemlog')}}">
                         <i class="pe-7s-clock"></i>

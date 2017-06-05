@@ -131,8 +131,6 @@ class ReportsController extends Controller
 		$start_date = $request->get('start_date');
 		$end_date = $request->get('end_date');
 		$hauler_list = $request->input('hauler_list');
-
-		// $request->session()->regenerate();
 	
 	   	$logs = Log::where('CardholderID', '>=', 1)
 	    ->whereDate('LocalTime', '>=' ,$start_date)
@@ -150,10 +148,7 @@ class ReportsController extends Controller
 	    ->orderBy('LocalTime','ASC')
 	    ->get();
 
-	    
-
-
-
+	   
 	 
 	    $between = ( Carbon::parse($start_date)->diffInDays(Carbon::parse($end_date)) == 0 ? 1 : Carbon::parse($start_date)->diffInDays(Carbon::parse($end_date))  );
 	    $col_count = $between + 1;
