@@ -79,23 +79,23 @@
 
         <hr/>
 
-
                            <div class="content table-responsive table-full-width" id="feed">
-                                
 
 
-                                <table class="table">
+                                <table class="table table-striped">
                                     <thead>
                                     <tr>
                                     <th>Hauler</th>
                                     <th>Driver</th>
                                     <th>Plate Number</th>
 
+                                    @if(!empty($start_date) && !empty($end_date))
                                    @for ($x = $start_date; $x <= $end_date; $x++)
                                     <th class="text-center">
                                       {{ date('F d', strtotime($x)) }}
                                     </th>
                                     @endfor
+                                    @endif
 
 
                                     </tr>
@@ -105,7 +105,7 @@
                                     @foreach($today_result as $today)
                                         @foreach($today->drivers as $driver)
                                                 @foreach($driver->haulers as $hauler)
-                                        <tr class="{{ $today->monitors()->count() != '' ? 'danger' : ''}}">
+                                        <tr>
                                                 <td>
                                                     {{$hauler->name}}
                                                </td>
@@ -134,24 +134,49 @@
                                                @endforeach
 
                                                @endif
+
+
+
                                                
                                                </td> -->
-
+                                                @if(!empty($start_date) && !empty($end_date))
                                                 @for ($x = $start_date; $x <= $end_date; $x++)
                                                 <td class="text-center">     
+                                                @forelse(App\Log::where('CardholderID',$today->CardholderID)
+                                                    ->whereDate('LocalTime' ,Carbon\Carbon::parse($x))
+                                                  ->orderBy('LocalTime','ASC')
+                                                  ->get() as $value => $trip)
 
-                                                @foreach($trips->where('CardholderID', $today->CardholderID) as $trip)
-                                                  @if(date('Y-m-d',strtotime($trip->LocalTime)) == date('Y-m-d',strtotime(Carbon\Carbon::parse($x))))
+                                                  @if($value == 0)
 
-                                                    {{$trip->LogID }}
-                                                  
+                                                            @if(empty($trip->monitors()->count()))
+                                                           <a href="{{url('/monitors/create/'.$today->LogID)}}">
+                                                              <i class="pe-7s-check" style="font-size: 25px; font-weight: bold"></i>
+                                                           </a>
+                                                           @else
+
+                                                           @foreach($trip->monitors as $monitor)
+                                                            <a href="{{url('/monitors/'.$monitor->id.'/edit/'.$today->LogID) }}" class="btn btn-sm btn-danger">
+                                                           Update Status
+                                                           </a>
+                                                           @endforeach
+
+                                                           @endif
+
                                                   @endif
-                                                @endforeach
+                                                
+                                                @empty
+
+                                                <i class="pe-7s-close-circle" style="font-size: 25px; font-weight: bold; color: red">
+
+                                                @endforelse
+
 
 
 
                                                 </td>
                                                 @endfor
+                                                @endif
                                  
                                         </tr>
 
@@ -162,6 +187,18 @@
                                     </tbody>
 
                                 </table>       
+
+
+                                <div class="row" style="padding: 15px;">
+                                    <div class="col-md-6">
+                                      <small>LEGEND:</small>
+                                      <p>
+                                          <i class="pe-7s-check" style="font-size: 25px; font-weight: bold; color: blue"></i> : <em> Trip found / Add truck status </em><br/>
+                                          <i class="pe-7s-close-circle" style="font-size: 25px; font-weight: bold; color: red"></i> : <em> No trip found </em>
+                                      </p>
+                                    </div>
+                                    <div class="col-md-6"></div>
+                                </div>
                         
 
                             </div>
