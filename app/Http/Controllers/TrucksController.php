@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Truck;
 use Carbon\Carbon;
 use Alert;
+use App\Hauler;
 
 
 class TrucksController extends Controller
@@ -40,7 +41,8 @@ class TrucksController extends Controller
      */
     public function create()
     {
-        return view('trucks.create');
+        $haulers = Hauler::pluck('name','id');
+        return view('trucks.create', compact('haulers'));
     }
 
     /**
@@ -54,9 +56,13 @@ class TrucksController extends Controller
 
         $this->validate($request, [
             'plate_number' => 'required|unique:trucks',
+            'hauler_list' => 'required'
         ]);
 
         $truck = Truck::create($request->all());
+        $truck->haulers()->attach($request->input('hauler_list'));
+
+
         alert()->success('Truck successfully added', 'Success Alert!');
 
         return redirect('trucks');
@@ -81,7 +87,8 @@ class TrucksController extends Controller
      */
     public function edit(Truck $truck)
     {
-        return view('trucks.edit', compact('truck'));
+        $haulers = Hauler::pluck('name','id');
+        return view('trucks.edit', compact('truck','haulers'));
     }
 
     /**
@@ -93,7 +100,15 @@ class TrucksController extends Controller
      */
     public function update(Request $request, Truck $truck)
     {
+        
+        $this->validate($request, [
+            'plate_number' => 'required|unique:trucks',
+            'hauler_list' => 'required'
+        ]);
+
         $truck->update($request->all());
+        $truck->haulers()->sync( (array) $request->input('hauler_list'));
+
         alert()->success('Truck successfully added', 'Success Alert!');
         return redirect('trucks');
     }

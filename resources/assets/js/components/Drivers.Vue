@@ -1,30 +1,30 @@
 <template>
 
-<div class="driver_data">
+
+<div>
+
+    <div class="row" style="padding: 15px;">
+        <div class="col-md-12">
+                <div class="form-group">
+                <input type="text" name="search" class="form-control border-input" placeholder="Search Driver" v-model="search" @keyup="fetchDataEmployee()">
+            </div>
+        </div>
+    </div>
 
 
-<div class="col-md-12">
-<div class="form-group">
-<input type="text" name="search" v-model="search"  placeholder="Enter your search" class="form-control border-input">
-</div>
-</div>
-
-
-<table class="table">
+    <table class="table">
 <thead>
 
 <tr>
 <th>Action</th>
 <th>Name</th>
-<th>Phone Number</th>
-<th>Substitute</th>
-<th>Operator</th>
+
 </tr>
 
 </thead>
 <tbody>
 
-<tr v-for="driver in drivers | searchQuery" >
+<tr v-for="driver in drivers">
 <td>
             <div class="dropdown">
               <button class="btn dropdown-toggle btn-sm" type="button" id="dropdownMenu1" data-toggle="dropdown">
@@ -42,15 +42,6 @@
 <td>
 {{driver.name}}
 </td>
-<td>
-{{driver.phone_number}}
-</td>
-<td>
-{{driver.substitute}}
-</td>
-<td v-for="hauler in driver.haulers">
-{{hauler.name}}
-</td>
 
 
 </tr>
@@ -58,33 +49,40 @@
 </table>
 
 
-</div>
+
+
+</div>  
 
 </template>
 
 <script>
 export default{
-props: ['data'],
-data() {
-	return {
-    searchQuery: '',
-    drivers: [],
-    url: 'getDrivers'
-  }
-},
 
-created() {
-	axios.get('http://localhost/truckingv2/public/getDrivers')
-	.then(response => this.drivers = response.data);
-},
-  
-methods: {
-  fechDataDriver(){
+  data(){
+    return {
+        drivers: {},
+        search: ''
+    }
+  },
 
+  created() {
+    this.fetchDataEmployee()
+  },
+
+  methods: {
+    fetchDataEmployee() {
+      if(this.seach == ''){
+          axios.get(`http://localhost/truckingv2/public/search/drivers?search=${this.search}`)
+         .then(response => this.drivers = response.data);
+      }else {
+          axios.get(`http://localhost/truckingv2/public/search/drivers?search=${this.search}`)
+         .then(response => this.drivers = response.data);
+      }
+
+    }
   }
+
+
+
 }
-
-
-
-}// end export default
 </script>

@@ -29,10 +29,14 @@ Route::get('/home', 'LogsController@index');
 
 
 Route::resource('/drivers','DriversController');
+Route::get('/search/drivers','DriversController@searchDrivers');
+
+
 // Route setup for driver temporary transfer
 Route::get('/transfers/create/{id}','TransfersController@create');
 Route::post('/transfers/{id}','TransfersController@transfers');
 Route::post('/transfers/remove/{id}','TransfersController@removeTransfer');
+
 
 Route::resource('/haulers','HaulersController');
 
@@ -54,7 +58,7 @@ Route::get('/feed','ReportsController@feed');
 Route::get('/getLogs','ReportsController@getLog');
 Route::get('/getIns','ReportsController@getIn');
 Route::get('/getOuts','ReportsController@getOut');
-Route::get('/getDrivers','ReportsController@getDriver');
+// Route::get('/getDrivers','ReportsController@getDriver');
 Route::get('/summary','ReportsController@getSummary');
 Route::get('/generate','ReportsController@generateReport');
 /** END GET ALL JSON DATA **/
