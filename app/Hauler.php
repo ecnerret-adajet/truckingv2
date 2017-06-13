@@ -34,6 +34,13 @@ class Hauler extends Model
     }
 
 
+    // list all hauler with associated trucks
+    public function trucks()
+    {
+        return $this->belongsToMany('App\Truck');
+    }
+
+
 
 
 }

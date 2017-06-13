@@ -185,6 +185,7 @@
                             <hr/>
 
 
+                                <drivers></drivers>
 
 
                               <table class="table table-striped">
@@ -215,7 +216,13 @@
                                                             <li role="presentation"><a role="menuitem" tabindex="-1" href="{{url('/drivers/'.$driver->id)}}">View Details</a></li>
                                                             <li role="presentation"><a role="menuitem" tabindex="-1" href="{{url('/drivers/'.$driver->id.'/edit')}}">Edit Driver</a></li>                                                        
                                                             <li role="presentation" class="divider"></li>                                                        
-                                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Delete Driver</a></li>
+                                                            <li role="presentation">
+
+                                                            <a data-toggle="modal" data-target=".bs-delete{{$driver->id}}-modal-lg" href="">
+                                                                Delete Driver
+                                                            </a>
+                                                            
+                                                            </li>
                                                           </ul>                                                        
                                                         </div>
                                             </td>                                            
@@ -308,6 +315,46 @@
             </div><!-- /.modal-content -->
           </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->   
+
+            @endforeach
+
+            @foreach($drivers as $driver)
+
+
+                     <!-- Document move to trash modal -->
+        <div class="modal fade bs-delete{{$driver->id}}-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Move to trash</h4>
+              </div>
+              <div class="modal-body">
+                      <div class="row">
+                <div class="col-md-12">
+                <div class="panel-body text-center"> 
+            
+                <em>  
+                    Are you sure you want to set this driver to inactive
+                </em>
+                                                    
+            </div>
+                </div>
+            </div>
+              </div>
+
+            <div class="modal-footer">
+                {!! Form::open(['method' => 'DELETE', 'route' => ['drivers.destroy', $driver->id]]) !!}
+                  {!! csrf_field() !!}
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                 {!! Form::submit('Confirm', ['class' => 'btn  btn-primary'])  !!}                
+                 {!! Form::close() !!}
+              </div>
+              
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->   
+
 
             @endforeach
 

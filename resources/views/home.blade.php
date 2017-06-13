@@ -147,7 +147,11 @@
                                         @forelse($all_in->where('CardholderID', '==', $today->CardholderID)->take(1) as $in)
                                             {{ $final_in = date('Y-m-d h:i:s A', strtotime($in->LocalTime))}}
                                         @empty
-                                            NO IN
+                                            NO IN <br/>
+                                              
+                                                      @foreach(App\Log::where('CardholderID', $today->CardholderID)->where('Direction',1)->orderBy('LocalTime','desc')->take(1)->get() as $value => $ter)
+                                               <span style="color: red"> <small>LAST IN :</small>  {{ date('Y-m-d h:i:s A', strtotime($ter->LocalTime))}} </span>
+                                            @endforeach
                                         @endforelse             
                                     </div>
                                     <div class="col-md-4">

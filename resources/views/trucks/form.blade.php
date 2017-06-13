@@ -13,6 +13,23 @@
 </div>
 </div>
 
+          <div class="row">
+
+        <div class="col-md-12">
+                <div class="form-group{{ $errors->has('hauler_list') ? ' has-error' : '' }}">
+                <label>Assigned Operator</label>
+                {!! Form::select('hauler_list', $haulers, null, ['class' => 'form-control border-input', 'placeholder' => '--- Assign an Operator ---'] ) !!}
+
+                        @if ($errors->has('hauler_list'))
+                        <span class="help-block">
+                        <strong>{{ $errors->first('hauler_list') }}</strong>
+                        </span>
+                        @endif
+                </div>
+        </div>
+
+        </div>
+
 
 <div class="row">
 <div class="col-md-12">

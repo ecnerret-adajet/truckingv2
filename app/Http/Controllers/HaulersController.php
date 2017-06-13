@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Hauler;
+use App\Driver;
 use App\Log;
 
 class HaulersController extends Controller
@@ -18,9 +19,11 @@ class HaulersController extends Controller
     public function index()
     {
         $haulers = Hauler::all();
-        $top_hauler = Hauler::take(5)->get();
-
- 
+  
+        $top_hauler = Hauler::withCount('drivers')
+                        ->orderBy('drivers_count','desc')
+                        ->take(5)
+                        ->get();
 
 
         return view('haulers.index', compact('haulers','top_hauler'));

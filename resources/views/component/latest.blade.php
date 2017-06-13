@@ -57,7 +57,11 @@
                                         @forelse($all_in->where('CardholderID', '==', $today->CardholderID)->take(1) as $in)
                                             {{ $final_in = date('Y-m-d h:i:s A', strtotime($in->LocalTime))}}
                                         @empty
-                                            NO IN
+                                            NO IN <br/>
+
+                                  
+
+
                                         @endforelse             
                                     </div>
                                     <div class="col-md-3">

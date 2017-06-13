@@ -46,11 +46,14 @@ class LogsController extends Controller
                     ->where('Direction', 1)
                     ->whereBetween('LocalTime', [Carbon::now()->subDays(1), Carbon::now()])
                     ->orderBy('LocalTime','DESC')->get();
+
         $today_in = Log::where('CardholderID', '>=', 1)
                     ->where('Direction', 1)
                     ->whereDate('LocalTime', Carbon::now())
                     ->orderBy('LocalTime','DESC')
                     ->get();
+
+
         $base_time = Carbon::now();         
         $today_log = $logs->unique('CardholderID')->take(35);
         // count total in

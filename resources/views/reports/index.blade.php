@@ -18,6 +18,21 @@
                                 <h4 class="title">Monitoring Summary </h4>
                                 <p class="category">Truck summary report</p>
                                 <hr/>
+                
+
+                <div class="row">
+                        <div class="col-md-12">
+                               @if (session('status')) 
+                            <div class="alert alert-dismissible alert-warning" style="border-radius: 0 ! important;">
+                                <button type="button" class="close" style="color: black" data-dismiss="alert">&times;</button>
+                                <strong>Oh snap!</strong>   {{ session('status') }}
+                                </div>
+                            @endif
+                        </div>
+                </div>
+
+
+
                                 
                 {{ Form::open(array('url' => '/generate', 'method' => 'get')) }}
                 <div class="row">
@@ -41,7 +56,7 @@
                     <div class="col-md-3">
                         <div class="form-group{{ $errors->has('start_date') ? ' has-error' : '' }}">
                         <label>Start date</label>
-                                {!! Form::input('date', 'start_date', $sel_start, ['class' => 'form-control']) !!} 
+                                {!! Form::input('date','start_date', $sel_start, ['class' => 'form-control']) !!} 
 
                             @if ($errors->has('start_date'))
                             <span class="help-block">
@@ -54,7 +69,7 @@
                     <div class="col-md-3">
                         <div class="form-group{{ $errors->has('end_date') ? ' has-error' : '' }}">
                         <label>End date</label>
-                                {!! Form::input('date', 'end_date', $sel_end, ['class' => 'form-control']) !!} 
+                                {!! Form::input('date', 'end_date', $sel_end, ['class' => 'form-control', 'max' => ''.date('Y-m-d', strtotime(Carbon\Carbon::now())).'' ]) !!} 
 
                             @if ($errors->has('end_date'))
                             <span class="help-block">
@@ -79,9 +94,17 @@
 
         <hr/>
 
+    
+
+         <div class="row" style="padding-left: 15px;">
+            <div class="col-md-12">
+                  <a class="btn btn-primary btn-sm pull-left" href="#">
+                      Export to Excel
+                  </a>
+            </div>
+        </div>
+
                            <div class="content table-responsive table-full-width" id="feed">
-
-
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>

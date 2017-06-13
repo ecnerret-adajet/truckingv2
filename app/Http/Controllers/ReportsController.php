@@ -239,6 +239,7 @@ class ReportsController extends Controller
 
 	public function getSummary(){
 		$haulers = Hauler::pluck('name','id');
+		$count_days = 0;
 
 		 $logs = Log::where('CardholderID', '>=', 1)
         ->whereDate('LocalTime', '>=', Carbon::now())
@@ -247,7 +248,7 @@ class ReportsController extends Controller
          $today_result = $logs->unique('CardholderID');
 
 		return view('reports.index', compact('haulers',
-			'today_result','logs','start_date','end_date'));
+			'today_result','logs','start_date','end_date','count_days'));
 	}
 
 	public function generateReport(Request $request){
@@ -255,22 +256,25 @@ class ReportsController extends Controller
 		$this->validate($request, [
 			'start_date' => 'required',
 			'end_date' => 'required',
-			'hauler_list' => 'required'
+			'hauler_list' => 'required',
 		]);
 
 		$start_date = $request->get('start_date');
 		$end_date = $request->get('end_date');
 		$hauler_list = $request->input('hauler_list');
+		$count_days = Carbon::parse($start_date)->diffInDays(Carbon::parse($end_date));
 	
-	   	$logs = Log::where('CardholderID', '>=', 1)
-	    ->whereDate('LocalTime', '>=' ,$start_date)
-	    ->whereDate('LocalTime', '<=', $end_date)
+
+		$logs = Log::where('CardholderID', '>=', 1)
+		->whereBetween('LocalTime', [Carbon::parse($start_date), Carbon::parse($end_date)])
 	    ->orderBy('LocalTime','ASC')
 	    ->with(['drivers.haulers' => function($q) use ($hauler_list){
 	   		$q->where('id', $hauler_list);
-	   	}])->get();
+	    }])->get();
 
-	    $today_result = $logs->unique('CardholderID');
+		$today_result = $logs->unique('CardholderID');
+
+	    
 	    $haulers = Hauler::pluck('name','id');
 
    		$trips = Log::whereDate('LocalTime', '>=' ,$start_date)
@@ -284,8 +288,11 @@ class ReportsController extends Controller
 	    $col_count = $between + 1;
 	    $index =0;
 
-	    return view('reports.index', compact('start_date',
+		if($count_days <= 7){
+
+			return view('reports.index', compact('start_date',
 	    	'end_date',
+	    	'count_days',
 	    	'hauler_list',
 	    	'value',
 	    	'index',
@@ -296,6 +303,14 @@ class ReportsController extends Controller
 	    	'haulers',
 	    	'boom',
 	    	'today_result'));
+
+		} else {
+
+			return redirect('summary')->with('status', 'Please select a date range not more than 7 days, retry again');
+		
+		}
+
+
 
 	}
 

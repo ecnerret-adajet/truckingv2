@@ -117,10 +117,22 @@ class DriversController extends Controller
     
 
     public function searchDrivers(Request $request){
-        $search = $request->search;
-        $drivers = Driver::with('haulers')
-                        ->where('name','LIKE',"%$search%")
-                        ->get();
+        $this->validate($request, [
+            'search' => 'required'
+        ]);
+        $search = $request->get('search');
+        $drivers = Driver::where('name','LIKE',"%$search%")->get();
+        return $drivers;
+    }
+
+    /**
+    **
+    ** Get all driver JSON format
+    **
+    */
+    public function allDrivers()
+    {
+        $drivers = Driver::with('hauler')->get();
         return $drivers;
     }
 
@@ -250,8 +262,28 @@ class DriversController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Driver $driver)
     {
-        //
+        $driver->delete();
+
+        alert()->success('Success Message', 'Driver has successfully removed');
+        return redirect('drivers');
+    }
+
+    /** 
+    **
+    ** Restore deleted driver
+    **
+    */
+    public function restore(Request $request, $id)
+    {
+        Driver::withTrashed()->find($id)->restore();
+        $driver = Driver::findOrFail($id);
+        $driver->status = 1;
+        $driver->save();
+
+        alert()->success('Success Message', 'Driver has successfully restore');
+        return redirect('drivers');
+
     }
 }

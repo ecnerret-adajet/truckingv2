@@ -13,7 +13,6 @@
     <!-- Styles -->
     <link href="{{ asset('css/all.css') }}" rel="stylesheet">
 
-
     <!--  Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
@@ -25,13 +24,6 @@
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
         ]) !!};
-    </script>
-
-    <script type="text/javascript">
-                $('.input-daterange').datepicker({
-                orientation: "bottom auto",
-                todayHighlight: true
-            });
     </script>
     
 </head>
@@ -267,11 +259,15 @@
 
 
     <!-- Scripts -->
+    
    
     <script src="{{ asset('js/all.js') }}"></script>
     <script src="{{ asset('js/cbpFWTabs.js') }}"></script>
     <!-- Include this after the sweet alert js file -->
     @include('sweet::alert')
+
+    
+
     <!--
     <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
@@ -287,41 +283,6 @@
             })();
     </script>
 
-    <script type="text/javascript">
-           var nowTemp = new Date();
-var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
- 
-var checkin = $('#dpd1').datepicker({
-  onRender: function(date) {
-    return date.valueOf() < now.valueOf() ? 'disabled' : '';
-  }
-}).on('changeDate', function(ev) {
-  if (ev.date.valueOf() > checkout.date.valueOf()) {
-    var newDate = new Date(ev.date)
-    newDate.setDate(newDate.getDate() + 1);
-    checkout.setValue(newDate);
-  }
-  checkin.hide();
-  $('#dpd2')[0].focus();
-}).data('datepicker');
-var checkout = $('#dpd2').datepicker({
-  onRender: function(date) {
-    return date.valueOf() <= checkin.date.valueOf() ? 'disabled' : '';
-  }
-}).on('changeDate', function(ev) {
-  checkout.hide();
-}).data('datepicker');
-    </script>
-
-
-
-
-
-
-
-
-
-   
 
 
 </body>
