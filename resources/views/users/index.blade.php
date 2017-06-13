@@ -116,6 +116,7 @@
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Role</th>
+                                        <th>Last Login</th>
                                         <th class="text-center">Action</th>
                                     </thead>
                                     <tbody>
@@ -133,11 +134,20 @@
                                             <td>
                                             {{$user->email}}                                          
                                             </td>
+
+                                         
+                                            
                                             <td>
                                             @foreach($user->roles as $role)
                                             <span class="label label-success"> {{$role->name}}</span>
                                             @endforeach
                                             </td>
+
+                                            <td>
+                                            {{  $user->last_login_at  == '' ? 'NEVER' : date('F m, Y h:m:s A', strtotime($user->last_login_at))    }}
+                                            </td>
+
+
                                             <td>
                                                         <div class="dropdown">
                                                           <button class="btn dropdown-toggle btn-sm btn-block" type="button" id="dropdownMenu1" data-toggle="dropdown">                                                        

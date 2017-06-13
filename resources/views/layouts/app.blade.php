@@ -122,6 +122,14 @@
                     </a>
                 </li>
 
+                
+                <li>
+                    <a href="{{url('/daily')}}">
+                        <i class="pe-7s-graph2"></i>
+                        <p>Search Result</p>
+                    </a>
+                </li>
+
  <!--                @role(('Monitoring'))
                 <li>
                     <a href="{{ url('/users/'.Auth::user()->id.'/edit') }}">

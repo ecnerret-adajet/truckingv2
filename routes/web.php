@@ -57,6 +57,16 @@ Route::get('/getOuts','ReportsController@getOut');
 Route::get('/getDrivers','ReportsController@getDriver');
 Route::get('/summary','ReportsController@getSummary');
 Route::get('/generate','ReportsController@generateReport');
+
+Route::get('/daily', 'ReportsController@getDaily');
+
+Route::get('/exportDaily', 
+[
+ 'as' => 'export_daily',
+ 'uses' => 'ReportsController@getExportDaily'
+ ]);
+
+Route::get('/generateDaily', 'ReportsController@generateDaily');
 /** END GET ALL JSON DATA **/
 
 

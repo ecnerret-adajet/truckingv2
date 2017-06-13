@@ -13,14 +13,144 @@ use App\Driver;
 use App\Hauler;
 use App\Customer;
 use DB;
+use Excel;
 
 
 class ReportsController extends Controller
 {
     
-	public function index()
+	/**
+	**
+	** Get Truck Daily Monitoring Report Generate
+	**
+	**/
+
+	public function getDaily()
 	{
-		return view('monitor');
+		$logs = Log::where('CardholderID', '>=', 1)
+        ->whereDate('LocalTime', '>=', Carbon::now())
+        ->orderBy('LocalTime','DESC')->get();
+
+		$all_out = Log::where('CardholderID', '>=', 1)
+                    ->where('Direction', 2)
+                    ->whereDate('LocalTime', Carbon::now())
+                    ->orderBy('LocalTime','DESC')->get();
+
+        $all_in = Log::where('CardholderID', '>=', 1)
+                    ->where('Direction', 1)
+                    ->whereBetween('LocalTime', [Carbon::now()->subDays(1), Carbon::now()])
+                    ->orderBy('LocalTime','DESC')->get();
+
+		$all_in_2 = Log::where('CardholderID', '>=', 1)
+			->where('Direction', 1)
+			->whereDate('LocalTime', Carbon::now())
+			->orderBy('LocalTime','DESC')->get();
+
+		$today_result  = $logs->unique('CardholderID');
+
+		return view('reports.daily', compact('today_result','all_in','all_out','all_in_2'));
+	}
+
+
+
+	public function getExportDaily()
+	{
+
+		// excel export
+		Excel::create('tracks_export'.Carbon::now()->format('Ymdh'), function($excel) {
+
+            $excel->sheet('Sheet1', function($sheet) {
+				$logs = Log::where('CardholderID', '>=', 1)
+				->whereDate('LocalTime', '>=', Carbon::now())
+				->orderBy('LocalTime','DESC')->get();
+
+				$all_out = Log::where('CardholderID', '>=', 1)
+				->where('Direction', 2)
+				->whereDate('LocalTime', Carbon::now())
+				->orderBy('LocalTime','DESC')->get();
+
+    		    $all_in = Log::where('CardholderID', '>=', 1)
+				->where('Direction', 1)
+				->whereBetween('LocalTime', [Carbon::now()->subDays(1), Carbon::now()])
+				->orderBy('LocalTime','DESC')->get();
+
+				$today_result  = $logs->unique('CardholderID');
+
+                $arr =array();
+                foreach($today_result as $today) {
+                    foreach($today->drivers as $driver){
+						foreach($driver->trucks as $truck){
+							foreach($driver->haulers as $hauler){
+								foreach($all_in->where('CardholderID', '==', $today->CardholderID)->take(1) as $in){
+									foreach($all_out->where('CardholderID', '==', $today->CardholderID)->take(1) as $out){
+								$data =  array(
+								$driver->name, 
+								$truck->plate_number, 
+								$hauler->name, 
+								$in->localtime == '' ? 'NO IN' : date('Y-m-d h:i:s A', strtotime($in->LocalTime)), 
+								$out->localtime == '' ? 'NO OUT' : date('Y-m-d h:i:s A', strtotime($out->LocalTime)), 
+								$in->LocalTime->diffInHours($out->LocalTime)
+								);
+								array_push($arr, $data);
+									}
+								}
+                    		}
+						}
+					}	
+                    
+                }
+
+                //set the titles
+                $sheet->fromArray($arr,null,'A1',false,false)
+                        ->setBorder('A1:F'.$logs->count(),'thin')
+                        ->prependRow(array(
+                        'DRIVER NAME', 'PLATE NUMBER', 'OPERATOR', 'TIME IN', 'TIME OUT',
+                        'TIME DIFFIRENCE'));
+                $sheet->cells('A1:F1', function($cells) {
+                         $cells->setBackground('#f1c40f'); 
+                });
+
+            });
+
+        })->download('xlsx');
+		
+	}
+
+
+
+
+	public function generateDaily(Request $request)
+	{
+		$this->validate($request, [
+			'start_date' => 'required'
+		]);
+
+		$start_date = $request->get('start_date');
+
+		$logs = Log::where('CardholderID', '>=', 1)
+        ->whereDate('LocalTime', '>=', Carbon::parse($start_date))
+        ->orderBy('LocalTime','DESC')->get();
+
+		$all_out = Log::where('CardholderID', '>=', 1)
+                    ->where('Direction', 2)
+                    ->whereDate('LocalTime', Carbon::parse($start_date))
+                    ->orderBy('LocalTime','DESC')->get();
+
+        $all_in = Log::where('CardholderID', '>=', 1)
+                    ->where('Direction', 1)
+                    ->whereBetween('LocalTime', [Carbon::parse($start_date)->subDays(1), Carbon::parse($start_date)])
+                    ->orderBy('LocalTime','DESC')->get();
+
+		$all_in_2 = Log::where('CardholderID', '>=', 1)
+			->where('Direction', 1)
+			->whereDate('LocalTime', Carbon::now())
+			->orderBy('LocalTime','DESC')->get();
+
+			
+		$today_result  = $logs->unique('CardholderID');
+
+		return view('reports.daily', compact('today_result','all_in','all_out','all_in_2'));
+
 	}
 
 	public function feedBody(){
