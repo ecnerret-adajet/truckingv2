@@ -48,7 +48,9 @@
 
         <div class="row" style="padding: 0 10px 0 10px">
             <div class="col-md-12">
-                 {!! link_to_route('export_daily', 'Export Table', null, ['class' => 'btn btn-sm btn-primary btn-fill']) !!}            
+                <a class="btn btn-sm btn-primary btn-fill" href="{{url('/exportDaily/'.$start_date)}}">
+                   <i class="pe-7s-copy-file" style="font-weight: bold"></i> Export Results 
+                </a>
             </div>
         </div>
 

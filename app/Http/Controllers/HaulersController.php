@@ -47,7 +47,12 @@ class HaulersController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request,[
+            'name' => 'required|unique:haulers'
+        ]);
+
         $hauler = Hauler::create($request->all());
+        alert()->success('Hauler successfully added', 'Success Alert!');
         return redirect('haulers');
     }
 

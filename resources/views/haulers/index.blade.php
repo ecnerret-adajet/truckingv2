@@ -78,7 +78,9 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Haulers Master List</h4>
+                                <h4 class="title">Haulers Master List
+                                    <a class="btn btn-sm btn-primary pull-right" href="{{url('/haulers/create')}}">Add Hauler</a>
+                                </h4>
                                 <p class="category">Total Hauler registered in the system</p>
 
 
