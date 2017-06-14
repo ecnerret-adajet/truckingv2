@@ -38,10 +38,12 @@ class LogsController extends Controller
     	$logs = Log::where('CardholderID', '>=', 1)
                     ->whereDate('LocalTime', Carbon::now())
                     ->orderBy('LocalTime','DESC')->get();
+
         $all_out = Log::where('CardholderID', '>=', 1)
                     ->where('Direction', 2)
                     ->whereDate('LocalTime',  Carbon::now())
                     ->orderBy('LocalTime','DESC')->get();
+                    
         $all_in = Log::where('CardholderID', '>=', 1)
                     ->where('Direction', 1)
                     ->whereBetween('LocalTime', [Carbon::now()->subDays(1), Carbon::now()])

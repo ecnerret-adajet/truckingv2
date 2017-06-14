@@ -117,7 +117,7 @@
                 
                 <li>
                     <a href="{{url('/daily')}}">
-                        <i class="pe-7s-graph2"></i>
+                        <i class="pe-7s-search"></i>
                         <p>Search Result</p>
                     </a>
                 </li>

@@ -185,7 +185,7 @@ class DriversController extends Controller
         $driver->trucks()->attach($request->input('truck_list'));
 
 
-        alert()->success('Driver successfully added', 'Success Alert!');
+        alert()->success('Driver successfully added', 'Success Added!');
         return redirect('drivers');
     }
 

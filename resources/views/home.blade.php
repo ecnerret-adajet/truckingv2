@@ -11,7 +11,7 @@
                 <div class="row dashboad-figures">
                 <div class="col-md-3 text-center">
                 <span>Entries Today</span><br/>
-                <h2>{{$logs->count()}}</h2>
+                <h2>{{$today_log->count()}}</h2>
                 </div>
                    <div class="col-md-3 text-center">
                 <span>Total Drivers</span><br/>

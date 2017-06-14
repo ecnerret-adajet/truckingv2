@@ -20,7 +20,7 @@
                     <div class="col-md-6">
                         <div class="form-group{{ $errors->has('start_date') ? ' has-error' : '' }}">
                         <label>Search date</label>
-                                {!! Form::input('date', 'start_date', Carbon\Carbon::now()->format('Y-m-d'), ['class' => 'form-control', 'max' => ''.Carbon\Carbon::now()->format('Y-m-d').'']) !!} 
+                                {!! Form::input('date', 'start_date', $start_date, ['class' => 'form-control', 'max' => ''.Carbon\Carbon::now()->format('Y-m-d').'']) !!} 
 
                             @if ($errors->has('start_date'))
                             <span class="help-block">
@@ -48,7 +48,9 @@
 
         <div class="row" style="padding: 0 10px 0 10px">
             <div class="col-md-12">
-                 {!! link_to_route('export_daily', 'Export Table', null, ['class' => 'btn btn-sm btn-primary btn-fill']) !!}            
+                <a class="btn btn-sm btn-primary btn-fill" href="{{url('/exportDaily/'.$start_date)}}">
+                   <i class="pe-7s-copy-file" style="font-weight: bold"></i> Export Results 
+                </a>
             </div>
         </div>
 
@@ -58,6 +60,7 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
+                                        <th>ID</th>
                                         <th>Driver Name</th>
                                         <th>Plate Number</th>
                                         <th>Operator</th>
@@ -67,21 +70,25 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <?php 
-                                $i = 1; 
-                                ?>
+                                @php
+                                $i = $today_result->count();
+                                @endphp
                                 @foreach($today_result as $result)
+                                
                                     <tr>
-                                        <td> 
+                                    <td>
+                                   {{$i--}}
+                                    </td>
+                                    <td> 
+                                 
+                                @foreach($result->drivers as $driver)
+                                <img class="img-responsive img-circle" src="{{ str_replace( 'public/','', asset('/storage/app/'.$driver->avatar))}}" style="display:block; margin: 10px auto; width: 50px; height: auto;">
+                                @endforeach
                                     
-                                    @foreach($result->drivers as $driver)
-                                    <img class="img-responsive img-circle" src="{{ str_replace( 'public/','', asset('/storage/app/'.$driver->avatar))}}" style="display:block; margin: 10px auto; width: 50px; height: auto;">
-                                    @endforeach
-                                        
-                                        
-                                        </td>
+                                    
+                                    </td>
                                         <td>
-
+                                        
                                         <br/>
                                             @foreach($result->drivers as $driver)
                                                     <a href="{{url('/drivers/'.$driver->id)}}"> 
