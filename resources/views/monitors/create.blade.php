@@ -6,13 +6,12 @@
             <div class="row">
 
                     <div class="col-lg-12">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title">Create Truck Status</h4>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <p>Create Truck Status</p>
                             </div>
 
-                            <hr/> 
-                            <div class="list-group tab-content">
+                            <div class="list-group tab-content panel-body">
                             @foreach($log->take(1) as $today)
 
                             <div  class="list-group-item off-border">
@@ -115,7 +114,7 @@
 
                             <hr/> 
 
-                            <div class="content">
+                            <div class="panel-body">
 
 
 

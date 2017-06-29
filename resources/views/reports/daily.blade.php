@@ -6,12 +6,13 @@
                 <div class="row"> 
                 <!-- table  -->
                     <div class="col-md-12">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title">Search Result</h4>
-                                <p class="category">Truck summary report</p>
-                                <hr/>
-                                
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                 <p>Search Result</p>
+                            </div>
+
+                            <div class="panel-body">
+                                                             
                 {{ Form::open(array('url' => '/generateDaily', 'method' => 'get')) }}
                 <div class="row">
 
@@ -119,10 +120,10 @@
 
                                         <?php $final_in = ''; ?>
                                         @forelse($all_in->where('CardholderID', '==', $result->CardholderID)->take(1) as $in)
-                                            <span class="label label-success">{{ $final_in = date('Y-m-d h:i:s A', strtotime($in->LocalTime))}} </span><br/>
+                                            {{ $final_in = date('Y-m-d h:i:s A', strtotime($in->LocalTime))}} <br/>
                                         @empty
                                              @forelse($all_in_2->where('CardholderID', '==', $result->CardholderID)->take(1) as $in)
-                                                <span class="label label-success">{{ $final_in = date('Y-m-d h:i:s A', strtotime($in->LocalTime))}} </span><br/>
+                                                {{ $final_in = date('Y-m-d h:i:s A', strtotime($in->LocalTime))}} <br/>
                                             @empty
                                                 NO IN
                                             @endforelse  
@@ -135,7 +136,7 @@
                                         <td>
                                         <?php $final_out = ''; ?>                                     
                                         @forelse($all_out->where('CardholderID', '==', $result->CardholderID)->take(1) as $out)
-                                                    <span class="label label-warning">{{ $final_out = date('Y-m-d h:i:s A', strtotime($out->LocalTime))}} </span><br/>
+                                                  {{ $final_out = date('Y-m-d h:i:s A', strtotime($out->LocalTime))}} <br/>
                                         @empty
                                         NO OUT
                                         @endforelse   

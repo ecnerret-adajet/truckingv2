@@ -24,7 +24,19 @@ Vue.component('drivers', require('./components/Drivers.vue'));
 // Vue.component('reports', require('./components/Reports.vue'));
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+
+    //  data: {
+    //         isActive: false,
+    //  },
+
+    // methods: {    
+    //     setActive: function(){
+    //         this.isActive = !this.isActive;
+    //     }
+    // }
+
+
 });
 
 // To activate vue router

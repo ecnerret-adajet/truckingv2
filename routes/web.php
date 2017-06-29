@@ -99,6 +99,7 @@ Route::resource('monitors', 'MonitorsController', ['except' => [
     'create', 'store', 'edit'
 ]]);
 
+Route::get('/manage','PagesController@manage');
 
 
 

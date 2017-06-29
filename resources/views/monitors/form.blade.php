@@ -102,6 +102,6 @@
 <button type="submit" class="btn btn-info btn-fill btn-wd">Submit</button>
 </div>
 <div class="pull-left">
-<a href="{{url('/trucks')}}" class="btn btn-default btn-fill btn-wd">Cancel</a>
+<a href="{{url('/summary')}}" class="btn btn-default btn-fill btn-wd">Cancel</a>
 </div>
 <div class="clearfix"></div>

@@ -6,20 +6,20 @@
             <div class="row">
 
                     <div class="col-lg-12">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title">Re-assign Truck</h4>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <p>Re-assign Truck</p>
                             </div>
-                            <div class="content">
+                            <div class="panel-body">
 
-       {!! Form::model($transfer = new \App\Transfer, ['url' => 'transfers/'.$driver->id, 'files' => 'true', 'enctype' => 'multipart\form-data']) !!}
-        {!! csrf_field() !!}
+                                {!! Form::model($transfer = new \App\Transfer, ['url' => 'transfers/'.$driver->id, 'files' => 'true', 'enctype' => 'multipart\form-data']) !!}
+                                    {!! csrf_field() !!}
 
 
-    @include('transfers.form')
+                                @include('transfers.form')
 
-            
-     {!! Form::close() !!}
+                                        
+                                {!! Form::close() !!}
                             </div>
                         </div>
                     </div>

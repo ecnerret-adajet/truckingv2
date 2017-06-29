@@ -5,8 +5,11 @@
                 
                 <div class="row"> 
                           <div class="col-lg-6 col-sm-6">
-                        <div class="card">
-                            <div class="content">
+                        <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <p>Users Details</p>
+                        </div>
+                            <div class="panel-body">
                                 <div class="row"> 
                                     <div class="col-md-6 text-center">
                                     <i style="font-size: 70px;
@@ -34,23 +37,19 @@
                
                                     </div>
                                 </div>
-                                <div class="footer text-center" style="padding-top: 20px;">
-                                <hr/>
-                                   <small class="stats" style="text-transform: uppercase; font-size: 10px;">
-                                        <i class="ti-timer"></i> As of today
-                                  </small>
-
-                                </div>
                             </div>
                         </div>
                     </div>
 
-                                             <div class="col-lg-6 col-sm-6">
-                        <div class="card">
-                            <div class="content">
+                        <div class="col-lg-6 col-sm-6">
+                        <div class="panel panel-primary">
+                        <div class="panel-heading">
+                              <p> All Roles</p>
+                        </div>
+                            <div class="panel-body">
                                 <div class="row"> 
                                     <div class="col-md-12">
-                                        <p> All Roles</p>
+                                     
 
                                         <table class="table">
                                         <thead>
@@ -80,14 +79,6 @@
                                     </div>
                                     </div>
                                 </div>
-                                <div class="footer text-center" style="padding-top: 20px;">
-                                <hr/>
-                                <a href="#">
-                                   <small  style="text-transform: uppercase; font-size: 10px;">
-                                         View all
-                                  </small>
-                                  </a>
-                                </div>
                             </div>
                         </div>
 
@@ -95,13 +86,10 @@
 
                 <!-- table  -->
                     <div class="col-md-12">
-                        <div class="card">
-                            <div class="header">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
                                 <h4 class="title">All Users</h4>
                                 <p class="category">Total users in the system</p>
-
-
-                                
                             </div>
                             <div class="content table-responsive table-full-width" id="feed">
                      
@@ -117,7 +105,7 @@
                                         <th>Email</th>
                                         <th>Role</th>
                                         <th>Last Login</th>
-                                        <th class="text-center">Action</th>
+                                        <th class="text-center"></th>
                                     </thead>
                                     <tbody>
                                     @foreach($users as $user)
@@ -144,15 +132,14 @@
                                             </td>
 
                                             <td>
-                                            {{  $user->last_login_at  == '' ? 'NEVER' : date('F m, Y h:m:s A', strtotime($user->last_login_at))    }}
+                                            {{  $user->last_login_at  == '' ? 'NEVER' : date('F d, Y h:m:s A', strtotime($user->last_login_at))    }}
                                             </td>
 
 
                                             <td>
-                                                        <div class="dropdown">
+                                                        <div class="dropdown pull-right">
                                                           <button class="btn dropdown-toggle btn-sm btn-block" type="button" id="dropdownMenu1" data-toggle="dropdown">                                                        
-                                                            Option
-                                                            <span class="caret"></span>                                                        
+                                                           <i class="fa fa-ellipsis-v"></i>   
                                                           </button>
                                                           <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">                                                        
                                                             <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ url('/users/'.$user->id) }}">View Details</a></li>

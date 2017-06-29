@@ -6,20 +6,20 @@
             <div class="row">
 
                     <div class="col-lg-12">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title">Add Driver</h4>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <p>Add Driver</p>
                             </div>
-                            <div class="content">
+                            <div class="panel-body">
 
-    {!! Form::model($driver, ['method' => 'PATCH','route' => ['drivers.update', $driver->id], 'enctype'=>'multipart/form-data']) !!}
-     {!! csrf_field() !!}
+                                {!! Form::model($driver, ['method' => 'PATCH','route' => ['drivers.update', $driver->id], 'enctype'=>'multipart/form-data']) !!}
+                                {!! csrf_field() !!}
 
 
-    @include('drivers.form')
+                                @include('drivers.form')
 
-            
-    {!! Form::close() !!}
+                                        
+                                {!! Form::close() !!}
                             </div>
                         </div>
                     </div>

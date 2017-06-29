@@ -4,12 +4,16 @@
            <div class="container-fluid">
                 
                 <div class="row"> 
-                          <div class="col-lg-6 col-sm-6">
-                        <div class="card">
-                            <div class="content">
+                <div class="col-lg-12 col-sm-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                  <p> Top no. of trucks per operator</p>
+                            </div>
+                            <div class="panel-body">
+
                                 <div class="row"> 
-                                    <div class="col-md-12 text-center">
-                                    <i style="font-size: 70px;
+                                    <div class="col-md-6 text-center">
+                                           <i style="font-size: 70px;
                                             color: #a9a9a9;
                                              " class="pe-7s-box2"></i>
                                         <div class="">
@@ -18,29 +22,8 @@
                                         <a class="btn btn-primary btn-sm" href="{{url('/home')}}">
                                         Back to dashboard
                                         </a>
-               
                                     </div>
-                                </div>
-                                <div class="footer text-center" style="padding-top: 20px;">
-                                <hr/>
-                                   <small class="stats" style="text-transform: uppercase; font-size: 10px;">
-                                        <i class="ti-timer"></i> As of today
-                                  </small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-                           <div class="col-lg-6 col-sm-6">
-                        <div class="card">
-                            <div class="content">
-                                <div class="row"> 
-                                    <div class="col-md-12">
-                                        <p> Top no. of trucks per operator</p>
-
+                                    <div class="col-md-6">
                                         <table class="table">
                                         <thead>
                                         <tr>
@@ -62,23 +45,15 @@
                                     </div>
                                     </div>
                                 </div>
-                                <div class="footer text-center" style="padding-top: 20px;">
-                                <hr/>
-                                <a href="#">
-                                   <small  style="text-transform: uppercase; font-size: 10px;">
-                                         View all
-                                  </small>
-                                  </a>
-                                </div>
                             </div>
                         </div>
 
 
                 <!-- table  -->
                     <div class="col-md-12">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title">Haulers Master List
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4>Haulers Master List
                                     <a class="btn btn-sm btn-primary pull-right" href="{{url('/haulers/create')}}">Add Hauler</a>
                                 </h4>
                                 <p class="category">Total Hauler registered in the system</p>
@@ -87,19 +62,14 @@
                                 
                             </div>
                             <div class="content table-responsive table-full-width" id="feed">
-                     
-
-                            
-
-                            <hr/>
-
+                                                 
                               <table class="table table-striped">
                                     <thead>
-                                        <th></th>
                                         <th>Hauler Name</th>
                                         <th>Address</th>
                                         <th>Contact Number</th>
-                                        <th class="text-center">Action</th>
+                                        <th class="text-center">Number of Trucks</th>
+                                        <th width="2%"></th>
                                     </thead>
                                     <tbody>
                                     @foreach($haulers as $hauler)
@@ -107,33 +77,35 @@
 
                                         <tr>
                                             <td>
-                                            <img class="img-responsive" src="{{ asset('img/profile/avatar.png') }}" style="width: auto; height: 50px;">
-                                            </td>
-                                            <td>
                                               {{$hauler->name}}                                    
                                             </td>
     
                                             <td>
                                             {{$hauler->address}}                                          
                                             </td>
+
                                             <td>
                                             {{$hauler->contact_number}}
                                             </td>
+                                            <td class="text-center">
+                                            {{ $hauler->drivers->count() }}
+                                            </td>
                                             <td>
-                                                        <div class="dropdown">
-                                                          <button class="btn dropdown-toggle btn-sm btn-block" type="button" id="dropdownMenu1" data-toggle="dropdown">                                                        
-                                                            Option
-                                                            <span class="caret"></span>                                                        
-                                                          </button>
-                                                          <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">                                                        
-                                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ url('/haulers/'.$hauler->id) }}">View Details</a></li>
-                                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{url('/haulers/'.$hauler->id.'/edit')}}">Edit Hauler</a></li>                                                        
-                                                            <li role="presentation" class="divider"></li>                                                        
-                                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Delete Hauler</a></li>
-                                                          </ul>                                                        
-                                                        </div>
+
+                                                <div class="dropdown pull-right">
+                                                <button class="btn dropdown-toggle btn-sm" type="button" id="dropdownMenu1" data-toggle="dropdown">                                                        
+                                                <i class="fa fa-ellipsis-v"></i>                                                       
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">    
+                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="{{url('/haulers/'.$hauler->id)}}"><i class="fa fa-file-o" aria-hidden="true"></i> <span class="hidden-xs">View Details</span></a></li>
+                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="{{url('/haulers/'.$hauler->id.'/edit')}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span class="hidden-xs">Edit Hauler</span></a></li>                                                        
+                                                </ul>                                                        
+                                                </div>
                                             </td>
                                         </tr>
+
+
+
                                     @endforeach
                                     </tbody>
                                 </table>

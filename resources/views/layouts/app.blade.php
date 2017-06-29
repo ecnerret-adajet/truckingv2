@@ -12,11 +12,10 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/all.css') }}" rel="stylesheet">
-
-    <!--  Fonts and icons     -->
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
-
+     <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
 
 
     <!-- Scripts -->
@@ -25,228 +24,107 @@
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
+
+    @yield('top-script')
     
 </head>
 <body>
     <div class="wrapper" id="app">
 
-    <div class="sidebar" data-color="red" data-image="{{asset('/img/sidebar-2.jpg')}}">
 
-    <!--
-
-        Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
-        Tip 2: you can also add an image using data-image tag
-
-    -->
-
-        <div class="sidebar-wrapper">
-            <div class="logo">
-                <a href="{{url('/home')}}" class="simple-text">
-                    Trucking Monitoring
-                </a>
-            </div>
-
-            <ul class="nav">
-                <li class="active">
-                    <a href="{{url('/home')}}">
-                        <i class="pe-7s-edit"></i>
-                        <p>Dashboard</p>
-                    </a>
-                </li>
-
-                <!-- test vue-js router-->  
-
-                <!-- <router-link tag="li" to="/dashboardx">
-                    <a>
-                    <i class="pe-7s-edit"></i>
-                    <p>Test Dashboard</p>
-                   </a>
-                </router-link>
-
-
-                 <router-link tag="li" to="/truckx">
-                    <a>
-                    <i class="pe-7s-edit"></i>
-                    <p>Test Trucks</p>
-                   </a>
-                </router-link> -->
-
-                @role(('Administrator'))
-                <li>
-                    <a href="{{url('/drivers')}}">
-                    <i class="pe-7s-id"></i>
-                        <p>Drivers</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{url('/trucks')}}">
-                        <i class="pe-7s-helm"></i>
-                        <p>Trucks</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{url('/haulers')}}">
-                        <i class="pe-7s-box2"></i>
-                        <p>Haulers</p>
-                    </a>
-                </li>
-            
-                <li>
-                    <a href="{{url('/users')}}">
-                        <i class="pe-7s-user"></i>
-                        <p>Users</p>
-                    </a>
-                </li>
-                @endrole
-
-
-                <li>
-                    <a href="{{url('/feed')}}">
-                        <i class="pe-7s-graph"></i>
-                        <p>Live Feed</p>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{{url('/summary')}}">
-                        <i class="pe-7s-graph2"></i>
-                        <p>Daily Report</p>
-                    </a>
-                </li>
-
-                
-                <li>
-                    <a href="{{url('/daily')}}">
-                        <i class="pe-7s-search"></i>
-                        <p>Search Result</p>
-                    </a>
-                </li>
-
- <!--                @role(('Monitoring'))
-                <li>
-                    <a href="{{ url('/users/'.Auth::user()->id.'/edit') }}">
-                       <i class="pe-7s-user"></i>
-                        <p>My Account</p>
-                    </a>
-                </li>
-                @endrole -->
-
-                                <!-- <li>
-                    <a href="{{url('/systemlog')}}">
-                        <i class="pe-7s-clock"></i>
-                        <p>Logs</p>
-                    </a>
-                </li> -->
-
-            </ul>
-        </div>
-    </div>
   <div class="main-panel">
-        <nav class="navbar navbar-default navbar-fixed">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <!-- <a class="navbar-brand" href="#">Dashboard</a> -->
-                </div>
-                <div class="collapse navbar-collapse">
 
 
-                    <ul class="nav navbar-nav navbar-right">
-                       <!--  <li>
-                           <a href="">
-                               <p>Account</p>
-                            </a>
-                        </li> -->
-                        <!--  <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <p>
-                                        Dropdown
-                                        <b class="caret"></b>
-                                    </p>
-                              </a>
-                              <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                              </ul>
-                        </li> -->
-                        <li class="dropdown">
-                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <!-- <p style="vertical-align: middle;"> 
-                            <img class="img-responsive" src="{{ asset('img/profile/avatar.png') }}" style="width: auto; height: 30px;">
-                            
-                            </p> -->
-                                <p>
-                                {{ Auth::user()->name }}
-                                 <b class="caret"></b>
-                                </p>
-                                
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                <a href="{{ url('/logout') }}"
-                                    onclick="event.preventDefault();
-                                     document.getElementById('logout-form').submit();">         
-                                    Logout
-                                </a>
-                            <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                            </form>
-                                   </li>
-                              </ul>
-                        </li>
-                        <li class="separator hidden-lg hidden-md"></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">
+        <img class="img-responsive" src="{{asset('/img/trucking_monitoring.png')}}" style="display: block; vertical-align: middle; height: 100%;">
+      </a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+    <ul class="nav navbar-nav">
+        <li class="{{ Request::is('home') ? 'active' : '' }}"><a href="{{url('/home')}}">Dashboard</a></li>
+        <li class="dropdown {{ (
+            Request::is('summary') || Request::is('generate*') ||
+            Request::is('daily') || Request::is('monitors/*'))? 'active' : '' }}"><a href="" class="dropdown-toggle" data-toggle="dropdown">Reports <b class="caret"></b></a>
+               <ul class="dropdown-menu">
+                    <li>
+                        <a href="{{ url('/summary') }}"> Daily Report </a>
+                        <a href="{{ url('/daily') }}"> Search Daily Logs </a>
+                    </li>
+                </ul>
+        
+        </li>
+
+        <li class="{{ (
+            Request::is('manage') || 
+            Request::is('drivers') || Request::is('drivers/*') ||
+            Request::is('trucks') || Request::is('trucks/*') ||
+            Request::is('haulers') || Request::is('haulers/*'))
+        ? 'active' : '' }}"><a href="{{ url('/manage')  }}">Manage Fields</a></li>
+
+        <li class="{{ Request::is('users') ? 'active' : '' }}"><a href="{{ url('/users') }}">Users</a></li>
+        <li class="{{ Request::is('feed') ? 'active' : '' }}"><a href="{{ url('/feed') }}"><i class="fa fa-circle" aria-hidden="true"></i>  <span class="hidden-sx" >Live Feed</span> </a></li>
+      </ul>
 
 
-        <div class="content">
+
+
+      <ul class="nav navbar-nav navbar-right">
+        
+        <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">                            
+                Hello, {{ Auth::user()->name }}
+                    <b class="caret"></b>
+                
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a href="{{ url('/logout') }}"
+                    onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">         
+                    Logout
+                </a>
+            <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+            </form>
+                    </li>
+                </ul>
+        </li>
+      </ul>
+
+
+
+    </div>
+  </div>
+</nav>
+
+
+        <div class="container">
                 @yield('content')
         </div>
 
+       
 
-        <footer class="footer">
+
+        {{-- <footer class="footer">
             <div class="container-fluid">
                 <nav class="pull-left">
-                    <!-- <ul>
-                        <li>
-                            <a href="#">
-                                Home
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Company
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Portfolio
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                               Blog
-                            </a>
-                        </li>
-                    </ul> -->
                 </nav>
                 <p class="copyright pull-right">
                 La Filipina Uy Gongco Group of Companies
                 </p>
             </div>
-        </footer>
+        </footer> --}}
 
     </div>
 
@@ -266,14 +144,7 @@
     <!-- Include this after the sweet alert js file -->
     @include('sweet::alert')
 
-    
-
-    <!--
-    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
-    <script src="{{asset('js/morris-report.js')}}"></script> 
-    -->
-    <script type="text/javascript">
+        <script type="text/javascript">
             (function() {
 
                 [].slice.call( document.querySelectorAll( '.tabs' ) ).forEach( function( el ) {
@@ -283,7 +154,7 @@
             })();
     </script>
 
-
+    @yield('script')
 
 </body>
 </html>

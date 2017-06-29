@@ -18,7 +18,7 @@ class HaulersController extends Controller
      */
     public function index()
     {
-        $haulers = Hauler::all();
+        $haulers = Hauler::withCount('drivers')->get();
   
         $top_hauler = Hauler::withCount('drivers')
                         ->orderBy('drivers_count','desc')

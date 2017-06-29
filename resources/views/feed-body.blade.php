@@ -1,7 +1,10 @@
       @extends('feed-layout')    
 
       @section('feed-live')
-                        <div class="header">
+
+         <div class="panel panel-primary">
+
+                            <div class="panel-heading">
                                 <h4 class="title">Activity Feed
                                 <span class="pull-right">
                                 {{$today_result->count()}}
@@ -10,7 +13,7 @@
                                 </h4>
                                 <p class="category">Latest trucks activity</p>
                             </div>
-                           <hr/>
+                        
 
                               <table class="table" id="LiveFeed">
                                 <thead>
@@ -118,5 +121,7 @@
 
                                 </tbody>
                             </table>
+
+        </div>
 
     @endsection

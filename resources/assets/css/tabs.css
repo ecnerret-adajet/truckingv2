@@ -99,6 +99,9 @@
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
+.icon-dashboard::before {
+	content: "\e62e";
+}
 .icon-upload::before {
 	content: "\e68a";
 }
@@ -137,6 +140,15 @@
 }
 .icon-box::before {
 	content: "\e674";
+}
+.icon-user::before {
+	content: "\e605";
+}
+.icon-report::before {
+	content: "\e64c";
+}
+.icon-fields::before {
+	content: "\e659";
 }
 
 /* Content */

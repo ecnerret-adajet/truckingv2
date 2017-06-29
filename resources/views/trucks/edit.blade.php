@@ -6,20 +6,20 @@
             <div class="row">
 
                     <div class="col-lg-12">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title">Edit Truck</h4>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <p>Edit Truck</p>
                             </div>
-                            <div class="content">
+                            <div class="panel-body">
 
-    {!! Form::model($truck, ['method' => 'PATCH','route' => ['trucks.update', $truck->id], 'enctype'=>'multipart/form-data']) !!}
-     {!! csrf_field() !!}
+                                {!! Form::model($truck, ['method' => 'PATCH','route' => ['trucks.update', $truck->id], 'enctype'=>'multipart/form-data']) !!}
+                                {!! csrf_field() !!}
 
 
-    @include('trucks.form')
+                                @include('trucks.form')
 
-            
-    {!! Form::close() !!}
+                                        
+                                {!! Form::close() !!}
                             </div>
                         </div>
                     </div>

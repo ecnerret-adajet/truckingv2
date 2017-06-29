@@ -14,9 +14,10 @@
                 <!-- table  -->
                     <div class="col-md-12">
                         <div class="card">
+                         <div class="panel panel-default" style="border: 0; padding: 30px;">
                             <div class="header">
-                                <h4 class="title">Monitoring Summary </h4>
-                                <p class="category">Truck summary report</p>
+                                <h3 class="title">Monitoring Summary </h3>
+                                <p class="text-muted">Truck summary report</p>
                                 <hr/>
                 
 
@@ -82,7 +83,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                         <label> &nbsp;</label>
-                            <button class="btn btn-fill btn-primary btn-block" type="submit">
+                            <button class="btn  btn-primary btn-block" type="submit">
                                 GENERATE
                             </button>
                         </div>                   
@@ -92,28 +93,49 @@
                                 
         </div><!-- end header -->
 
-        <hr/>
+        </div><!-- end panel default -->
+
+
+
+         <!-- /.row -->
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box box-primary">
+            <div class="box-header">
+              <h3 class="box-title">Results Table</h3>
+
+
+        
+
+
+
+
+
+              <div class="box-tools">
+                
 
     
 
-         <div class="row" style="padding-left: 15px;">
-            <div class="col-md-12">
-                  <a class="btn btn-primary btn-sm pull-left" href="#">
-                      Export to Excel
-                  </a>
+                        <div class="dropdown pull-right">
+                        <a href="#" class="btn btn-default btn-action btn-sm" data-toggle="dropdown"><i class="fa fa-ellipsis-v"></i></a>
+                            <ul class="dropdown-menu">
+                            <li><a href="#"><i class="fa fa-download" aria-hidden="true"></i> <span>Save as Excel</span> </a></li>
+                            
+                        </ul>   
+                        </div>
+         
+              </div>
             </div>
-        </div>
-
-                           <div class="content table-responsive table-full-width" id="feed">
-                                <table class="table table-striped">
-                                    <thead>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+              <table class="table table-hover">
                                     <tr>
                                     <th>Hauler</th>
                                     <th>Driver</th>
                                     <th>Plate Number</th>
 
                                     @if(!empty($start_date) && !empty($end_date))
-                                   @for ($x = $start_date; $x <= $end_date; $x++)
+                                    @for ($x = $start_date; $x <= $end_date; $x++)
                                     <th class="text-center">
                                       {{ date('F d', strtotime($x)) }}
                                     </th>
@@ -122,10 +144,7 @@
 
 
                                     </tr>
-                                    </thead>
-
-                                    <tbody>
-                                    @foreach($today_result as $today)
+   @foreach($today_result as $today)
                                         @foreach($today->drivers as $driver)
                                                 @foreach($driver->haulers as $hauler)
                                         <tr>
@@ -143,25 +162,6 @@
                                                @endforeach
                                                </td>
 
-     <!--                                           <td>
-                                               @if(empty($today->monitors()->count()))
-                                               <a href="{{url('/monitors/create/'.$today->LogID)}}" class="btn btn-sm btn-success">
-                                               Create Status
-                                               </a>
-                                               @else
-
-                                               @foreach($today->monitors as $monitor)
-                                                <a href="{{url('/monitors/'.$monitor->id.'/edit/'.$today->LogID) }}" class="btn btn-sm btn-danger">
-                                               Update Status
-                                               </a>
-                                               @endforeach
-
-                                               @endif
-
-
-
-                                               
-                                               </td> -->
                                                 @if(!empty($start_date) && !empty($end_date))
                                                 @for ($x = $start_date; $x <= $end_date; $x++)
                                                 <td class="text-center">     
@@ -208,24 +208,15 @@
                                                @endforeach
                                             @endforeach
                                     @endforeach
-                                    </tbody>
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+      </div>
 
-                                </table>       
 
-
-                                <div class="row" style="padding: 15px;">
-                                    <div class="col-md-6">
-                                      <small>LEGEND:</small>
-                                      <p>
-                                          <i class="pe-7s-check" style="font-size: 25px; font-weight: bold; color: blue"></i> : <em> Trip found / Add truck status </em><br/>
-                                          <i class="pe-7s-close-circle" style="font-size: 25px; font-weight: bold; color: red"></i> : <em> No trip found </em>
-                                      </p>
-                                    </div>
-                                    <div class="col-md-6"></div>
-                                </div>
-                        
-
-                            </div>
                         </div>
                     </div>
 

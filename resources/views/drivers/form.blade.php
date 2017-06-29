@@ -33,7 +33,7 @@
                                   <div class="col-md-12">
                                             <div class="form-group{{ $errors->has('avatar') ? ' has-error' : '' }}">
                                                 <label>Avatar</label>
-                                                 <input name="avatar" type="file" class="filestyle" data-size="sm" data-buttonName="btn-primary" data-buttonBefore="true">
+                                                 <input name="avatar" type="file" class="filestyle"  data-buttonName="btn-primary btn-fill" data-buttonBefore="true">
 
 
                                                    @if ($errors->has('avatar'))
@@ -153,7 +153,7 @@
 
 
 
-                                    <div class="text-center">
+                                    <div class="pull-right">
                                         <button type="submit" class="btn btn-info btn-fill btn-wd">Submit</button>
                                     </div>
                                     <div class="clearfix"></div>

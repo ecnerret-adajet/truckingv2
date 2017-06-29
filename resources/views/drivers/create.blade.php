@@ -6,20 +6,17 @@
             <div class="row">
 
                     <div class="col-lg-12">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title">Add Driver</h4>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <p>Add Driver</p>
                             </div>
-                            <div class="content">
+                            <div class="panel-body">
 
-       {!! Form::model($driver = new \App\Driver, ['url' => 'drivers', 'files' => 'true', 'enctype' => 'multipart\form-data']) !!}
-                {!! csrf_field() !!}
-
-
-    @include('drivers.form')
-
-            
-    {!! Form::close() !!}
+                            {!! Form::model($driver = new \App\Driver, ['url' => 'drivers', 'files' => 'true', 'enctype' => 'multipart\form-data']) !!}
+                                        {!! csrf_field() !!}
+                            @include('drivers.form')
+                            {!! Form::close() !!}
+                            
                             </div>
                         </div>
                     </div>

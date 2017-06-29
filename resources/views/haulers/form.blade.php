@@ -34,7 +34,7 @@
 <div class="col-md-12">
         <div class="form-group{{ $errors->has('contact_number') ? ' has-error' : '' }}">
             <label>Contact Number</label>
-            {!! Form::text('contact_number', null,  ['class' => 'form-control border-input','placeholder' => 'contact_number']) !!}
+            {!! Form::text('contact_number', null,  ['class' => 'form-control border-input','placeholder' => 'contact number']) !!}
 
                 @if ($errors->has('contact_number'))
                 <span class="help-block">
