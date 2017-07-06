@@ -54,10 +54,12 @@
             $result = file_get_contents($url);
             $data = json_decode($result,true);
       ?>
+      @if($data['status'] != "NOT_FOUND" && $data['status'] != "ZERO_RESULTS" )
       {{ $data['routes'][0]['legs'][0]['distance']['text'] }} <br/>
+      @else
+      CANNOT DETERMINE
+      @endif
       @endforeach
-
-     
 
       </td>
 
@@ -139,7 +141,11 @@
                                                     <h5 style="font-weight: 700; margin-top: 0;">
 
                                                     @if(count($today->customers))
+                                                       @if($data['status'] != "NOT_FOUND" && $data['status'] != "ZERO_RESULTS")
                                                         {{ $data['routes'][0]['legs'][0]['distance']['text'] }} 
+                                                        @else
+                                                         CANNOT DETERMINE
+                                                        @endif
                                                     @endif
 
                                                     </h5>
@@ -151,8 +157,12 @@
                                                     <h5 style="font-weight: 700; margin-top: 0;"> 
 
                                                     @if(count($today->customers))
-                                                    {{ $data['routes'][0]['legs'][0]['duration']['text'] }}
-                                                    @endif
+                                                      @if($data['status'] != "NOT_FOUND" && $data['status'] != "ZERO_RESULTS")
+                                                        {{ $data['routes'][0]['legs'][0]['duration']['text'] }}
+                                                        @else
+                                                         CANNOT DETERMINE
+                                                        @endif
+                                                    @endif 
                                                     
                                                     </h5>
                                             </div>
@@ -233,7 +243,7 @@
                                 </div> <!-- end col-md-7 -->
 
 
-                                <!-- end col-md-7
+                                <!-- google static map
                                 <div class="col-md-8" id="map">
                                 @if(count($today->customers))
                                 @foreach($today->customers as $customer)
@@ -268,9 +278,15 @@
                                                 Show Phone
                                             </a>
 
-                                            <a class="btn btn-primary btn-fill btn-sm" id="show-map" href="#">
-                                                View Map
-                                            </a>
+                                            @if($data['status'] != "NOT_FOUND" && $data['status'] != "ZERO_RESULTS")
+                                                <?php 
+                                                $customer_address = addslashes($data['routes'][0]['legs'][0]['end_address']);
+                                                ?>                                 
+                                                <a class="btn btn-primary btn-fill btn-sm" id="show-map" onclick="showMapModal('{{ $customer_address }}')">
+                                                    View Map
+                                                </a>
+                                            @endif
+                                            
                                         </div>
                                           
                                     </div>
@@ -307,6 +323,7 @@
 
 @section('script')
     <script>
+
             $(document).ready(function() {
 
                 $('.clickable').on('click', function(e) {
@@ -327,13 +344,21 @@
                 $("#show-map").click(function(e) {
                      e.preventDefault();
                     $("#map").toggle();
-
-                     
                 });
-             
-
-                
              });
+
+
+            var currURL = "";
+            function showMapModal(customer_address){
+                var url = "http://www.google.com/maps/embed/v1/directions?origin=L2-3+B1+BV+Romero+Blvd,+Tondo,+Manila,+Tondo,+Manila,+Metro+Manila&destination="+ customer_address +"&key=AIzaSyDmCmQ3m-UNz1j1reAgrTcGNu1zLcm7FJc";
+                if(currURL != url) //avoid reloading same map
+                {
+                    $('#frame_map').attr('src', url)
+                }
+                $('#myModal').modal('show'); 
+                currURL = url;
+            }
+
     </script>
 @endsection
-                          
+@extends('component.map_modal')

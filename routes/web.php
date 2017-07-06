@@ -52,7 +52,8 @@ Route::resource('roles', 'RolesController');
 Route::get('settings','ReportsController@index');
 Route::get('/feed','ReportsController@feed');
 
-
+//Pickup setup
+Route::resource('/pickups','PickupsController');
 
 /** START GET ALL JSON DATA **/
 Route::get('/getLogs','ReportsController@getLog');
@@ -101,7 +102,7 @@ Route::resource('monitors', 'MonitorsController', ['except' => [
 
 Route::get('/manage','PagesController@manage');
 
-
+Route::get('/test2','PagesController@test2');
 
 
 

@@ -55,6 +55,16 @@ class User extends Authenticatable
     public function monitors(){
         return $this->hasMany('App\Monitor');
     }
+    
+    /**
+    *
+    * Get the associated user from pickup created
+    *
+    */
+    public function pickups()
+    {
+        return $this->hasMany('App\Pickup');
+    }
 
 
 }

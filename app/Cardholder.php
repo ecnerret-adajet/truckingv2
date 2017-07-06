@@ -29,4 +29,9 @@ class Cardholder extends Model
         return $this->hasMany('App\Driver','id','CardholderID');
     }
 
+    public function pickups()
+    {
+        return $this->hasMany('App\Pickup','id','CardholderID');
+    }
+
 }
