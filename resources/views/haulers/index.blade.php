@@ -51,9 +51,15 @@
 
                 <!-- table  -->
                     <div class="col-md-12">
+<<<<<<< HEAD
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4>Haulers Master List
+=======
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">Haulers Master List
+>>>>>>> 3ded25330052a3decb8981857026cbf8cbb39074
                                     <a class="btn btn-sm btn-primary pull-right" href="{{url('/haulers/create')}}">Add Hauler</a>
                                 </h4>
                                 <p class="category">Total Hauler registered in the system</p>
