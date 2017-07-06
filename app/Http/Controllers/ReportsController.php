@@ -48,11 +48,7 @@ class ReportsController extends Controller
 
 		$today_result  = $logs->unique('CardholderID');
 
-<<<<<<< HEAD
 		$start_date =  Carbon::today()->format('Y-m-d');
-=======
-		$start_date = Carbon::now()->format('Y-m-d');
->>>>>>> 3ded25330052a3decb8981857026cbf8cbb39074
 
 		return view('reports.daily', compact('today_result','all_in','all_out','all_in_2','start_date'));
 	}
@@ -72,16 +68,11 @@ class ReportsController extends Controller
 
 		$all_out = Log::where('CardholderID', '>=', 1)
                     ->where('Direction', 2)
-<<<<<<< HEAD
                     ->whereDate('LocalTime',  Carbon::parse($start_date))
-=======
-                    ->whereDate('LocalTime', Carbon::parse($start_date))
->>>>>>> 3ded25330052a3decb8981857026cbf8cbb39074
                     ->orderBy('LocalTime','DESC')->get();
 
         $all_in = Log::where('CardholderID', '>=', 1)
                     ->where('Direction', 1)
-<<<<<<< HEAD
                     ->whereBetween('LocalTime', [ Carbon::parse($start_date)->subDays(1),  Carbon::parse($start_date)])
                     ->orderBy('LocalTime','DESC')->get();
 
@@ -101,27 +92,6 @@ class ReportsController extends Controller
 		// excel export
 		Excel::create('trucking_monitoring'.Carbon::now()->format('Ymdh'), function($excel) use ($start_date) {
 
-=======
-                    ->whereBetween('LocalTime', [Carbon::parse($start_date)->subDays(1), Carbon::parse($start_date)])
-                    ->orderBy('LocalTime','DESC')->get();
-
-		$all_in_2 = Log::where('CardholderID', '>=', 1)
-			->where('Direction', 1)
-			->whereDate('LocalTime', Carbon::parse($start_date))
-			->orderBy('LocalTime','DESC')->get();
-			
-		$today_result  = $logs->unique('CardholderID');
-
-		return view('reports.daily', compact('start_date','today_result','all_in','all_out','all_in_2'));
-
-	}
-
-	public function getExportDaily($start_date)
-	{
-		// excel export
-		Excel::create('trucking_monitoring'.Carbon::now()->format('Ymdh'), function($excel) use ($start_date) {
-
->>>>>>> 3ded25330052a3decb8981857026cbf8cbb39074
             $excel->sheet('Sheet1', function($sheet) use ($start_date) {
 				
 	    		$logs = Log::where('CardholderID', '>=', 1)
@@ -144,12 +114,8 @@ class ReportsController extends Controller
 
 				$all_in = Log::where('CardholderID', $today->CardholderID)
 							->where('Direction', 1)
-<<<<<<< HEAD
 							->whereDate('LocalTime', '>=', date('Y-m-d', strtotime('-1 day',strtotime($start_date))))
 							->whereDate('LocalTime', '<=', date('Y-m-d', strtotime($start_date)))
-=======
-							->whereBetween('LocalTime', [Carbon::parse($start_date)->subDays(1), Carbon::parse($start_date)])
->>>>>>> 3ded25330052a3decb8981857026cbf8cbb39074
 							->orderBy('LocalTime','DESC')->pluck('LocalTime')->take(1);				
 				$in = array_first($all_in);
 
@@ -171,12 +137,7 @@ class ReportsController extends Controller
 								}
                			 	}
                			 }
-<<<<<<< HEAD
 	                }
-=======
-					
-                }
->>>>>>> 3ded25330052a3decb8981857026cbf8cbb39074
 
 			
                 //set the titles

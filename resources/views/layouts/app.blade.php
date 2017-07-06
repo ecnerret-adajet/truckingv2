@@ -93,7 +93,6 @@
             </a>
             <ul class="dropdown-menu">
                 <li>
-<<<<<<< HEAD
                 <a href="{{ url('/logout') }}"
                     onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">         
@@ -102,12 +101,6 @@
             <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
                             {{ csrf_field() }}
             </form>
-=======
-                    <a href="{{url('/daily')}}">
-                        <i class="pe-7s-search"></i>
-                        <p>Search Result</p>
-                    </a>
->>>>>>> 3ded25330052a3decb8981857026cbf8cbb39074
                 </li>
             </ul>
         </li>
