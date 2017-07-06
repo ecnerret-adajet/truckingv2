@@ -135,7 +135,8 @@
                                     <th>Plate Number</th>
 
                                     @if(!empty($start_date) && !empty($end_date))
-                                    @for ($x = $start_date; $x <= $end_date; $x++)
+                                 
+                                    @for ($x = $start_date; $x <= $end_date; $x=date('Y-m-d', strtotime($x. ' + 1 days')))
                                     <th class="text-center">
                                       {{ date('F d', strtotime($x)) }}
                                     </th>
@@ -163,7 +164,7 @@
                                                </td>
 
                                                 @if(!empty($start_date) && !empty($end_date))
-                                                @for ($x = $start_date; $x <= $end_date; $x++)
+                                                @for ($x = $start_date; $x <= $end_date; $x=date('Y-m-d', strtotime($x. ' + 1 days')))
                                                 <td class="text-center">     
                                                 @forelse(App\Log::where('CardholderID',$today->CardholderID)
                                                     ->whereDate('LocalTime' ,Carbon\Carbon::parse($x))
