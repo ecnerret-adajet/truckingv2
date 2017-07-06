@@ -176,19 +176,20 @@
                     <h4 class="modal-title">Add New Role</h4>
                   </div>
                   <div class="modal-body">
+
                   {!! Form::open(array('route' => 'roles.store','method'=>'POST','class' => 'form-horizontal')) !!}
                     {!! csrf_field() !!}
 
-                  
                   @include('roles.form')
+
+                   {!! Form::close() !!}
 
                   
                   </div><!-- modal body -->
-                  <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                  </div>
-                   {!! Form::close() !!}
+                
+                  
+
+
                 </div><!-- /.modal-content -->
               </div><!-- /.modal-dialog -->
             </div><!-- /.modal -->

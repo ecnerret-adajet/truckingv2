@@ -55,6 +55,7 @@ class RolesController extends Controller
             $role->attachPermission($value);
         }
 
+        alert()->success('Role successfully added', 'Success Added!');
         return redirect('users');
     }
 

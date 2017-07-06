@@ -52,6 +52,9 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
     <ul class="nav navbar-nav">
+
+    @role((['Administrator','Monitoring']))
+
         <li class="{{ Request::is('home') ? 'active' : '' }}"><a href="{{url('/home')}}">Dashboard</a></li>
         <li class="dropdown {{ (
             Request::is('summary') || Request::is('generate*') ||
@@ -71,21 +74,13 @@
             Request::is('trucks') || Request::is('trucks/*') ||
             Request::is('haulers') || Request::is('haulers/*'))
         ? 'active' : '' }}"><a href="{{ url('/manage')  }}">Manage Fields</a></li>
-
-
-        @role(('Administrator'))
         <li class="{{ Request::is('users') ? 'active' : '' }}"><a href="{{ url('/users') }}">Users</a></li>
-        @endrole
 
-        {{-- @role((['Administrator','Personnel']))
-        <li class="{{ Request::is('pickups') ? 'active' : '' }}"><a href="{{ url('/pickups') }}">Pickup</a></li>
-        @endrole --}}
-
+    @endrole
 
         <li class="{{ Request::is('feed') ? 'active' : '' }}"><a href="{{ url('/feed') }}"><i class="fa fa-circle" aria-hidden="true"></i>  <span class="hidden-sx" >Live Feed</span> </a></li>
+
       </ul>
-
-
 
 
       <ul class="nav navbar-nav navbar-right">
@@ -106,8 +101,8 @@
             <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
                             {{ csrf_field() }}
             </form>
-                    </li>
-                </ul>
+                </li>
+            </ul>
         </li>
       </ul>
 

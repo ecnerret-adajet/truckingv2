@@ -13,9 +13,15 @@ use Carbon\Carbon;
 |
 */
 
+
 Route::get('/', function () {
-    return redirect('home');
+    if(Entrust::hasRole('Personnel')) {
+         return redirect('pickups');
+    } else {
+         return redirect('home');
+    }
 })->middleware('auth');
+
 
 
 Auth::routes();
