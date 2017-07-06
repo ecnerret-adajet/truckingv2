@@ -6,7 +6,7 @@
     <script>
         setInterval(
         function(){
-            $('#terter').load('http://localhost/truckingv2/public/feed-body');
+            $('#terter').load('http://172.17.2.88/rfidtrucking/public/feed-body');
         }, 2000);
     </script>
 
