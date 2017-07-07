@@ -65,7 +65,7 @@
                         <tr>
                             <td>
                                 <span class="btn btn-success btn-xs">
-                                    {{ Carbon\Carbon::parse($today->LocalTime)->diffForHumans() }}      
+                                    {{ Carbon\Carbon::parse($pickcup->LocalTime)->diffForHumans() }}      
                                 </span>                        
                             </td>
                             <td>
