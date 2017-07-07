@@ -17,7 +17,7 @@ class PickupsController extends Controller
      */
     public function index()
     {
-        $pickups = Pickup::orderBy('created_at','desc')->get();
+        $pickups = Pickup::all();
         return view('pickups.index', compact('pickups'));
     }
 
@@ -29,6 +29,7 @@ class PickupsController extends Controller
     public function create()
     {
         $cardholders = Cardholder::where('Name', 'LIKE', '%Pickup%')->pluck('Name','CardholderID');
+
         return view('pickups.create', compact('cardholders'));
     }
 

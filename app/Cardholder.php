@@ -34,4 +34,12 @@ class Cardholder extends Model
         return $this->hasMany('App\Pickup','id','CardholderID');
     }
 
+    public function scopeMatched($query, $current)
+    {
+        return $query->whereHas('Log', function($q){
+                    $q->where('CardholderID', '>=', 1)
+                     ->where('LogID', '<=', $current)
+                     ->where('LogID', '>=', $current-5);
+                     })->pluck('Name');
+    }
 }

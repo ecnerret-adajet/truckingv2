@@ -61,24 +61,24 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($pickups as $pickcup)
+                        @foreach($pickups as $pick)
                         <tr>
                             <td>
                                 <span class="btn btn-success btn-xs">
-                                    {{ Carbon\Carbon::parse($pickcup->LocalTime)->diffForHumans() }}      
+                                    {{ $pick->created_at->diffForHumans() }}      
                                 </span>                        
                             </td>
                             <td>
-                                {{$pickup->carholder->Name}}
+                                {{$pick->cardholder->Name}}
                             </td>
                             <td>
-                                {{$pickup->plate_number}}
+                                {{$pick->plate_number}}
                             </td>
                             <td>
-                                {{$pickup->driver_name}}
+                                {{$pick->driver_name}}
                             </td>
                             <td>
-                                {{$pickup->company}}
+                                {{$pick->company}}
                             </td>
                             <td>
                             

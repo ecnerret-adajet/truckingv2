@@ -59,7 +59,7 @@ class LogsController extends Controller
 
 
         $base_time = Carbon::now();         
-        $today_log = $logs->unique('CardholderID')->take(35);
+        $today_log = $logs->unique('CardholderID')->take(35); //35
         // count total in
         $total_in = $today_in->unique('CardholderID');
         // count total trucks with time in and out

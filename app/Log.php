@@ -36,6 +36,14 @@ class Log extends Model
         return Carbon::parse($date);
     }
 
+    public function scopeMatch($query, $current)
+    {
+        return $query->where('CardholderID', '>=', 1)
+                     ->where('LogID', '<=', $current)
+                     ->where('LogID', '>=', $current-5)
+                     ->orderBy('LogID','DESC');
+    }
+
 
    
 }
