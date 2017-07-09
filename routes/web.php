@@ -60,6 +60,7 @@ Route::get('/feed','ReportsController@feed');
 
 //Pickup setup
 Route::resource('/pickups','PickupsController');
+Route::post('/pickups/deactivate/{id}','PickupsController@deactive');
 
 /** START GET ALL JSON DATA **/
 Route::get('/getLogs','ReportsController@getLog');

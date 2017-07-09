@@ -17,10 +17,10 @@ class CreatePickupsTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('cardholder_id')->unsigned()->nullable();
-            $table->string('plate_number');
-            $table->string('company');
-            $table->string('driver_name');
-            $table->string('remarks');
+            $table->string('plate_number')->nullable();
+            $table->string('company')->nullable();
+            $table->string('driver_name')->nullable();
+            $table->string('remarks')->nullable();
             $table->boolean('availability')->default(1);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

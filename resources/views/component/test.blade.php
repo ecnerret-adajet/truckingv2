@@ -15,6 +15,7 @@
       <th></th>
       <th>IN</th>
       <th>OUT</th>
+      <th>RFID</th>
       <th>BETWEEN</th>
     </tr>
   </thead>
@@ -28,19 +29,18 @@
       </span>
       </td>
       <td>
-
       @foreach($today->drivers as $driver)
         @foreach($driver->trucks as $truck)
             {{$truck->plate_number}}
         @endforeach
       @endforeach
-      
-      
+
       </td>
       <td>Manila</td>
+
       <td>
          @foreach($today->customers as $customer)
-        {{  title_case($customer->address) }}<br/>
+        {{  str_limit(title_case($customer->address),35) }}<br/>
         @endforeach
       </td>
       
@@ -82,43 +82,60 @@
       <td>
         @php $final_in = ''; @endphp
         @forelse($all_in->where('CardholderID', '==', $today->CardholderID)->take(1) as $in)
-            {{ $final_in = date('Y-m-d h:i:s A', strtotime($in->LocalTime))}}
+            {{ $final_in = date('F-d-y h:i:s A', strtotime($in->LocalTime))}}
         @empty
             NO IN 
         @endforelse    
       </td>
       <td>
        @forelse($all_out->where('CardholderID', '==', $today->CardholderID)->take(1) as $out)
-            {{ $final_out = date('Y-m-d h:i:s A', strtotime($out->LocalTime))}} 
+            {{ $final_out = date('F-d-y h:i:s A', strtotime($out->LocalTime))}} 
         @empty
             NO OUT
         @endforelse 
+      </td>
+            <td>
+        @foreach($today->drivers as $driver)
+        <?php
+        $card = App\Log::match($today->LogID)->pluck('CardholderID','CardholderID');
+        ?>
+        @if(array_has($card,$today->CardholderID))
+            <span class="btn btn-success btn-xs">
+                MATCHED
+            </span>
+        @else
+            <span class="btn btn-danger btn-xs">
+                NO FOUND
+            </span>
+        @endif
+        @endforeach
       </td>
       <td>
       @forelse($all_out->where('CardholderID', '==', $today->CardholderID)->take(1) as $out )
         @forelse($all_in->where('CardholderID', '==', $today->CardholderID)->take(1) as $in )
         {{  $in->LocalTime->diffInHours($out->LocalTime)}} Hour(s)
     @empty
-        NO PAIRED TIME IN
+        NO IN
     @endforelse
     @empty
-        NO PAIRED TIME OUT
+        NO OUT
     @endforelse
       </td>
+
     </tr>
 
 
 
     <!--- accordion details -->
      <tr id="collapse-{{$today->LogID}}" class="panel-collapse collapse">
-        <td colspan="9">
+        <td colspan="10">
         
                          <div class="row table-results">
 
                                 <!-- image -->
                                 <div class="col-md-2">
                                 @foreach($today->drivers as $driver)
-                                    <img class="img-responsive" src="{{ str_replace( 'public/','', asset('/storage/app/'.$driver->avatar))}}">
+                                    <img class="img-responsive" style="height:150px; width: auto;" src="{{ str_replace( 'public/','', asset('/storage/app/'.$driver->avatar))}}">
                                     @endforeach
                                 </div>
 

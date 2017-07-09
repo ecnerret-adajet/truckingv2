@@ -3,7 +3,7 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-6 col-xs-6">
+        <div class="col-lg-4 col-xs-4">
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
@@ -18,13 +18,28 @@
           </div>
         </div>
         
-        <div class="col-lg-6 col-xs-6">
+        <div class="col-lg-4 col-xs-4">
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>{{$pickups->count()}}</h3>
+              <h3>{{$pickups->where('availability','1')->count()}}</h3>
 
               <p>Current Pickup</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-ios-photos-outline"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-xs-4">
+          <!-- small box -->
+          <div class="small-box bg-red">
+            <div class="inner">
+              <h3>{{ $cardholders }}</h3>
+
+              <p>Available Card</p>
             </div>
             <div class="icon">
               <i class="ion ion-ios-photos-outline"></i>
@@ -57,7 +72,10 @@
                             <th>Plate #</th>
                             <th>Driver Name</th>
                             <th>Company</th>
+                            <th>IN</th>
+                            <th>OUT</th>
                             <th>Status</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -81,7 +99,38 @@
                                 {{$pick->company}}
                             </td>
                             <td>
-                            
+                                @forelse($pick->log->where('Direction',1)->where(date('Y-m-d',strtotime('Localtime')), date('Y-m-d',strtotime($pick->created_at))) as $logg)
+                                    {{ date('Y-m-d h:m:s', strtotime($logg->Localtime)) }}
+                                @empty
+                                    NO IN
+                                @endforelse
+                            </td>
+                            <td>
+                                @forelse($pick->log->where('Direction',2)->where(date('Y-m-d',strtotime('Localtime')), date('Y-m-d',strtotime($pick->created_at))) as $logg)
+                                    {{ date('Y-m-d h:m:s', strtotime($logg->Localtime)) }}
+                                @empty
+                                    NO IN
+                                @endforelse
+                            </td>
+                            <td>
+                                @if($pick->availability == 1)
+                                    <span class="inTransit">
+                                        <i class="ion ion-record"></i>
+                                    </span>
+                                @else
+                                    <span class="inPlant">
+                                        <i class="ion ion-record"></i>
+                                    </span>
+                                @endif
+                            </td>
+                            <td>
+                                <div class="dropdown pull-right">
+                                    <a href="#" class="btn btn-default btn-action btn-sm" data-toggle="dropdown"><i class="fa fa-ellipsis-v"></i></a>
+                                        <ul class="dropdown-menu">
+                                        <li><a data-toggle="modal" data-target=".bs-setInactive{{$pick->id}}-modal-lg" href=""> <span>Deactive RFID</span> </a></li>
+                                        
+                                        </ul>   
+                                </div>
                             </td>
                         </tr>
                         @endforeach
@@ -91,6 +140,39 @@
         </div>
     </div>
 </div><!-- end container fluid -->
+
+  @foreach($pickups as $pick)
+        <!-- Change availabitlity status to inactive -->
+        <div class="modal fade bs-setInactive{{$pick->id}}-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Deactive Pickup RFID</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="panel-body text-center"> 
+                                    <p>  
+                                        Are you sure you want to proceed with this action?
+                                    </p>                                              
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <form method="POST" action="{{ url('/pickups/deactivate/'.$pick->id) }}">
+                            {!! csrf_field() !!}
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Confirm</button> 
+                        </form>                    
+                    </div>
+                                
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->   
+  @endforeach
 
 
 @endsection

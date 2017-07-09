@@ -48,8 +48,8 @@ class MonitorsController extends Controller
                     ->whereDate('LocalTime',  Carbon::now())
                     ->orderBy('LocalTime','DESC')->get();
 
-        $locations = Location::pluck('code','id');
-        $statuses = Status::pluck('code','id');
+        $locations = Location::pluck('region','id');
+        $statuses = Status::pluck('status','id');
         $durations = Duration::pluck('days','id');
         $details = Detail::pluck('code','id');
         

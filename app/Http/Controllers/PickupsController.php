@@ -18,7 +18,8 @@ class PickupsController extends Controller
     public function index()
     {
         $pickups = Pickup::all();
-        return view('pickups.index', compact('pickups'));
+        $cardholders = Cardholder::where('Name', 'LIKE', '%Pickup%')->count();
+        return view('pickups.index', compact('pickups','cardholders'));
     }
 
     /**
@@ -28,7 +29,10 @@ class PickupsController extends Controller
      */
     public function create()
     {
-        $cardholders = Cardholder::where('Name', 'LIKE', '%Pickup%')->pluck('Name','CardholderID');
+
+        $cardholders = Cardholder::where('Name', 'LIKE', '%Pickup%')->whereHas('pickups', function($q){
+            $q->where('avilability',0);
+        })->pluck('Name','CardholderID');
 
         return view('pickups.create', compact('cardholders'));
     }
@@ -87,6 +91,23 @@ class PickupsController extends Controller
     public function update(Request $request, $id)
     {
         //
+    }
+
+    /**
+     *
+     *Deactive a pickup RFID
+     *
+     *
+     *
+     */
+    public function deactive($id)
+    {
+        $pick = Pickup::findOrFail($id);
+        $pick->availability = false;
+        $pick->save();
+
+        alert()->success('Pickup successfully deactivated', 'Success Added!');
+        return redirect('pickups');
     }
 
     /**
