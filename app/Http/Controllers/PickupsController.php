@@ -18,7 +18,9 @@ class PickupsController extends Controller
     public function index()
     {
         $pickups = Pickup::all();
-        $cardholders = Cardholder::where('Name', 'LIKE', '%Pickup%')->count();
+
+        $cardholders = Cardholder::with('pickups')->where('Name', 'LIKE', '%Pickup%')->count();
+
         return view('pickups.index', compact('pickups','cardholders'));
     }
 
@@ -30,9 +32,9 @@ class PickupsController extends Controller
     public function create()
     {
 
-        $cardholders = Cardholder::where('Name', 'LIKE', '%Pickup%')->whereHas('pickups', function($q){
-            $q->where('avilability',0);
-        })->pluck('Name','CardholderID');
+        $cardholders = Cardholder::with(['pickups' => function($q){
+            $q->where('availability',1);
+        }])->where('Name', 'LIKE', '%Pickup%')->pluck('Name','CardholderID');
 
         return view('pickups.create', compact('cardholders'));
     }

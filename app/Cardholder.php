@@ -31,7 +31,7 @@ class Cardholder extends Model
 
     public function pickups()
     {
-        return $this->hasMany('App\Pickup','id','CardholderID');
+        return $this->hasMany('App\Pickup','cardholder_id','CardholderID');
     }
 
     public function scopeMatched($query, $current)

@@ -89,7 +89,7 @@
                 <div class="col-sm-3 border-right">
                   <div class="description-block">
                     <h5 class="description-header">{{ $trucks->count() }}</h5>
-                    <span class="description-text">DAY</span>
+                    <span class="description-text">ALL</span>
                   </div>
                   <!-- /.description-block -->
                 </div>
@@ -151,7 +151,7 @@
                 <div class="col-sm-3 border-right">
                   <div class="description-block">
                     <h5 class="description-header">{{ $haulers->count() }}</h5>
-                    <span class="description-text">DAY</span>
+                    <span class="description-text">ALL</span>
                   </div>
                   <!-- /.description-block -->
                 </div>
@@ -215,7 +215,7 @@
                 <div class="col-sm-3 border-right">
                   <div class="description-block">
                     <h5 class="description-header">{{ $pickups->count() }}</h5>
-                    <span class="description-text">DAY</span>
+                    <span class="description-text">ALL</span>
                   </div>
                   <!-- /.description-block -->
                 </div>
