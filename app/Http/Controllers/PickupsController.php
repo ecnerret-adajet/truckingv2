@@ -17,11 +17,16 @@ class PickupsController extends Controller
      */
     public function index()
     {
-        $pickups = Pickup::all();
+        $pickups = Pickup::orderBy('created_at','desc')->get();
+
+        $current_pickup = Pickup::select('cardholder_id')->where('availability',1)->get();
+
+        $available_card = Cardholder::whereNotIn('CardholderID', $current_pickup)
+                ->where('Name', 'LIKE', '%Pickup%')->with('pickups')->get();
 
         $cardholders = Cardholder::with('pickups')->where('Name', 'LIKE', '%Pickup%')->count();
 
-        return view('pickups.index', compact('pickups','cardholders'));
+        return view('pickups.index', compact('pickups','cardholders','current_pickup','available_card','check_card'));
     }
 
     /**
@@ -31,12 +36,14 @@ class PickupsController extends Controller
      */
     public function create()
     {
+        $pickup_cards = Pickup::select('cardholder_id')->where('availability',1)->get();
+    
+        $cardholders = Cardholder::whereNotIn('CardholderID', $pickup_cards)
+                                ->where('Name', 'LIKE', '%Pickup%')
+                                ->pluck('Name','CardholderID');
+                                
 
-        $cardholders = Cardholder::with(['pickups' => function($q){
-            $q->where('availability',1);
-        }])->where('Name', 'LIKE', '%Pickup%')->pluck('Name','CardholderID');
-
-        return view('pickups.create', compact('cardholders'));
+        return view('pickups.create', compact('cardholders','pickup_cards'));
     }
 
     /**

@@ -22,7 +22,7 @@
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>{{$pickups->where('availability','1')->count()}}</h3>
+              <h3>{{$current_pickup->count()}}</h3>
 
               <p>Current Pickup</p>
             </div>
@@ -37,7 +37,7 @@
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
-              <h3>{{ $cardholders }}</h3>
+              <h3>{{ $available_card->count() }}</h3>
 
               <p>Available Card</p>
             </div>
@@ -125,7 +125,7 @@
                             </td>
                             <td>
                                 <div class="dropdown pull-right">
-                                    <a href="#" class="btn btn-default btn-action btn-sm" data-toggle="dropdown"><i class="fa fa-ellipsis-v"></i></a>
+                                    <a href="#" class="btn btn-action btn-sm {{ $pick->availability == 0 ? 'disabled btn-default' : 'btn-primary' }}" data-toggle="dropdown"><i class="fa fa-ellipsis-v"></i></a>
                                         <ul class="dropdown-menu">
                                         <li><a data-toggle="modal" data-target=".bs-setInactive{{$pick->id}}-modal-lg" href=""> <span>Deactive RFID</span> </a></li>
                                         
