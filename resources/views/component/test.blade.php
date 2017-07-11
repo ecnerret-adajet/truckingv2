@@ -221,7 +221,11 @@
                                      <span>TIME IN </span><br/>
                                         <?php $final_in = ''; ?>
                                         @forelse($all_in->where('CardholderID', '==', $today->CardholderID)->take(1) as $in)
-                                            {{ $final_in = date('F d, Y h:i:s A', strtotime($in->LocalTime))}}
+                                            
+                                            <a class="btn btn-sm btn-primary" href="{{url('http://172.17.2.25:8080/RFID/'.date('Ymd',strtotime($in->LocalTime)).'/AC.'.date('Ymd',strtotime($in->LocalTime)).'.0000'.$in->LogID.'-1.jpg')}}" data-lightbox="{{$today->LogID}}" data-title="TIME IN - {{  date('Y-m-d h:i:s A', strtotime($in->LocalTime))}}">                      
+                                                {{ $final_in = date('F d, Y h:i:s A', strtotime($in->LocalTime))}}
+                                            </a>
+                                            
                                         @empty
                                             NO IN <br/>
                                         @endforelse             
@@ -229,15 +233,14 @@
                                     <div class="col-md-4">
                                     <span>TIME OUT</span><br/>
                                     @foreach($all_out->where('CardholderID', '==', $today->CardholderID)->take(1) as $out)
-                                                    <!-- @if( contains(date('Y-m-d h:i:s A', strtotime($out->LocalTime)), 'AM' )) -->
 
-                                                
-                                                    {{ $final_out = date('F d, Y h:i:s A', strtotime($out->LocalTime))}} 
-                                       
-                                                    <!-- @endif -->
+                                    <a class="btn btn-sm btn-primary" href="{{url('http://172.17.2.25:8080/RFID/'.date('Ymd',strtotime($out->LocalTime)).'/AC.'.date('Ymd',strtotime($out->LocalTime)).'.0000'.$out->LogID.'-2.jpg')}}" data-lightbox="{{$today->LogID}}" data-title="TIME OUT - {{  date('Y-m-d h:i:s A', strtotime($out->LocalTime))}}">                      
+                                               {{ $final_out = date('F d, Y h:i:s A', strtotime($out->LocalTime))}} 
+                                    </a>
 
+                                                    
 
-                                             @endforeach 
+                                    @endforeach 
                                     </div>
                                   <div class="col-md-4">
                                     <span>TIME BETWEEN</span><br/>
