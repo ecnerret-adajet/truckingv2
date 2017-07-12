@@ -138,9 +138,11 @@ MARK DONE
 <div class="panel-heading">
 <h4 class="title">All Drivers
 
+@role(('Administrator'))
 <a href="{{ url('/drivers/create') }}"  class="btn btn-primary btn-sm pull-right">
 Add New Driver
 </a>
+@endrole
 </h4>
 <p class="category">Total driver registered in the system</p>
 
@@ -207,10 +209,12 @@ Add New Driver
 </button>
 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">    
 <li role="presentation"><a role="menuitem" tabindex="-1" href="{{url('/drivers/'.$driver->id)}}"><i class="fa fa-file-o" aria-hidden="true"></i> <span class="hidden-xs">View Details</span></a></li>
+@role(('Administrator'))
 <li role="presentation"><a role="menuitem" tabindex="-1" href="{{url('/drivers/'.$driver->id.'/edit')}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span class="hidden-xs">Edit Driver</span></a></li>                                                        
 <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ url('/transfers/create/'.$driver->id) }}"><i class="fa fa-share-square-o" aria-hidden="true"></i> <span class="hidden-xs">Re-assign Driver</span></a></li>                                                        
 <li role="presentation" class="divider"></li>                                                        
 <li role="presentation"><a data-toggle="modal" data-target=".bs-delete{{$driver->id}}-modal-lg" href=""><i class="fa fa-ban" aria-hidden="true"></i> <span class="hidden-xs">Deactivate Driver</span></a></li>
+@endrole
 </ul>                                                        
 </div>
 </td>    

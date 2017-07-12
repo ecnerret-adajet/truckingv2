@@ -193,7 +193,11 @@
                                             <div class="col-md-4">
                                             <span>Driver Name </span><br/>
                                                     @foreach($today->drivers as $driver)
-                                                     <a href="{{ url('drivers/'.$driver->id.'/edit') }}">   {{  $driver->name }} </a>
+                                                        @if(Auth::user()->hasRole('Administrator'))
+                                                            <a href="{{ url('drivers/'.$driver->id.'/edit') }}">   {{  $driver->name }} </a>
+                                                        @else
+                                                            {{  $driver->name }}
+                                                        @endif
                                                     @endforeach                          
                                             </div>
 

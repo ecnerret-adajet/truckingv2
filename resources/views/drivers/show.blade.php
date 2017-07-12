@@ -8,9 +8,11 @@
                         <div class="panel panel-default" style="border-radius: 0">
                           <div class="panel-heading ">
                            <h5 class="info-header">Driver Information
+                            @role(('Administrator'))
                                 <a class="btn btn-primary btn-fill btn-sm pull-right" href="{{url('/drivers/'.$driver->id.'/edit')}}">          
-                           Edit Driver
-                           </a>
+                                 Edit Driver
+                                </a>
+                            @endrole
                            </h5>  
                        
                           </div>
@@ -78,11 +80,11 @@
                         <div class="panel panel-default" style="border-radius: 0">
                           <div class="panel-heading">
                            <h5 class="info-header">Driver logs
-
-                           <a class="btn btn-primary pull-right btn-fill btn-sm" href="{{ url('/transfers/create/'.$driver->id) }}">
-                            Re-assign Truck
-                           </a>
-                     
+                            @role(('Administrator'))
+                            <a class="btn btn-primary pull-right btn-fill btn-sm" href="{{ url('/transfers/create/'.$driver->id) }}">
+                                Re-assign Truck
+                            </a>
+                            @endrole
                            </h5>  
                        
                           </div>

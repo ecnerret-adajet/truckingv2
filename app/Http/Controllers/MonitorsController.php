@@ -76,7 +76,8 @@ class MonitorsController extends Controller
             'status_list' => 'required',
             'duration_list' => 'required',
             'detail_list' => 'required',
-            'odometer' => 'integer'
+            'odometer' => 'integer',
+            'remarks' => 'required'
          ]);
 
 

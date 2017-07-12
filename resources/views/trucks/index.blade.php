@@ -61,9 +61,11 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="title">Trucks Master List
+                        @role(('Administrator'))
                         <a class="btn btn-primary btn-sm pull-right" href="{{url('/trucks/create')}}">
                         Add New Truck
                         </a>
+                        @endrole
                         </h4>
                         <p class="category">Total Hauler registered in the system</p>
                     </div>
@@ -122,6 +124,7 @@
                                         </button>
                                         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">    
                                         <li role="presentation"><a role="menuitem" tabindex="-1" href="{{url('/trucks/'.$truck->id)}}"><i class="fa fa-file-o" aria-hidden="true"></i> <span class="hidden-xs">View Details</span></a></li>
+                                        @role(('Administrator'))
                                         <li role="presentation"><a role="menuitem" tabindex="-1" href="{{url('/trucks/'.$truck->id.'/edit')}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span class="hidden-xs">Edit Truck</span></a></li>                                                        
                                         <li role="presentation" class="divider"></li>                                                        
                                         <li role="presentation">
@@ -137,6 +140,7 @@
                                         </li>
                                         <li role="presentation" class="divider"></li> 
                                         <li role="presentation"><a data-toggle="modal" data-target=".bs-delete{{$truck->id}}-modal-lg" href=""><i class="fa fa-ban" aria-hidden="true"></i> <span class="hidden-xs">Remove Truck</span></a></li>
+                                        @endrole
                                         </ul>                                                        
                                         </div>
                                     </td>

@@ -54,7 +54,9 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4>Haulers Master List
+                                @role(('Administrator'))
                                     <a class="btn btn-sm btn-primary pull-right" href="{{url('/haulers/create')}}">Add Hauler</a>
+                                @endrole
                                 </h4>
                                 <p class="category">Total Hauler registered in the system</p>
 
@@ -98,7 +100,9 @@
                                                 </button>
                                                 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">    
                                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="{{url('/haulers/'.$hauler->id)}}"><i class="fa fa-file-o" aria-hidden="true"></i> <span class="hidden-xs">View Details</span></a></li>
+                                                @role(('Administrator'))
                                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="{{url('/haulers/'.$hauler->id.'/edit')}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span class="hidden-xs">Edit Hauler</span></a></li>                                                        
+                                                @endrole
                                                 </ul>                                                        
                                                 </div>
                                             </td>
