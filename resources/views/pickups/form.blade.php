@@ -2,13 +2,22 @@
 <div class="row">
 <div class="col-md-12">
         <div class="form-group{{ $errors->has('cardholder_list') ? ' has-error' : '' }}">
-            <label>Pickup Cards</label>
+            <label>Pickup Number</label>
+            
+            @if(str_contains(Request::path(), 'edit'))           
+            {!! Form::select('cardholder_list', $cardholders, $pickup->cardholder->CardholderID, ['class' => 'form-control border-input select', 'placeholder' => '--- Assign a RFID ---'] ) !!}
+            @else
             {!! Form::select('cardholder_list', $cardholders, null, ['class' => 'form-control border-input select', 'placeholder' => '--- Assign a RFID ---'] ) !!}
-                @if ($errors->has('cardholder_list'))
-                <span class="help-block">
-                <strong>{{ $errors->first('cardholder_list') }}</strong>
-                </span>
-                @endif
+            @endif
+            
+            
+            
+            
+            @if ($errors->has('cardholder_list'))
+            <span class="help-block">
+            <strong>{{ $errors->first('cardholder_list') }}</strong>
+            </span>
+            @endif
         </div>
 </div>
 </div>

@@ -55,8 +55,12 @@ class PickupsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
+            'cardholder_list' => 'required',
             'plate_number' => 'required',
+            'driver_name' => 'required',
             'company' => 'required'
+        ],[
+            'cardholder_list.required' => 'Pickup card number is required'
         ]);
 
         $plate = $request->input('cardholder_list');
@@ -85,9 +89,15 @@ class PickupsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Pickup $pickup)
     {
-        //
+        $pickup_cards = Pickup::select('cardholder_id')->where('availability',1)->get();
+    
+        $cardholders = Cardholder::whereNotIn('CardholderID', $pickup_cards)
+                                ->where('Name', 'LIKE', '%Pickup%')
+                                ->pluck('Name','CardholderID');
+
+        return view('pickups.edit',compact('pickup_cards','cardholders','pickup'));
     }
 
     /**
@@ -97,9 +107,25 @@ class PickupsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, Pickup $pickup)
+    {   
+        $this->validate($request, [
+            'cardholder_list' => 'required',
+            'plate_number' => 'required',
+            'driver_name' => 'required',
+            'company' => 'required'
+        ],[
+            'cardholder_list.required' => 'Pickup card number is required'
+        ]);
+
+        $plate = $request->input('cardholder_list');
+        $pickup->update($request->all());
+        $pickup->cardholder()->associate($plate);
+        $pickup->save();
+
+        alert()->success('Pickup has been update successfully');
+        return redirect('pickups');
+
     }
 
     /**

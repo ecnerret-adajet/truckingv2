@@ -125,10 +125,12 @@
                             </td>
                             <td>
                                 <div class="dropdown pull-right">
-                                    <a href="#" class="btn btn-action btn-sm {{ $pick->availability == 0 ? 'disabled btn-default' : 'btn-primary' }}" data-toggle="dropdown"><i class="fa fa-ellipsis-v"></i></a>
+                                    <a href="#" class="btn btn-action btn-sm btn-primary" data-toggle="dropdown"><i class="fa fa-ellipsis-v"></i></a>
                                         <ul class="dropdown-menu">
+                                        <li><a href="{{url('/pickups/'.$pick->id.'/edit')}}"> <span>Edit Entry</span> </a></li>
+                                        @if($pick->availability == 1) 
                                         <li><a data-toggle="modal" data-target=".bs-setInactive{{$pick->id}}-modal-lg" href=""> <span>Deactive RFID</span> </a></li>
-                                        
+                                        @endif
                                         </ul>   
                                 </div>
                             </td>
