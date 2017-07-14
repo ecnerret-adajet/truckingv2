@@ -32,7 +32,8 @@ class Log extends Model
         return $this->hasMany('App\Monitor','log_ID','LogID');
     }
 
-    public function getLocalTimeAttribute($date){
+    public function getLocalTimeAttribute($date)
+    {
         return Carbon::parse($date);
     }
 
@@ -44,6 +45,20 @@ class Log extends Model
                      ->orderBy('LogID','DESC');
     }
 
+    public function scopePickupIn($query, $pickup_card, $created_date)
+    {
+        return $query->where('CardholderID', $pickup_card)
+                     ->where('Direction', 1)
+                     ->where('LocalTime', '>=', Carbon::parse($created_date))
+                     ->where('LocalTime', '<=', Carbon::parse($created_date)->addHour());
+    }
 
-   
+    public function scopePickupOut($query, $pickup_card, $created_date)
+    {
+        return $query->where('CardholderID', $pickup_card)
+                     ->where('Direction', 2)
+                     ->whereDate('LocalTime', $created_date)
+                     ->take(1);
+    }
+
 }

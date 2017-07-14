@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Cardholder;
 use App\Pickup;
+use App\Log;
 
 class PickupsController extends Controller
 {
@@ -17,6 +18,11 @@ class PickupsController extends Controller
      */
     public function index()
     {
+
+        $logs = Log::whereNotIn('ControllerID',[1])
+            ->where('CardholderID', '>=', 1)
+            ->orderBy('LocalTime','DESC')->get();
+
         $pickups = Pickup::orderBy('created_at','desc')->get();
 
         $current_pickup = Pickup::select('cardholder_id')->where('availability',1)->get();
@@ -26,7 +32,7 @@ class PickupsController extends Controller
 
         $cardholders = Cardholder::with('pickups')->where('Name', 'LIKE', '%Pickup%')->count();
 
-        return view('pickups.index', compact('pickups','cardholders','current_pickup','available_card','check_card'));
+        return view('pickups.index', compact('pickups','cardholders','current_pickup','available_card','check_card','logs'));
     }
 
     /**

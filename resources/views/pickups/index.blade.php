@@ -74,6 +74,7 @@
                             <th>Company</th>
                             <th>IN</th>
                             <th>OUT</th>
+                            <th>BETWEEN</th>
                             <th>Status</th>
                             <th></th>
                         </tr>
@@ -98,18 +99,32 @@
                             <td>
                                 {{$pick->company}}
                             </td>
+
                             <td>
-                                @forelse($pick->log->where('Direction',1)->where(date('Y-m-d',strtotime('Localtime')), date('Y-m-d',strtotime($pick->created_at))) as $logg)
-                                    {{ date('Y-m-d h:m:s', strtotime($logg->Localtime)) }}
+
+                                @forelse(App\Log::pickupIn($pick->cardholder->CardholderID, $pick->created_at)->get() as $logIn)
+                                    {{ $pick_in = date('F-d-y h:i:s A',strtotime($logIn->LocalTime))}}<br/>
                                 @empty
                                     NO IN
                                 @endforelse
+
                             </td>
                             <td>
-                                @forelse($pick->log->where('Direction',2)->where(date('Y-m-d',strtotime('Localtime')), date('Y-m-d',strtotime($pick->created_at))) as $logg)
-                                    {{ date('Y-m-d h:m:s', strtotime($logg->Localtime)) }}
+                                @forelse(App\Log::pickupOut($pick->cardholder->CardholderID, $pick->created_at)->get() as $logOut)
+                                    {{ $pick_out = date('F-d-y h:i:s A',strtotime($logOut->LocalTime))}}<br/>
                                 @empty
-                                    NO IN
+                                    NO OUT
+                                @endforelse
+                            </td>
+                            <td>
+                                @forelse(App\Log::pickupOut($pick->cardholder->CardholderID, $pick->created_at)->get() as $logOut)
+                                @forelse(App\Log::pickupIn($pick->cardholder->CardholderID, $pick->created_at)->get() as $logIn)
+                                    {{  $logIn->LocalTime->diffInHours($logOut->LocalTime)}} Hour(s)
+                                @empty
+                                    --
+                                @endforelse
+                                @empty
+                                    --
                                 @endforelse
                             </td>
                             <td>
