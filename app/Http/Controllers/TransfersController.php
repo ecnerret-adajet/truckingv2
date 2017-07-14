@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Collection;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use Carbon\Carbon;
-use App\Driver;
-use App\Truck;
-use App\Hauler;
 use App\Transfer;
+use App\Driver;
+use App\Hauler;
+use App\Truck;
+use App\User;
 use Alert;
+
 
 class TransfersController extends Controller
 {
@@ -46,6 +48,7 @@ class TransfersController extends Controller
         }
                     
         $transfer = new Transfer;
+        $transfer->user_id = Auth::user()->id;
         $transfer->fill($request->all());
         $transfer->driver()->associate($driver);  
         $transfer->from_truck = $get_plate;

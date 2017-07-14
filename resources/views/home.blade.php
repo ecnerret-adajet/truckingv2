@@ -9,7 +9,7 @@
         <!-- small box -->
         <div class="small-box bg-aqua">
           <div class="inner">
-            <h3>{{$today_log->count()}}</h3>
+            <h3>{{$count_today_log}}</h3>
 
             <p>Entries Today</p>
           </div>

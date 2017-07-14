@@ -46,7 +46,7 @@ class DriversController extends Controller
             ->get();
 
         $driver_updated = Driver::orderBy('updated_at','desc')->take(3)->get();
-        $transfers = Transfer::orderBy('updated_at','desc')->take(3)->get();
+        $transfers = Transfer::orderBy('updated_at','desc')->take(5)->get();
 
 
         $values = Log::select('CardholderID', \DB::raw('count(*) as value'))

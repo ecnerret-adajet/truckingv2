@@ -36,7 +36,8 @@ class LogsController extends Controller
         * Query on the daily monitoring
         *
         */
-    	$logs = Log::where('CardholderID', '>=', 1)
+    	$logs = Log::whereNotIn('ControllerID',[1])
+                    ->where('CardholderID', '>=', 1)
                     ->whereDate('LocalTime', Carbon::now())
                     ->orderBy('LocalTime','DESC')->get();
 
@@ -59,6 +60,7 @@ class LogsController extends Controller
 
 
         $base_time = Carbon::now();         
+        $count_today_log = $logs->unique('CardholderID')->count(); //35
         $today_log = $logs->unique('CardholderID')->take(35); //35
         // count total in
         $total_in = $today_in->unique('CardholderID');
@@ -70,6 +72,7 @@ class LogsController extends Controller
         $all_haulers = Hauler::all();
            
         return view('home', compact('logs',
+        'count_today_log',
         'today_log',
         'all_drivers',
         'all_trucks',

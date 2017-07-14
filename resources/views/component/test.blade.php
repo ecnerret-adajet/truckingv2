@@ -29,10 +29,19 @@
       </span>
       </td>
       <td>
+
       @foreach($today->drivers as $driver)
-        @foreach($driver->trucks as $truck)
-            {{$truck->plate_number}}
-        @endforeach
+
+        @if(count($driver->transfers->where('availability',1)) == 0)
+            @foreach($driver->trucks as $truck)
+                {{$truck->plate_number}}
+            @endforeach
+        @else
+            @foreach($driver->transfers as $transfer)
+                {{$transfer->to_truck}} - <span class="label label-danger">TEMPORARY</span>
+            @endforeach
+        @endif
+
       @endforeach
 
       </td>
