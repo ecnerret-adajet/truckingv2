@@ -29,7 +29,8 @@ class Driver extends Model
         'driver_number',
     	'phone_number',
     	'substitute',
-        'cardholder_id'
+        'cardholder_id',
+        'remarks'
     ];
 
     /**

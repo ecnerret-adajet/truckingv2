@@ -49,8 +49,9 @@ class Log extends Model
     {
         return $query->where('CardholderID', $pickup_card)
                      ->where('Direction', 1)
-                     ->where('LocalTime', '>=', Carbon::parse($created_date))
-                     ->where('LocalTime', '<=', Carbon::parse($created_date)->addHour());
+                     ->where('LocalTime', '>', Carbon::parse($created_date))
+                     ->where('LocalTime', '<=', Carbon::parse($created_date)->addHour())
+                     ->take(1);
     }
 
     public function scopePickupOut($query, $pickup_card, $created_date)

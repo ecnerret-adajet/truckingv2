@@ -100,6 +100,7 @@
                                 {{$pick->company}}
                             </td>
 
+
                             <td>
 
                                 @forelse(App\Log::pickupIn($pick->cardholder->CardholderID, $pick->created_at)->get() as $logIn)
@@ -111,20 +112,33 @@
                             </td>
                             <td>
                                 @forelse(App\Log::pickupOut($pick->cardholder->CardholderID, $pick->created_at)->get() as $logOut)
-                                    {{ $pick_out = date('F-d-y h:i:s A',strtotime($logOut->LocalTime))}}<br/>
+                                @forelse(App\Log::pickupIn($pick->cardholder->CardholderID, $pick->created_at)->get() as $logIn)
+                                    @if($logOut->LocalTime > $logIn->LocalTime)
+                                       {{ $pick_out = date('F-d-y h:i:s A',strtotime($logOut->LocalTime)) }}
+                                    @else
+                                        NO OUT
+                                    @endif
                                 @empty
-                                    NO OUT
+                                        CANNOT DETERMINE
+                                @endforelse
+                                @empty
+                                        NO OUT
                                 @endforelse
                             </td>
                             <td>
+
                                 @forelse(App\Log::pickupOut($pick->cardholder->CardholderID, $pick->created_at)->get() as $logOut)
                                 @forelse(App\Log::pickupIn($pick->cardholder->CardholderID, $pick->created_at)->get() as $logIn)
-                                    {{  $logIn->LocalTime->diffInHours($logOut->LocalTime)}} Hour(s)
+                                    @if($logOut->LocalTime > $logIn->LocalTime)
+                                      {{  $logIn->LocalTime->diffInHours($logOut->LocalTime)}} Hour(s)
+                                    @else
+                                        NO OUT
+                                    @endif
                                 @empty
-                                    --
+                                        CANNOT DETERMINE
                                 @endforelse
                                 @empty
-                                    --
+                                        NO OUT
                                 @endforelse
                             </td>
                             <td>
