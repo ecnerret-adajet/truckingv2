@@ -20,6 +20,7 @@ class PickupsController extends Controller
     {
 
         $pickups = Pickup::orderBy('created_at','desc')->paginate(10);
+        $pickups_count = Pickup::all()->count();
 
         $current_pickup = Pickup::select('cardholder_id')->where('availability',1)->get();
 
@@ -29,6 +30,7 @@ class PickupsController extends Controller
         $cardholders = Cardholder::with('pickups')->where('Name', 'LIKE', '%Pickup%')->count();
 
         return view('pickups.index', compact('pickups',
+                                            'pickups_count',
                                             'cardholders',
                                             'current_pickup',
                                             'available_card',

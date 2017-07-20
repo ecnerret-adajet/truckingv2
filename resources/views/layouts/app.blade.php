@@ -80,6 +80,10 @@
         <li class="{{ Request::is('users') ? 'active' : '' }}"><a href="{{ url('/users') }}">Users</a></li>
     @endrole
 
+    @role(('Personnel'))
+        <li class="{{ Request::is('pickups') ? 'active' : '' }}"><a href="{{ url('/pickups') }}">Pickup</a></li>
+    @endrole
+
         <li class="{{ Request::is('feed') ? 'active' : '' }}"><a href="{{ url('/feed') }}"><i class="fa fa-circle" aria-hidden="true"></i>  <span class="hidden-sx" >Live Feed</span> </a></li>
 
       </ul>

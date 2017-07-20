@@ -7,7 +7,7 @@
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>{{$pickups->count()}}</h3>
+              <h3>{{$pickups_count}}</h3>
 
               <p>Total Pickup Logs</p>
             </div>
@@ -103,7 +103,7 @@
 
                             <td>
 
-                                @forelse(App\Log3::pickupIn($pick->cardholder_id, $pick->created_at)->get() as $logIn)
+                                @forelse(App\Log::pickupIn($pick->cardholder_id, $pick->created_at)->get() as $logIn)
                                     {{ $pick_in = date('F-d-y h:i:s A',strtotime($logIn->LocalTime))}}<br/>
                                 @empty
                                     NO IN
@@ -129,12 +129,23 @@
                                 @endforelse
                             </td>
                             <td>
+                                @forelse(App\Log::pickupOut($pick->cardholder_id, $pick->created_at)->get() as $logOut)
 
-                                @forelse(App\Log::pickupOut($pick->cardholder->CardholderID, $pick->created_at)->get() as $logOut)
+                                @forelse(App\Log::pickupIn($pick->cardholder_id, $pick->created_at)->get() as $logIn)
+
+                                    @if($logOut->LocalTime > $logIn->LocalTime)
                                       {{  $logIn->LocalTime->diffInHours($logOut->LocalTime)}} Hour(s)
+                                    @else
+                                        N/A
+                                    @endif
+
                                 @empty
-                                        NO OUT
+                                        N/A
                                 @endforelse
+                                @empty
+                                        N/A
+                                @endforelse
+
                             </td>
                             <td>
                                 @if($pick->availability == 1)

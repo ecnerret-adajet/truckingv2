@@ -45,7 +45,7 @@
       @endforeach
 
       </td>
-      <td>Manila  {{$today->CardholderID}}</td>
+      <td>Manila</td>
 
       <td>
          @foreach($today->customers as $customer)
