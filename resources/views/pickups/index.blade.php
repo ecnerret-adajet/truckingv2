@@ -103,7 +103,7 @@
 
                             <td>
 
-                                @forelse(App\Log::pickupIn($pick->cardholder->CardholderID, $pick->created_at)->get() as $logIn)
+                                @forelse(App\Log3::pickupIn($pick->cardholder_id, $pick->created_at)->get() as $logIn)
                                     {{ $pick_in = date('F-d-y h:i:s A',strtotime($logIn->LocalTime))}}<br/>
                                 @empty
                                     NO IN
@@ -111,13 +111,16 @@
 
                             </td>
                             <td>
-                                @forelse(App\Log::pickupOut($pick->cardholder->CardholderID, $pick->created_at)->get() as $logOut)
-                                @forelse(App\Log::pickupIn($pick->cardholder->CardholderID, $pick->created_at)->get() as $logIn)
+                                @forelse(App\Log::pickupOut($pick->cardholder_id, $pick->created_at)->get() as $logOut)
+
+                                @forelse(App\Log::pickupIn($pick->cardholder_id, $pick->created_at)->get() as $logIn)
+
                                     @if($logOut->LocalTime > $logIn->LocalTime)
                                        {{ $pick_out = date('F-d-y h:i:s A',strtotime($logOut->LocalTime)) }}
                                     @else
                                         NO OUT
                                     @endif
+
                                 @empty
                                         CANNOT DETERMINE
                                 @endforelse
@@ -128,15 +131,7 @@
                             <td>
 
                                 @forelse(App\Log::pickupOut($pick->cardholder->CardholderID, $pick->created_at)->get() as $logOut)
-                                @forelse(App\Log::pickupIn($pick->cardholder->CardholderID, $pick->created_at)->get() as $logIn)
-                                    @if($logOut->LocalTime > $logIn->LocalTime)
                                       {{  $logIn->LocalTime->diffInHours($logOut->LocalTime)}} Hour(s)
-                                    @else
-                                        NO OUT
-                                    @endif
-                                @empty
-                                        CANNOT DETERMINE
-                                @endforelse
                                 @empty
                                         NO OUT
                                 @endforelse
@@ -167,6 +162,11 @@
                         @endforeach
                     </tbody>
                 </table>
+
+                <ul class="pagination">
+                    {{ $pickups->render() }}
+                </ul>
+
             </div>
         </div>
     </div>

@@ -19,11 +19,7 @@ class PickupsController extends Controller
     public function index()
     {
 
-        $logs = Log::whereNotIn('ControllerID',[1])
-            ->where('CardholderID', '>=', 1)
-            ->orderBy('LocalTime','DESC')->get();
-
-        $pickups = Pickup::orderBy('created_at','desc')->get();
+        $pickups = Pickup::orderBy('created_at','desc')->paginate(10);
 
         $current_pickup = Pickup::select('cardholder_id')->where('availability',1)->get();
 
@@ -32,7 +28,12 @@ class PickupsController extends Controller
 
         $cardholders = Cardholder::with('pickups')->where('Name', 'LIKE', '%Pickup%')->count();
 
-        return view('pickups.index', compact('pickups','cardholders','current_pickup','available_card','check_card','logs'));
+        return view('pickups.index', compact('pickups',
+                                            'cardholders',
+                                            'current_pickup',
+                                            'available_card',
+                                            'check_card',
+                                            'logs'));
     }
 
     /**

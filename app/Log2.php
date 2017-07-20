@@ -5,10 +5,10 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
-class Log extends Model
+class Log2 extends Model
 {
     protected $connection = "sqlsrv_three";
-    protected $table = "AccessLog2";
+    protected $table = "AccessLog";
 
     protected $dates = ['LocalTime'];
 
