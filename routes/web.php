@@ -69,6 +69,7 @@ Route::get('/getOuts','ReportsController@getOut');
 // Route::get('/getDrivers','ReportsController@getDriver');
 Route::get('/summary','ReportsController@getSummary');
 Route::get('/generate','ReportsController@generateReport');
+Route::get('/summaryExport', 'ReportsController@getSummaryExport');
 
 Route::get('/daily', 'ReportsController@getDaily');
 

@@ -134,10 +134,10 @@ class ReportsController extends Controller
 									);
 									array_push($arr, $data);
 								
-								}
-               			 	}
-               			 }
-	                }
+							}
+						}
+					}
+	            }
 
 			
                 //set the titles
@@ -158,7 +158,8 @@ class ReportsController extends Controller
 
 
 
-	public function feedBody(){
+	public function feedBody()
+	{
 
         $logs = Log::where('CardholderID', '>=', 1)
         ->whereDate('LocalTime', '>=', Carbon::now())
@@ -187,10 +188,9 @@ class ReportsController extends Controller
 	}
 
 
-	public function feed(){
-
-			return view('feed');
-
+	public function feed()
+	{
+		return view('feed');
 	}
 
 
@@ -201,7 +201,8 @@ class ReportsController extends Controller
 	*/
 
 
-	public function getLog(){
+	public function getLog()
+	{
 
 		$logs = Log::with('drivers')
         ->where('CardholderID', '>=', 1)
@@ -214,7 +215,8 @@ class ReportsController extends Controller
 
 	}
 
-	public function getIn(){
+	public function getIn()
+	{
 
 		$all_in = Log::where('CardholderID', '>=', 1)
                     ->where('Direction', 1)
@@ -226,7 +228,8 @@ class ReportsController extends Controller
 
 	}
 
-	public function getOut(){
+	public function getOut()
+	{
 		$all_out = Log::where('CardholderID', '>=', 1)
 			->where('Direction', 2)
 			->whereDate('LocalTime', Carbon::now())
@@ -235,14 +238,16 @@ class ReportsController extends Controller
 		return \Response::json($all_out);
 	}
 
-	public function getDriver(){
+	public function getDriver()
+	{
 		$drivers = Driver::with('log','trucks','haulers')
 			->get();
 		
 		return \Response::json($drivers);
 	}
 
-	public function getSummary(){
+	public function getSummary()
+	{
 		$haulers = Hauler::pluck('name','id');
 		$count_days = 0;
 
@@ -256,7 +261,8 @@ class ReportsController extends Controller
 			'today_result','logs','start_date','end_date','count_days'));
 	}
 
-	public function generateReport(Request $request){
+	public function generateReport(Request $request)
+	{
 
 		$this->validate($request, [
 			'start_date' => 'required',
@@ -314,10 +320,59 @@ class ReportsController extends Controller
 			return redirect('summary')->with('status', 'Please select a date range not more than 7 days, retry again');
 		
 		}
-
-
-
 	}
+
+	public function getSummaryExport()
+	{
+		session_start();
+		$start_date =  $_SESSION["start_date"];
+		$end_date = $_SESSION["end_date"];
+		$hauler_list = $_SESSION["hauler_list"]; 
+		$count_days = Carbon::parse($start_date)->diffInDays(Carbon::parse($end_date));
+
+		$logs = Log::where('CardholderID', '>=', 1)
+		->whereBetween('LocalTime', [Carbon::parse($start_date), Carbon::parse($end_date)])
+		->orderBy('LocalTime','ASC')
+		->with(['drivers.haulers' => function($q) use ($hauler_list){
+			$q->where('id', $hauler_list);
+		}])->get();
+
+		$today_result = $logs->unique('CardholderID');
+
+		// adding header dates
+		$top_header = array();
+		if(!empty($start_date) && !empty($end_date)) {
+			for ($x = $start_date; $x <= $end_date; $x=date('Y-m-d', strtotime($x. ' + 1 days'))) {
+				$top_header[] = date('F d', strtotime($x));
+			}
+		}
+
+		// adding result arrays to table
+			$result_array = array();
+			if(!empty($start_date) && !empty($end_date)) {
+				for ($x = $start_date; $x <= $end_date; $x=date('Y-m-d', strtotime($x. ' + 1 days'))) {
+
+				$result_array[] = $x;
+					
+				}
+			}
+
+		// Export Excel File
+		Excel::create('trucking_report'.Carbon::now()->format('Ymdh'), function($excel) use ($today_result, $top_header, $result_array, $logs) {
+
+		$excel->sheet('Sheet1', function($sheet) use ($today_result, $top_header, $result_array, $logs) {
+
+			$sheet->loadView('reports.export_summarry')
+				->with('today_result',$today_result)
+				->with('top_header',$top_header)
+				->with('result_array',$result_array)
+				->with('logs',$logs);
+
+			});
+
+		})->download('xlsx');
+	}
+
 
 
 

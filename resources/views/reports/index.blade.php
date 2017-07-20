@@ -4,6 +4,13 @@
     @$sel_start = $_GET["start_date"];
     @$sel_end = $_GET["end_date"];
     $_SESSION["redirect_lnk"] = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+
+    if(!empty( $_GET["start_date"]) || !empty( $_GET["end_date"]) || !empty( $_GET["hauler_list"])) {
+        $_SESSION["start_date"] = $_GET["start_date"];
+        $_SESSION["end_date"] = $_GET["end_date"];
+        $_SESSION["hauler_list"] = $_GET["hauler_list"];
+    }
+
 ?>
 @extends('layouts.app')
 
@@ -115,14 +122,15 @@
                 
 
     
-
+                        @if(Request::is('generate'))
                         <div class="dropdown pull-right">
                         <a href="#" class="btn btn-default btn-action btn-sm" data-toggle="dropdown"><i class="fa fa-ellipsis-v"></i></a>
                             <ul class="dropdown-menu">
-                            <li><a href="#"><i class="fa fa-download" aria-hidden="true"></i> <span>Save as Excel</span> </a></li>
+                            <li><a href="{{url('/summaryExport')}}"><i class="fa fa-download" aria-hidden="true"></i> <span>Save as Excel</span> </a></li>
                             
                         </ul>   
                         </div>
+                        @endif
          
               </div>
             </div>
