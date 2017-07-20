@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Truck;
 use Carbon\Carbon;
-use Alert;
 use App\Hauler;
+use App\Truck;
+use Excel;
+use Alert;
 
 
 class TrucksController extends Controller
@@ -22,6 +23,58 @@ class TrucksController extends Controller
         $trucks = Truck::all();
         return view('trucks.index', compact('trucks'));
     }
+
+
+    /**
+     * Export trucks to excel
+     *
+     * @return \Excel
+     */
+     public function exportTrucks()
+     {
+        $trucks = Truck::all();
+
+        Excel::create('trucks'.Carbon::now()->format('Ymdh'), function($excel) use ($trucks) {
+
+            $excel->sheet('Sheet1', function($sheet) use ($trucks) {
+
+                $arr = array();
+
+                foreach($trucks as $truck) {
+                    foreach($truck->drivers as $driver) {
+                        foreach($driver->haulers as $hauler) {
+
+                            $data =  array(
+                            $truck->plate_number,
+                            $truck->vehicle_type,
+                            $truck->capacity,
+                            $hauler->name,
+                            $driver->name
+                            );
+
+                            array_push($arr, $data);
+
+                        }
+                    }
+                }
+
+                //set the titles
+                $sheet->fromArray($arr,null,'A1',false,false)
+                        ->setBorder('A1:E'.$trucks->count(),'thin')
+                        ->prependRow(array(
+                        'PLATE NUMBER', 'TRUCK TYPE', 'CAPACITY', 'HAULER', 'DRIVER NAME'));
+                $sheet->cells('A1:E1', function($cells) {
+                         $cells->setBackground('#f1c40f'); 
+                });
+
+
+            });
+
+        })->download('xlsx');
+
+     }
+
+
 
     /**
     *

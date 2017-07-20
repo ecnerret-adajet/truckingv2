@@ -66,6 +66,9 @@
                         Add New Truck
                         </a>
                         @endrole
+                        <a href="{{url('/exportTrucks')}}" style="margin-right: 10px;" class="btn btn-success btn-sm pull-right">
+                        Export to Excel
+                        </a>
                         </h4>
                         <p class="category">Total Hauler registered in the system</p>
                     </div>

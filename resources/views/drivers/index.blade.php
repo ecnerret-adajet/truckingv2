@@ -143,6 +143,11 @@ MARK DONE
 Add New Driver
 </a>
 @endrole
+
+<a href="{{url('/exportDrivers')}}" style="margin-right: 10px;" class="btn btn-success btn-sm pull-right">
+Export to Excel
+</a>
+
 </h4>
 <p class="category">Total driver registered in the system</p>
 

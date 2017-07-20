@@ -33,9 +33,10 @@ Route::get('/home', 'LogsController@index');
 
 
 
-
+// Route Setup for drivers
 Route::resource('/drivers','DriversController');
 Route::get('/search/drivers','DriversController@searchDrivers');
+Route::get('/exportDrivers', 'DriversController@exportDrivers');
 
 
 // Route setup for driver temporary transfer
@@ -51,6 +52,7 @@ Route::resource('/trucks','TrucksController');
 Route::get('/getTrucks','TrucksController@getTrucks');
 Route::post('/trucks/inactive/{id}', 'TrucksController@changeToInactive');
 Route::post('/trucks/active/{id}', 'TrucksController@changeToActive');
+Route::get('/exportTrucks','TrucksController@exportTrucks');
 
 Route::resource('users','UsersController');
 Route::resource('roles', 'RolesController');

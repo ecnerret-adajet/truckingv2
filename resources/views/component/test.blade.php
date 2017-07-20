@@ -37,7 +37,7 @@
                 {{$truck->plate_number}}
             @endforeach
         @else
-            @foreach($driver->transfers as $transfer)
+            @foreach($driver->transfers->take(1) as $transfer)
                 {{$transfer->to_truck}} - <span class="label label-danger">TEMPORARY</span>
             @endforeach
         @endif
@@ -45,7 +45,7 @@
       @endforeach
 
       </td>
-      <td>Manila</td>
+      <td>Manila  {{$today->CardholderID}}</td>
 
       <td>
          @foreach($today->customers as $customer)

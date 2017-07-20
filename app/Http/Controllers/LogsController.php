@@ -36,7 +36,13 @@ class LogsController extends Controller
         * Query on the daily monitoring
         *
         */
+
+        $pickup_cards = Cardholder::select('CardholderID')
+                        ->where('Name', 'LIKE', '%Pickup%')
+                        ->get();
+
     	$logs = Log::whereNotIn('ControllerID',[1])
+                    ->whereNotIn('CardholderID',$pickup_cards)
                     ->where('CardholderID', '>=', 1)
                     ->whereDate('LocalTime', Carbon::now())
                     ->orderBy('LocalTime','DESC')->get();
@@ -57,10 +63,8 @@ class LogsController extends Controller
                     ->orderBy('LocalTime','DESC')
                     ->get();
 
-
-
         $base_time = Carbon::now();         
-        $count_today_log = $logs->unique('CardholderID')->count(); //35
+        $count_today_log = $logs->unique('CardholderID')->count();
         $today_log = $logs->unique('CardholderID')->take(35); //35
         // count total in
         $total_in = $today_in->unique('CardholderID');

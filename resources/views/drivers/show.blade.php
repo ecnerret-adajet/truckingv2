@@ -121,7 +121,9 @@
                                            {{ $log->Direction == 1 ? 'IN' : 'OUT' }}
                                             </td>
                                             <td>
-                                         {{  date('Y-m-d h:i:s A', strtotime($log->LocalTime))}}
+
+                                         {{  date('F d, Y h:i:s A', strtotime($log->LocalTime))}}
+                                            
                                             </td>
                                             <td>
                                               @foreach($log->customers as $customer)
