@@ -86,29 +86,7 @@ MARK DONE
 :values="{{ $values }}"
 ></chart>
 
-<!--  <table class="table">
-<thead>
-<tr>
-<th>Driver Name</th>
-<th>Number of trips</th>
-</tr>
-</thead>
-@foreach($top_driver as $log)
-<tr>
-<td>                    
-@foreach($log->drivers as $driver)
-{{$driver->name}}
-@endforeach
-</td>
-<td>
-{{ $logs->where('CardholderID', $log->CardholderID)->count() }}
-</td>
 
-
-
-</tr>
-@endforeach
-</table>  -->
 
 </div>
 </div>

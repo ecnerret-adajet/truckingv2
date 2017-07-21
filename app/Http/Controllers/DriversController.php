@@ -35,9 +35,7 @@ class DriversController extends Controller
     {
 
         $drivers = Driver::all();
-        $logs = Log::where('CardholderID', '>=', 1)
-                    ->where('Direction', 1)  // all in
-                    ->orderBy('LocalTime','DESC')->get();
+
 
         $top_driver = Log::select('CardholderID', \DB::raw('count(*) as total'))
             ->where('CardholderID', '>=', 1)->whereYear('LocalTime', '=', 2017)
@@ -62,7 +60,6 @@ class DriversController extends Controller
         return view('drivers.index', compact('drivers',
         'values',
         'labels',
-        'logs',
         'top_log',
         'top_drivers',
         'top_driver',

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Collection;
 use Illuminate\Support\Facades\Route;
 use Carbon\Carbon;
+use App\Cardholder;
 use App\Log;
 use App\Truck;
 use App\Driver;
@@ -27,7 +28,14 @@ class ReportsController extends Controller
 
 	public function getDaily()
 	{
-		$logs = Log::where('CardholderID', '>=', 1)
+
+		$pickup_cards = Cardholder::select('CardholderID')
+				->where('Name', 'LIKE', '%Pickup%')
+				->get();
+
+		$logs = Log::whereNotIn('ControllerID',[1])
+		->whereNotIn('CardholderID',$pickup_cards)
+		->where('CardholderID', '>=', 1)
         ->whereDate('LocalTime', '>=', Carbon::now())
         ->orderBy('LocalTime','DESC')->get();
 
@@ -94,9 +102,15 @@ class ReportsController extends Controller
 
             $excel->sheet('Sheet1', function($sheet) use ($start_date) {
 				
-	    		$logs = Log::where('CardholderID', '>=', 1)
-                    ->whereDate('LocalTime', Carbon::parse($start_date))
-                    ->orderBy('LocalTime','DESC')->get();
+				$pickup_cards = Cardholder::select('CardholderID')
+						->where('Name', 'LIKE', '%Pickup%')
+						->get();
+
+				$logs = Log::whereNotIn('ControllerID',[1])
+				->whereNotIn('CardholderID',$pickup_cards)
+				->where('CardholderID', '>=', 1)
+				->whereDate('LocalTime', '>=', Carbon::now())
+				->orderBy('LocalTime','DESC')->get();
 
 				$today_result  = $logs->unique('CardholderID');
 				

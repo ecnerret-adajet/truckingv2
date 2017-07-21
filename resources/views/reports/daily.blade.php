@@ -49,7 +49,7 @@
 
         <div class="row" style="padding: 0 10px 0 10px">
             <div class="col-md-12">
-                <a class="btn btn-sm btn-primary btn-fill" href="{{url('/exportDaily/'.$start_date)}}">
+                <a class="btn btn-sm btn-primary pull-right" href="{{url('/exportDaily/'.$start_date)}}">
                    <i class="pe-7s-copy-file" style="font-weight: bold"></i> Export Results 
                 </a>
             </div>
