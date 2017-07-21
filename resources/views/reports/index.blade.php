@@ -44,12 +44,11 @@
                                 
                 {{ Form::open(array('url' => '/generate', 'method' => 'get')) }}
                 <div class="row">
-
-                    <div class="col-md-3">
+                    <div class="col-md-12">
                         <div class="form-group{{ $errors->has('hauler_list') ? ' has-error' : '' }}">
                          <label>Operator</label>
                          
-                       {!! Form::select('hauler_list', $haulers, $sel_hauler, ['class' => 'form-control border-input ', 'placeholder' => '--- Assign an Operator ---'] ) !!}
+                       {!! Form::select('hauler_list[]', $haulers, $sel_hauler, ['class' => 'form-control border-input multiple-hauler', 'multiple'=>'multiple'] ) !!}
 
                        @if ($errors->has('hauler_list'))
                         <span class="help-block">
@@ -60,8 +59,9 @@
 
                         </div>                   
                      </div>
-
-                    <div class="col-md-3">
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
                         <div class="form-group{{ $errors->has('start_date') ? ' has-error' : '' }}">
                         <label>Start date</label>
                                 {!! Form::input('date','start_date', $sel_start, ['class' => 'form-control']) !!} 
@@ -74,7 +74,7 @@
                         </div>                   
                      </div>
 
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group{{ $errors->has('end_date') ? ' has-error' : '' }}">
                         <label>End date</label>
                                 {!! Form::input('date', 'end_date', $sel_end, ['class' => 'form-control', 'max' => ''.date('Y-m-d', strtotime(Carbon\Carbon::now())).'' ]) !!} 
@@ -87,7 +87,7 @@
                         </div>                   
                      </div>
 
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
                         <label> &nbsp;</label>
                             <button class="btn  btn-primary btn-block" type="submit">
@@ -232,5 +232,13 @@
 
                 </div><!-- end row -->
             </div>            
+@endsection
+
+@section('script')
+
+<script type="text/javascript">
+$(".multiple-hauler").select2();
+</script>
+
 @endsection
     

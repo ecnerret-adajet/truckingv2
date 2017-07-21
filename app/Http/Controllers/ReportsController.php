@@ -294,7 +294,7 @@ class ReportsController extends Controller
 		->whereBetween('LocalTime', [Carbon::parse($start_date), Carbon::parse($end_date)])
 	    ->orderBy('LocalTime','ASC')
 	    ->with(['drivers.haulers' => function($q) use ($hauler_list){
-	   		$q->where('id', $hauler_list);
+	   		$q->whereIn('id', $hauler_list);
 	    }])->get();
 
 		$today_result = $logs->unique('CardholderID');
@@ -348,7 +348,7 @@ class ReportsController extends Controller
 		->whereBetween('LocalTime', [Carbon::parse($start_date), Carbon::parse($end_date)])
 		->orderBy('LocalTime','ASC')
 		->with(['drivers.haulers' => function($q) use ($hauler_list){
-			$q->where('id', $hauler_list);
+			$q->whereIn('id', $hauler_list);
 		}])->get();
 
 		$today_result = $logs->unique('CardholderID');

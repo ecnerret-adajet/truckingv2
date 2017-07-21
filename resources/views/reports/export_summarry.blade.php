@@ -1,18 +1,36 @@
 <html>
     <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <style>
+        table thead tr th {
+            background-color: #f1c40f;
+        }
+        tr > td, tr > th {
+            border: 1px solid #000000;
+        }
+
+        .has-trip {
+           background-color: #2ecc71;
+        }
+
+        .no-trip {
+            background-color: #e74c3c;
+        }
+
+    </style>
     </head>
 
         <table class="table table-hover">
                 <thead>
                 <tr>
-                <th>Hauler</th>
-                <th>Driver</th>
-                <th>Plate Number</th>
+                <th>HAULER</th>
+                <th>DRIVER</th>
+                <th>PLATE NUMBER</th>
 
                 @foreach($top_header as $header)                                
                 <th>
-                    {{ $header }}
+                    {{  strtoupper($header) }}
                 </th>
                 @endforeach
 
@@ -35,29 +53,34 @@
 
                             <td>
                             @foreach($driver->trucks as $truck)
-                                {{$truck->plate_number}}
+                                {{ $truck->plate_number }}
                             @endforeach
                             </td>
 
                             @foreach($result_array as $result) 
-                            <td>     
                                 @forelse(App\Log::where('CardholderID',$today->CardholderID)
                                 ->whereDate('LocalTime' ,Carbon\Carbon::parse($result))->get()
                                  as $value => $trip)
                                     @if($value == 0)
                                             @if(empty($trip->monitors()->count()))
-                                        HAS TRIP
+                                            <td class="no-trip">
+                                            NO REPORT
+                                            </td>
                                             @else
 
                                             @foreach($trip->monitors as $monitor)
-                                            STATUS UPDATED
+                                            <td class="has-trip">
+                                                {{ $monitor->location->code }}{{ $monitor->status->code }}{{ $monitor->duration->days }}{{ $monitor->detail->code }}
+                                            </td>
+
                                             @endforeach
                                             @endif
                                     @endif
                                 @empty
-                                NO TRIP
+                                            <td>
+                                            XXXXXXXX
+                                            </td>
                                 @endforelse
-                            </td>
                             @endforeach
 
                         
