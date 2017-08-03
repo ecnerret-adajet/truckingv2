@@ -97,7 +97,7 @@
                                         <th>Cardholder #</th>
                                         <th>Direction</th>
                                         <th>Time</th>
-                                        <th>Customer</th>
+                                        <th>Camera</th>
                                     </thead>
                                     <tbody>
 
@@ -126,9 +126,12 @@
                                             
                                             </td>
                                             <td>
-                                              @foreach($log->customers as $customer)
-                                                {{$customer->name}}
-                                              @endforeach
+
+                                            <a class="btn btn-sm btn-primary" href="{{url('http://172.17.2.25:8080/RFID/'.date('Ymd',strtotime($log->LocalTime)).'/AC.'.date('Ymd',strtotime($log->LocalTime)).'.0000'.$log->LogID.'-1.jpg')}}" data-lightbox="{{$log->LogID}}" data-title="TIME IN - {{  date('Y-m-d h:i:s A', strtotime($log->LocalTime))}}">                      
+                                              Snapshot
+                                            </a>
+
+
                                             </td>
                                         </tr>
                                     @endforeach
