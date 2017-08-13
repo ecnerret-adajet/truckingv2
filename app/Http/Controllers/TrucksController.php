@@ -155,7 +155,6 @@ class TrucksController extends Controller
     {
         
         $this->validate($request, [
-            'plate_number' => 'required|unique:trucks',
             'hauler_list' => 'required'
         ]);
 
