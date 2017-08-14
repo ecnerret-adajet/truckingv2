@@ -188,7 +188,7 @@
                                                            </a>
                                                            @else
 
-                                                           @foreach($trip->monitors as $monitor)
+                                                           @foreach($trip->monitors->reverse()->take(1) as $monitor)
                                                             <a href="{{url('/monitors/'.$monitor->id.'/edit/'.$trip->LogID) }}" class="btn btn-sm btn-danger">
                                                            Update Status
                                                            </a>
