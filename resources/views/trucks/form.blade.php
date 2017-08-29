@@ -31,36 +31,8 @@
         </div>
 
 
-<div class="row">
-<div class="col-md-12">
-        <div class="form-group{{ $errors->has('vehicle_type') ? ' has-error' : '' }}">
-            <label>Vehicle Type</label>
-            {!! Form::text('vehicle_type', null,  ['class' => 'form-control border-input','placeholder' => 'Vehicle Type']) !!}
-
-                @if ($errors->has('vehicle_type'))
-                <span class="help-block">
-                <strong>{{ $errors->first('vehicle_type') }}</strong>
-                </span>
-                @endif
-        </div>
-</div>
-</div>
 
 
-<div class="row">
-<div class="col-md-12">
-        <div class="form-group{{ $errors->has('capacity') ? ' has-error' : '' }}">
-            <label>Capacity</label>
-            {!! Form::text('capacity', null,  ['class' => 'form-control border-input','placeholder' => 'Capacity']) !!}
-
-                @if ($errors->has('capacity'))
-                <span class="help-block">
-                <strong>{{ $errors->first('capacity') }}</strong>
-                </span>
-                @endif
-        </div>
-</div>
-</div>
 
 
 
